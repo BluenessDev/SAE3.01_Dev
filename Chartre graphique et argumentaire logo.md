@@ -21,7 +21,6 @@ Tout d'abord nous avons décider de représenter un ticket car il s'agit d'un lo
 
 ## Logo 2
 
-## Annexes
 
 
 
