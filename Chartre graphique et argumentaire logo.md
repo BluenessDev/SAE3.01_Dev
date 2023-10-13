@@ -31,4 +31,7 @@ Tout d'abord nous avons décider de représenter un ticket car il s'agit d'un lo
 <div align=justify>Nous allons maintenant expliquer élément par élément notre logo.
 Tout d'abord nous avons décider de représenter un ticket car il s'agit d'un logo pour une application web de ticketing, ainsi nous avons la relation entre ticket/ticketing. La couleur a été choisie en raison de mordernité et tu contraste sur impression. Nous avons ensuite la représentation d'une statue moai. Cet élément est une représentation simpliste du logo de notre équipe qui représente également une statue Moaï. Pour finir nous avons le texte <strong>TICKIMOA</strong> qui est le nom de notre application web</div> celui-ci représente un jeu de mot entre le role de l'application et le logo de notre équipe en effet nous avons décider de fusionner les mots tickets et moai ce qui donne <strong>TICKIMOA</strong>, un mot avec des syllabes courtes ainsi il est facile a retenir et agréable a entendre. De plus pour ce texte nous avons choisis la police <strong>Coolvetica Regular</strong> qui nous fait penser a un style d'écriture exotique qui viendrait des îles exotiques. Ainsi cela se rapprocherait des moais qui viennent de l'île de Pâques. Ce logo plus simpliste que le premier essaye d'apporter une approche moderne et minimaliste du logo.
 
-```
+## Annexes
+### Logo 1
+![Logo1 SAE](https://github.com/BluenessDev/SAE3.01_Dev/assets/132565766/38cad6b9-6b06-4adb-95dc-04ffe09454f3)
+Voici le logo 1
