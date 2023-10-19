@@ -39,11 +39,10 @@ Cette version comportera les pages suivantes :
 
 - index.html qui sera notre page d'accueil.
 
-- profil.html qui sera une page en construction de modifications de mot de passe avec quelque information sur le profil de l'utilisateur, on y accedera via index.html.
+- profil.html qui sera une page en construction de modifications de mot de passe avec quelque information sur le profil de l'utilisateur, il y aurat aussi un tableau qui servira de tableau de bord pour afficher les tickets, on y accedera via index.html.
 
 - log.htlm qui sera une page avec des faux logs type, on y accédera via index.html.
 
-- dashboard.html un tableau de bord fictif, on y accédera via index.html.
 
 <br>
 
