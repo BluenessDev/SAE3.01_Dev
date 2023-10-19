@@ -35,3 +35,7 @@ Tout d'abord nous avons décider de représenter un ticket car il s'agit d'un lo
 ### Logo 1
 ![Logo1 SAE](https://github.com/BluenessDev/SAE3.01_Dev/assets/132565766/38cad6b9-6b06-4adb-95dc-04ffe09454f3)
 Voici le logo 1
+
+### Logo 2
+![Logo2 SAE](https://github.com/BluenessDev/SAE3.01_Dev/blob/main/Documentation/Logo/logo2%20SAE.png)
+Voici le logo 2
