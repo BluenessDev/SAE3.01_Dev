@@ -1,4 +1,4 @@
-# Recueil de Besoin
+# Recueil de Besoin 1.0
 
 ## Introduction
 
@@ -10,15 +10,52 @@ Le projet est basé sur une méthodologie de développement agile, visant à liv
 
 Le présent recueil de besoins sera étoffé et mis à jour au fur et à mesure de l'évolution du projet, intégrant les retours des utilisateurs et les exigences nouvelles émises par le client.
 
-## Tableau OAA
-| Objet                                        | Acteur     | Action à entreprendre                       |
+## Glossaire
+
+1. **HTML (HyperText Markup Language)** : Un langage de programmation utilisé pour la mise en page de l'application web.
+
+2. **CSS (Cascading Style Sheets)** : Une technologie utilisée pour embellir la page web en définissant la présentation et le style des éléments HTML.
+
+3. **MySQL** : Un système de gestion de base de données relationnelle utilisé pour stocker et gérer les données de l'application.
+
+4. **Apache** : Un serveur web qui héberge l'application et permet l'accès via le réseau.
+
+5. **GitHub** : Une plateforme de gestion de code source qui héberge la documentation, le code source et les informations du projet.
+
+6. **Serveur RPi 4** : Matériel serveur Raspberry Pi 4, qui sera utilisé pour héberger l'application.
+
+7. **Site web statique** : Un site web dont le contenu ne change pas dynamiquement en fonction des actions de l'utilisateur, il est généralement composé de fichiers HTML, CSS et autres fichiers statiques.
+
+8. **W3C (World Wide Web Consortium)** : Une organisation qui établit des normes pour le World Wide Web, y compris les normes de développement web et d'accessibilité.
+
+9. **Développement agile** : Une méthodologie de développement logiciel itérative qui implique des livraisons fréquentes de versions du logiciel, avec une adaptation aux retours des utilisateurs.
+
+10. **Maquettes de styles** : Des représentations visuelles des conceptions de l'interface utilisateur, généralement utilisées pour planifier la mise en page et le design.
+
+11. **OS Linux (Système d'exploitation Linux)** : Un système d'exploitation open-source basé sur le noyau Linux.
+
+12. **Critères de performance** : Les normes et mesures qui définissent la performance attendue de l'application.
+
+13. **Tests de validation** : Des tests effectués pour vérifier que l'application fonctionne conformément aux spécifications et aux exigences.
+
+14. **Acteur principal** : Le rôle ou l'entité principale impliquée dans un cas d'utilisation ou un processus.
+
+15. **Utilisabilité** : La mesure de la convivialité et de l'efficacité de l'application du point de vue de l'utilisateur.
+
+16. **Version itérative** : Une version du logiciel qui est développée en suivant un processus itératif, où des améliorations sont apportées à chaque itération.
+
+
+
+
+## Tableau OAA+
+| Objet                                        | Acteur     | Action à entreprendre                      |
 |----------------------------------------------|------------|--------------------------------------------|
-| Page d'accueil (`index.html`)                | Utilisateur| Visualiser la page d'accueil du site       |
-| Formulaire de connexion (`form_connect.html`)| Utilisateur| Accéder à la page de formulaire de connexion via la page d'accueil |
-| Formulaire d'inscription (`form_inscr.html`) | Utilisateur| Accéder à la page de formulaire d'inscription via la page d'accueil |
-| Page de profil (`profil.html`)               | Utilisateur| Accéder à la page de profil via la page d'accueil |
-| Page de faux logs (`log.html`)               | Utilisateur| Accéder à la page de faux logs via la page d'accueil |
-| Tableau de bord fictif (`dashboard.html`)    | Utilisateur| Accéder au tableau de bord fictif via la page d'accueil |
+| Page d'accueil                               | Utilisateur| Visualiser la page d'accueil du site       |
+| Formulaire de connexion                      | Utilisateur| Accéder à la page de formulaire de connexion via la page d'accueil |
+| Formulaire d'inscription                     | Utilisateur| Accéder à la page de formulaire d'inscription via la page d'accueil |
+| Page de profil                               | Utilisateur| Accéder à la page de profil via la page d'accueil |
+| Page de faux logs                            | Utilisateur| Accéder à la page de faux logs via la page d'accueil |
+| Tableau de bord fictif                       | Utilisateur| Accéder au tableau de bord fictif via la page d'accueil |
 
 ## Cas d'utilisation
 
@@ -29,13 +66,13 @@ Le présent recueil de besoins sera étoffé et mis à jour au fur et à mesure 
 - **Explication :** Ce cas d'utilisation décrit comment les utilisateurs accèdent aux différentes pages du site web statique.
 - **Acteur principal :** Utilisateur
 - **Scénario :**
-    1. L'utilisateur accède à la page d'accueil (`index.html`).
+    1. L'utilisateur accède à la page d'accueil .
     2. À partir de la page d'accueil, l'utilisateur peut accéder à différentes pages en cliquant sur les liens correspondants.
-    3. L'utilisateur peut accéder à la page de formulaire de connexion (`form_connect.html`).
-    4. L'utilisateur peut accéder à la page de formulaire d'inscription (`form_inscr.html`).
-    5. L'utilisateur peut accéder à la page de profil (`profil.html`).
-    6. L'utilisateur peut accéder à la page de faux logs (`log.html`).
-    7. L'utilisateur peut accéder au tableau de bord fictif (`dashboard.html`).
+    3. L'utilisateur peut accéder à la page de formulaire de connexion.
+    4. L'utilisateur peut accéder à la page de formulaire d'inscription.
+    5. L'utilisateur peut accéder à la page de profil.
+    6. L'utilisateur peut accéder à la page de faux logs.
+    7. L'utilisateur peut accéder au tableau de bord fictif.
 
 ## La technologie employée
 Les technologies employées pour utiliser ce système sont :
