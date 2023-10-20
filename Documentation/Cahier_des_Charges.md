@@ -25,7 +25,7 @@ Pour la première version du site, on a décidé de le réaliser en statique, le
 
 Cette version comportera les pages suivantes :
 
-- index.html qui sera notre page d'accueil.
+- index.html qui sera notre page d'accueil, qui aura une vidéo, un texte explicatif et deux boutons un qui mène à la page form_connect.html et un autre qui mène à la page form_inscr.html.
 
 - form_connect.html qui sera une page en construction d'un formulaire de connexion, on y accédera via index.html.
 
@@ -37,11 +37,11 @@ Cette version comportera les pages suivantes :
 
 Cette version comportera les pages suivantes :
 
-- index.html qui sera notre page d'accueil.
+- index.html qui sera notre page d'accueil, qui aura une vidéo, un texte explicatif et un bouton qui mène vers la page profil.html.
 
-- profil.html qui sera une page en construction de modifications de mot de passe avec quelque information sur le profil de l'utilisateur, il y aurat aussi un tableau qui servira de tableau de bord pour afficher les tickets, on y accedera via index.html.
+- profil.html qui sera une page en construction de modifications de mot de passe et de modification de mail avec quelque information sur le profil de l'utilisateur, il y aurat aussi un tableau qui servira de tableau de bord pour afficher les tickets, on y accedera via index.html.
 
-- log.htlm qui sera une page avec des faux logs type, on y accédera via index.html.
+- log.html qui sera une page avec des faux logs type, on y accédera via index.html.
 
 
 <br>
