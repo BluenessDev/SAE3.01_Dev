@@ -7,27 +7,27 @@ Le site statique est le domaine du problème
 | Objet                                        | Etat               |Comportement                                |
 |----------------------------------------------|--------------------|--------------------------------------------|
 |~~Site inscription/connexion~~                |                    |                                            |
-| Page d'accueil                               |                    |Toute les pages sont accessible via la page d'accueil|
+| Page d'accueil                               |                    |Toutes les pages sont accessible via la page d'accueil|
 | Page en construction                         |                    |                                            |
 | Formulaire d'inscription                     |Page en construction|                                            |
 | Formulaire de Connexion                      |Page en construction|                                            |
 | Charte graphique                             |                    |                                            |
 | Maquettes 1 et 2                             |Charte graphique    |les maquettes reprennent les codes de la charte graphique|
 
-<u> **Tableau 1**</u> : 
+<u> **Tableau 1**</u> : Tableau d'abstration du domaine pour la page d'accueil de connexion
 
 
 | Objet                                        | Etat               |Comportement                                |
 |----------------------------------------------|--------------------|--------------------------------------------|
 |~~Site de profil~~                            |                    |                                            |
-| Page d'accueil                               |                    |Toute les pages sont accessible via la page d'accueil|
+| Page d'accueil                               |                    |Toutes les pages sont accessible via la page d'accueil|
 | Page en construction                         |                    |                                            |
 | Profil                                       |Page en construction|                                            |
 | Logs                                         |                    |                                            |
 | Charte graphique                             |                    |                                            |
 | Maquettes 1 et 2                             |Charte graphique    |les maquettes reprennent les codes de la charte graphique|
 
-<u> **Tableau 2**</u> : 
+<u> **Tableau 2**</u> : Tableau d'abstration du domaine pour la page d'accueil et profil
 
 #### Abstraction des objets du problème du Tableau 1 
 
@@ -50,6 +50,6 @@ Site inscription/connexion
 **Profil** est l'abstraction de Formulaire d'inscription 
 **Logs** est l'abstraction de Formulaire de connexion 
 **CSS** est l'abstraction de Maquettes 1 et 2
-Charte graphique est un attribut de CSS src=
+Charte graphique est un attribut de CSS 
 
 <img src='https://cdn.discordapp.com/attachments/1148278381767569508/1164586366148022314/Main.jpg?ex=6543c092&is=65314b92&hm=0ecbffa0382b3ea3437a615fa3b958f211888d5cab23d39f475e89683a4d6156&' width=75%>
