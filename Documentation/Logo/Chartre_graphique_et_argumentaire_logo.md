@@ -9,7 +9,7 @@ Ce document correspond a notre chartre graphique pour notre site web ainsi que l
 ## Chartre graphique 
 
 ### Visée esthétique
-<div align=justify>Pour la création de notre site, nous avons du réaliser deux maquettes. Ainsi nous avons réalisés deux maquettes différentes. Néanmoins ces deux maquettes présenten des points communs qui nous permettent de définir une chartre graphiqe. En effet pour nos deux maquettes nous avons décider de réaliser un site ayant la même palette de couleurs sur toutes les pages. En effet, pour la premières maquette la palette de couleur utilisé est le gris avec des touches de jaunes. Pour la deuxiemme maquette, il s'agit essentiellement d'une gamme de bleu. De plus, nous avons décider de mettre en géneral des formes plutot arrondies. Effectivement les elements de nos sites tel que les tableaux et les formulaires présentent tous des bord arrondies, il en et=st d emême pour les boutons</div>
+<div align=justify>Pour la création de notre site, nous avons du réaliser deux maquettes. Ainsi nous avons réalisés deux maquettes différentes. Néanmoins ces deux maquettes présentent des points communs qui nous permettent de définir une charte graphiqe. En effet pour nos deux maquettes nous avons décidé de réaliser un site ayant la même palette de couleurs sur toutes les pages. En effet, pour la premières maquette la palette de couleur utilisé est le gris avec des touches de jaunes. Pour la deuxiemme maquette, il s'agit essentiellement d'une gamme de bleu. De plus, nous avons décider de mettre en géneral des formes plutot arrondies. Effectivement les elements de nos sites tels que les tableaux et les formulaires présentent tous des bord arrondis, il en et est de même pour les boutons</div>
 
 ## Logo 1
 ### Présentation 
