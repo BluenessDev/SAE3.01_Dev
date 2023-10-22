@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="fr" class="connexion">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>Profil</title>
+  <link href="style.css" rel="stylesheet" type="text/css"/>
+  <link href="assets/logo.png" rel="icon">
+</head>
+<body>
+<header role="banner">
+  <nav role="navigation">
+    <ul class="nav-list">
+      <li><a href="deconnexion.html" class="goldnav-button">Se déconnecter</a></li>
+    </ul>
+  </nav>
+  <br>
+  <br>
+  <div class="inheader">
+    <a href="index.html"><img src="assets/logo.png" alt="logo du site tickimoa"></a>
+    <div class="title">
+      <h1>Ravi de vous revoir CYRIL</h1>
+      <h1 class="highlight">Vous etes sur la page profil</h1>
+    </div>
+  </div>
+  <br>
+  <br>
+  <br>
+</header>
+<main role="main">
+  <div class="article">
+    <div class="main-article">
+      <div class="ligne">
+        <div class="subarticle" id="form">
+          <div class="titre" id="formtit">
+            <h2 class="highlight2">Changer l'email</h2>
+          </div>
+          <form action="index_connected.html" method="post" class="formulaire">
+            <p>Votre email actuel : <strong>cyril2.tilan@gmail.com</strong></p>
+            <div class="email">
+              <label for="email">Nouvel email :</label>
+              <input type="text" name="email" id="email" required>
+            </div>
+            <br>
+            <div class="password">
+              <label for="password">Mot de passe :</label>
+              <input type="password" name="password" id="password" required>
+            </div>
+            <br>
+            <br>
+            <div class="submit">
+              <input type="submit" id="connect" value="Changer">
+            </div>
+          </form>
+          </div>
+          <div class="subarticle" id="form">
+            <div class="titre" id="formtit">
+              <h2 class="highlight2">Changer le mot de passe</h2>
+            </div>
+            <div>
+            <form action="index_connected.html" method="post" class="formulaire">
+              <div class="password">
+                <label for="password">Ancien mot de passe :</label>
+                <input type="password" name="password" id="password" required>
+              </div>
+              <br>
+              <div class="newpassword">
+                <label for="password">Nouveau mot de passe :</label>
+                <input type="password" name="newpassword" id="newpassword" required>
+              </div>
+              <br>
+              <div class="confpassword">
+                <label for="confpassword">Confirmer le mot de passe :</label>
+                <input type="password" name="confpassword" id="confpassword" required>
+              </div>
+              <br>
+              <div class="submit">
+                <input type="submit" id="connect" value="Changer">
+              </div>
+            </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  </div>
+</main>
+<footer role="contentinfo">
+  <div class="infooter">
+    <p>SAÉ 3.01 - PLATEFORME DE TICKETING</p>
+    <img src="assets/uvsq.png" alt="logo de l'uvsq">
+  </div>
+</footer>
+</body>
+</html>
