@@ -50,4 +50,10 @@ Voici le logo 1
 Voici le logo 2
 
 ### Screenshot de la maquette 1
+![Screenshot maquette 1](https://github.com/BluenessDev/SAE3.01_Dev/blob/main/Documentation/Logo/index%20maquette%201.png)
+Voici le screenshot de la maquette 1
+
+### Screenshot de la maquette 2
+![Screenshot maquette 1](https://github.com/BluenessDev/SAE3.01_Dev/blob/main/Documentation/Logo/index%20maquette%202.png)
+Voici le screenshot de la maquette 2
 
