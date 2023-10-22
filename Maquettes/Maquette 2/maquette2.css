@@ -248,7 +248,7 @@ nav h2,a {
 
 nav > .img{
     width: 15%;
-    background: linear-gradient(180deg, rgba(255, 0, 0, 0.75) 0%, rgba(250, 255, 2, 0.75) 100%);
+    background: linear-gradient(180deg, #FF0000 0%, #FAFF02 100%);
     padding: 20px;
 }
 
@@ -266,7 +266,7 @@ nav a:hover {
 }
 
 .actuel{
-    background: linear-gradient(180deg, rgba(255, 0, 0, 0.75) 0%, rgba(250, 255, 2, 0.75) 100%);
+    background: linear-gradient(180deg, #FF0000 0%, #FAFF02 100%);
     padding: 20px;
 }
 
