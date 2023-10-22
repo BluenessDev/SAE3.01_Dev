@@ -1,11 +1,11 @@
-# Conception Architectuelle
+# Conception Architecturale 
 
 ## Introduction
 
-Le modèle architectuelle est la suite du modèle de conception détaillé
+Le modèle architecturale est la suite du modèle de conception détaillé
 Ce projet consiste a développer une Application Web de Ticheting. Cette première version de cette application web présente un site web statique qui montrera les prochaines fonctionnalitées qui seront implanté dans l'application web.
 
-## Conception Architectuelle 
+## Conception Architecturale  
 
 Dans le dossier de conception détaillé nous avons créer un composant `<Site Statique>` qui représente tout le site web, dans ce composant nous retrouvons un composant `<index>` qui regoupe deux composants index qui représente deux état de l'index différent l'un avec l'état de connextion et l'autre lorsque personne est connceté. Selon l'état d'index il y a une dépendance spécifique selon l'état, Nous avons les composants `<Logs>` et `<Profil>` pour l'état de connection et `<Form_inscr>` et `<Form_connected>` et ces composants sont tous dépendant du Composant `<style>` représente la charte graphique du site.
 
