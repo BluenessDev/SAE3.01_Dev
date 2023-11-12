@@ -4,7 +4,7 @@
 
 ### Objectifs du Site Web dynamique
 
-L'Objectif de cette deuxième version est d'ajouter du code PHP au site web statisue présenter dans la version 1. Pour cela, nous allons garder les figures présenter dans la version 1 auxquels noua allons rajouter celles de la version 2. 
+L'Objectif de cette deuxième version est d'ajouter du code PHP au site web statique présenté dans la version 1. Pour cela, nous allons garder les figures présenter dans la version 1 auxquels noua allons rajouter celles de la version 2. 
 Cette deuxième version permettra ainsi aux client de pouvoir s'inscrire et se connecter afin de pouvoir acceder a leurs pages personnel tel que la page "Index_connected" et "profil". Pour cela le code PHP aura accès a une base de donnée contenant les utilisateur inscrit.
 
 #### Portée du Projet
@@ -64,6 +64,8 @@ Création du composant **Profil** pour l'abstraction de Page de profil
 Création du composant **style** pour l'abstraction de charte graphique 1 et 2
 
 Création du composant **users** pour l'abstraction de la table users de la base de donnée.
+
+Création du composant **tickets** pour l'abstraction de la table tickets de la base de donnée.
 
 <img src="https://cdn.discordapp.com/attachments/1148278381767569508/1165323728851320892/Diagramme_de_Composants.jpg?ex=65466f4b&is=6533fa4b&hm=08c0d0e2fe92f25e64b4b1f73f4f07f32aab368d927e18d424bfd1a39ebfa774&">
 
