@@ -2,7 +2,8 @@
 session_start();
 $utilisateur = $_SESSION['login'];
 
-echo "<!DOCTYPE html>
+if (isset($_SESSION['login'])) {
+    echo "<!DOCTYPE html>
 <html lang='fr' class='inscription'>
 <head>
     <meta charset='utf-8'>
@@ -31,6 +32,8 @@ echo "<!DOCTYPE html>
   <br>
   <br>
 </header>";
-
-include 'log.html';
-include 'footer.html';
+    include 'log.html';
+    include 'footer.html';
+} else {
+    header('Location: index.php');
+}
