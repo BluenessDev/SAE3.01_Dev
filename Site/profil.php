@@ -36,7 +36,11 @@ if (!empty($_POST)) {
             $reqpre = mysqli_prepare($conn, $requete);
             mysqli_stmt_bind_param($reqpre, "ss", $utilisateur, $mdp);
             $result = mysqli_stmt_execute($reqpre);
-            header('Location: profil.php?id=emchange');
+            if (mysqli_stmt_affected_rows($reqpre) == 1) {
+                header('Location: profil.php?id=emchange');
+            } else {
+                header('Location: profil.php?id=emerror');
+            }
         } else {
             header('Location: profil.php?id=emerror');
         }
@@ -53,7 +57,11 @@ if (!empty($_POST)) {
                 $reqpre = mysqli_prepare($conn, $requete);
                 mysqli_stmt_bind_param($reqpre, "sss", $newmdp, $utilisateur, $mdp);
                 $result = mysqli_stmt_execute($reqpre);
-                header('Location: profil.php?id=mdpchange');
+                if (mysqli_stmt_affected_rows($reqpre) == 1) {
+                    header('Location: profil.php?id=mdpchange');
+                } else {
+                    header('Location: profil.php?id=mdperror');
+                }
             }
         } else {
             header('Location: profil.php?id=mdperror');
