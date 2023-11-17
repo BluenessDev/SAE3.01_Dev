@@ -29,8 +29,11 @@ if (!empty($_POST)) {
         $email = $_POST['email'];
         $mdp = md5($_POST['password']);
         $utilisateur = $_SESSION['login'];
-        $requete2 = "SELECT * FROM $table WHERE login='$utilisateur' AND password='$mdp'";
-        $result2 = mysqli_query($conn, $requete2);
+        $requete2 = "SELECT * FROM $table WHERE login=? AND password=?";
+        $reqpre2 = mysqli_prepare($conn, $requete2);
+        mysqli_stmt_bind_param($reqpre2, "ss", $utilisateur, $mdp);
+        mysqli_stmt_execute($reqpre2);
+        $result2 = mysqli_stmt_get_result($reqpre2);
         if (mysqli_num_rows($result2) == 1) {
             $requete = "UPDATE $table SET email='$email' WHERE login=? AND password=?";
             $reqpre = mysqli_prepare($conn, $requete);
@@ -50,8 +53,11 @@ if (!empty($_POST)) {
         $mdp = md5($_POST['password']);
         $utilisateur = $_SESSION['login'];
         if ($newmdp == $confmdp) {
-            $requete2 = "SELECT * FROM $table WHERE login='$utilisateur' AND password='$mdp'";
-            $result2 = mysqli_query($conn, $requete2);
+            $requete2 = "SELECT * FROM $table WHERE login=? AND password=?";
+            $reqpre2 = mysqli_prepare($conn, $requete2);
+            mysqli_stmt_bind_param($reqpre2, "ss", $utilisateur, $mdp);
+            mysqli_stmt_execute($reqpre2);
+            $result2 = mysqli_stmt_get_result($reqpre2);
             if (mysqli_num_rows($result2) == 1) {
                 $requete = "UPDATE $table SET password=? WHERE login=? AND password=?";
                 $reqpre = mysqli_prepare($conn, $requete);
