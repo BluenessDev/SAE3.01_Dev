@@ -14,7 +14,7 @@ C'est un site dynamique qui permettra d'inscrire des utilisateur et de se connec
 ### Methode de Conception
 
 Les pages du site web ainsi que les fichiers PHP seront défini en tant que composant d'un plus grand composant qui est le site Web (Domaine du problème).
-Un deuxième composant sera la base de données a l'interieur de ce composant il y aura deux autres composant qui sont users et tickets.
+Un deuxième composant sera la base de données a l'interieur de ce composant il y aura deux autres composant qui sont users et tickets représentant les tables de la base de données.
 
 ### Fonctionnalité et relation
 
@@ -46,6 +46,9 @@ De plus, dans la base de données la table tickets a été créée mais est une 
 | Charte graphique 1 et 2                |                | - Définit les styles pour l'ensemble du site web |
 | Base de données users | Contient les utilisateurs inscrit |                                    |
 | Base de données tickets |                       |                                              |
+| Système de conexion au profil |      | Se connecter a son comptes |
+| Systeme d'inscription sur le site |                        | Créer un nouvel utilisateur |
+| Systeme de déconnexion de l'utilisateur |                 |  Déconnecter l'utilisateur  |
  
 **Figure 1 :** Abstraction du domaine du problème.
 
@@ -62,6 +65,12 @@ Création du composant **Logs** pour l'abstraction de Page de faux logs
 Création du composant **Profil** pour l'abstraction de Page de profil
 
 Création du composant **style** pour l'abstraction de charte graphique 1 et 2
+
+Création du composant **action** pour l'abstraction de la gestion de la connexion.
+
+Création du composant **creation** pour l'abstraction de la gestion de l'inscription.
+
+Création du composant **logout** pour l'abstraction de la déconnexion de l'utilisateur.
 
 Création du composant **users** pour l'abstraction de la table users de la base de donnée.
 
