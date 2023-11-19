@@ -76,7 +76,7 @@ Création du composant **users** pour l'abstraction de la table users de la base
 
 Création du composant **tickets** pour l'abstraction de la table tickets de la base de donnée.
 
-<img src="https://cdn.discordapp.com/attachments/1148278381767569508/1165323728851320892/Diagramme_de_Composants.jpg?ex=65466f4b&is=6533fa4b&hm=08c0d0e2fe92f25e64b4b1f73f4f07f32aab368d927e18d424bfd1a39ebfa774&">
+<img src="https://cdn.discordapp.com/attachments/1148278381767569508/1175848874343137340/diagramme_conception_detaille_v2.jpg?ex=656cb999&is=655a4499&hm=34b17c68c3cfeedd52ab3711432673081b58f7f55ac2e99aa562f3c5c78b0a19&">
 
 **Figure 2 :** Diagramme UML des composants du site web statique
 
