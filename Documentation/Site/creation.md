@@ -30,6 +30,4 @@
 
 - Le code utilise des fonctions de gestion de bases de données `mysqli` pour effectuer des opérations sécurisées sur la base de données.
 - Il utilise des requêtes préparées pour empêcher les attaques par injection SQL.
-- Les mots de passe sont cryptés avant d'être stockés dans la base de données (bien que l'utilisation de `md5()` soit considérée comme faible pour le hachage de mots de passe en raison de sa réversibilité).
-
-Ce script traite les données du formulaire d'inscription de manière sécurisée et gère les redirections en fonction du succès ou de l'échec de l'inscription.
+- Les mots de passe sont cryptés avant d'être stockés dans la base de données.
