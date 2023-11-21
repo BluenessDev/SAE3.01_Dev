@@ -1,4 +1,4 @@
-### Structure de la page form_creation.php :
+### Structure de la page form_connect.php :
 
 #### Section `<head>` :
 - Déclaration du doctype, de l'encodage et de la langue.
