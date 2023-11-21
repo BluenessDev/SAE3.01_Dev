@@ -216,6 +216,27 @@ Création du composant **tickets** pour l'abstraction de la table tickets de la 
 
 **Voir le document de la spécification de la charte graphique et la maquette 1 **
 
+**Action**
+   - Composant :
+     - Code PHP peremettant la connexion d'un utilisateur à son compte.
+   - Relation : Vérifie si l'utilisateur et le mot de passe existe dans la base de données. Puis accedes a l'index connécté de l'utilisateur.
+
+ **Creation**
+   - Composant :
+     - Code PHP permettant de créer un nouvel utilisateur.
+   - Relation : Créer un nouvel utilisateur dans la base de données avec les informations du formulaire d'inscription.
+
+**logout**
+   - Composant :
+     - Code PHP permettant a l'utilisateur de se déconnecter
+   - Relation : Supprime la session ouverte par l'utilisateur, il devra se reconnecter la procheine fois qu'il voudra acceder a l'application
+
+**Users**
+   - Table de la base de données contenant les utilisateurs inscrits.
+
+**Tickets**
+   - Table de la base de données qui contiendra les différents tickets.
+
 
 ### Conclusion
 Ce document de conception détaillée expose la structure et la hiérarchie des composants de notre site web dynamique. Il décrit les différentes pages du site, y compris les pages d'accueil, les pages de formulaire d'inscription et de connexion, la page du profil, la page des logs, les pages PHP permettant l'inscription, la connexion et la déconnexion des utilisateurs et la charte graphique associée. Il identifie les principaux composants de chaque page, tels que l'en-tête, le contenu principal et le pied de page, ainsi que les éléments spécifiques à chaque page.
