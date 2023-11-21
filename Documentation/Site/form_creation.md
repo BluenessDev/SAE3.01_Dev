@@ -15,8 +15,8 @@
 ### Explication détaillée des parties importantes :
 
 1. **Inclusion de fichiers HTML** :
-   - `banner.html` est inclus au début de la page, probablement pour afficher des éléments communs à plusieurs pages.
-   - `footer.html` est inclus à la fin de la page, probablement pour afficher le pied de page commun à plusieurs pages.
+   - `banner.html` est inclus au début de la page, pour afficher des éléments communs à plusieurs pages.
+   - `footer.html` est inclus à la fin de la page, pour afficher le pied de page commun à plusieurs pages.
 
 2. **Formulaire de connexion** :
    - Le formulaire est composé de champs de saisie pour le login et le mot de passe.
