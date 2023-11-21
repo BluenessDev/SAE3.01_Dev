@@ -11,6 +11,6 @@ Dans le dossier de conception détaillé, nous avons créé un composant `<Site 
 
 Nous pouvons donc créer un Nœud qui regroupe tous ces composants Clients et qui est regroupé dans un package nommé `<Client>` dans ce package, nous avons un composant `<Vue>` dans lequel nous retrouvons le Site Statique. Nous pouvons par ailleurs faire un deuxième nœud `<base de donnée>` contenant les différentes tables.
 
-<img src='[https://cdn.discordapp.com/attachments/1148278381767569508/1176474793810329600/Diagramme_concep_archi_v2.jpg?ex=656f0088&is=655c8b88&hm=706d626c1d68e1d0e14d0828b8bd59da32635b05fc0cd154c238dc1c6da8711d&](https://cdn.discordapp.com/attachments/1148278381767569508/1176474793810329600/Diagramme_concep_archi_v2.jpg?ex=656f0088&is=655c8b88&hm=706d626c1d68e1d0e14d0828b8bd59da32635b05fc0cd154c238dc1c6da8711d&)https://cdn.discordapp.com/attachments/1148278381767569508/1176474793810329600/Diagramme_concep_archi_v2.jpg?ex=656f0088&is=655c8b88&hm=706d626c1d68e1d0e14d0828b8bd59da32635b05fc0cd154c238dc1c6da8711d&'>
+<img src='https://media.discordapp.net/attachments/1148278381767569508/1176474793810329600/Diagramme_concep_archi_v2.jpg?ex=656f0088&is=655c8b88&hm=706d626c1d68e1d0e14d0828b8bd59da32635b05fc0cd154c238dc1c6da8711d&=&width=741&height=468'>
 
 Pour le moment, n'hébergeons pas notre application web sur un serveur externe.
