@@ -25,6 +25,7 @@ a la possiblité de créer un ticket, qui sera ensuite vu par l'administrateur w
   * Un repertoire [Logo](/Documentation/Logo) qui comprend les deux differentes version du logo lors du choix de la V1.
   * Un repertoire [Site](/Documentation/Site) qui contient la documentation relative au code PHP en expliquant le code de chaque fichier constituant l'application web.
 * Un répertoire Maquettes qui contient les deux maquettes possibles du site lors de la V1.
+* Un répertoire RPI qui contient le compte rendu de la mise en place du Raspberry Pi.
 * Un répertoire Site qui contient le code source de l'application web ainsi que les assets et les bases de données temporaires utilisées.
 
 ## Crédits
