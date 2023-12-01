@@ -1,11 +1,10 @@
 <?php
-
 echo "<!DOCTYPE html>
 <html lang='fr' class='inscription'>
 <head>
     <meta charset='utf-8'>
     <meta name='viewport' content='width=device-width'>
-    <title>Index</title>
+    <title>Accueil</title>
     <link href='assets/style.css'' rel='stylesheet' type='text/css'/>
     <link href='assets/logo.png' rel='icon'>
 </head>
@@ -17,7 +16,7 @@ $password = "root";
 
 $conn = mysqli_connect($host, $username, $password) or die("erreur de connexion");
 
-$namedb = "tpsession";
+$namedb = "sae";
 $db = mysqli_select_db($conn, $namedb) or die("erreur de connexion base");
 
 session_start();

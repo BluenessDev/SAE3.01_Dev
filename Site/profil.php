@@ -17,7 +17,7 @@ $password = "root";
 
 $conn = mysqli_connect($host, $username, $password) or die("erreur de connexion");
 
-$namedb = "tpsession";
+$namedb = "sae";
 $db = mysqli_select_db($conn, $namedb) or die("erreur de connexion base");
 
 session_start();
