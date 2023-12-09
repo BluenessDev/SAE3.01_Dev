@@ -33,7 +33,7 @@ La dernière page manquante de la version 2 était celle de l'affichage des tick
 
 ### Un système de gestion des roles utilisateurs
 
-Notre nouvelle version va mettre en place un système de gestion des roles utilisateurs. En effet, notre client nous a demandé de mettre en place un système de gestion des roles utilisateurs. Ce système permettra a l'administrateur web de gérer les roles des utilisateurs ainsi que d'assigner des tickets d'utilisateurs a des techniciens et de gérer l'état des tickets. De plus, l'administrateur système pourra acceder à la page des logs qui contiendra les logs de connection de l'application web.
+Notre nouvelle version va mettre en place un système de gestion des roles utilisateurs. En effet, notre client nous a demandé de mettre en place un système de gestion des roles utilisateurs. Ce système permettra a l'administrateur web de gérer les roles des utilisateurs ainsi que d'assigner des tickets d'utilisateurs à des techniciens et de gérer l'état des tickets. De plus, l'administrateur système pourra acceder à la page des logs qui contiendra les logs de connection de l'application web.
 
 #### Une base de données pour stocker les roles utilisateurs :
 
@@ -48,6 +48,14 @@ Cette table ne permettait pas de gérer les roles utilisateurs. Nous avons donc 
 #### Un tableau de bord variable selon le role de l'utilisateur :
 
 Lors de la version 2 de l'application web, nous avons mis en place un tableau de bord pour l'utilisateur quand il est connecté. Cependant, ce tableau de bord est le même pour tous les utilisateurs. Nous avons donc décidé de mettre en place un tableau de bord variable selon le role de l'utilisateur. En effet, le tableau de bord sera différent selon le role de l'utilisateur. De plus, nous allons mettre en place un système de gestion des roles utilisateurs. En effet, l'administrateur web pourra gérer les roles des utilisateurs. De plus, l'administrateur web pourra assigner des tickets d'utilisateurs a des techniciens et gérer l'état des tickets. De plus, l'administrateur système pourra acceder à la page des logs qui contiendra les logs de connection de l'application web.
+
+#### Des informations sur l'utilisateur dans la page profil :
+
+En effet, avec l'obtention de toute ces nouvelles informations, nous pouvons mettre en place dans la page profil un endroit ou sera affiché les informations du profil sur lequel on est connecté. Nous pourrons notamment voir :
+
+- La date de creation de l'utilisateur
+- Son role
+- Un bouton avec confirmation par mot de passe pour supprimer son compte
 
 ### Début des ajouts des cas d'utilisations
 
