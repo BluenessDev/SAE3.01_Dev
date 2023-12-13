@@ -2,7 +2,7 @@
 
 ## Introduction
 
-Ce recueil de besoins présente les exigences et spécifications du projet de développement d'une application web statique. L'objectif de cette application est de fournir une interface conviviale aux utilisateurs de l'IUT de Vélizy pour la gestion des demandes de dépannage et des tickets.
+Ce recueil de besoins présente les exigences et spécifications du projet de développement d'une application web dynamique. L'objectif de cette application est de fournir une interface conviviale aux utilisateurs de l'IUT de Vélizy pour la gestion des demandes de dépannage et des tickets.
 
 Ce document met en évidence les fonctionnalités essentielles de l'application, les acteurs impliqués, les technologies envisagées ainsi que les contraintes et les exigences du projet. Il vise à servir de référence pour l'ensemble de l'équipe de développement et pour tous les intervenants impliqués dans ce projet.
 
@@ -12,37 +12,39 @@ Le présent recueil de besoins sera étoffé et mis à jour au fur et à mesure 
 
 ## Glossaire
 
-1. **HTML (HyperText Markup Language)** : Un langage de programmation utilisé pour la mise en page de l'application web.
+1. **HTML (HyperText Markup Language)** : Un language de balisage utilisé pour la mise en page de l'application web.
 
-2. **CSS (Cascading Style Sheets)** : Une technologie utilisée pour embellir la page web en définissant la présentation et le style des éléments HTML.
+3. **CSS (Cascading Style Sheets)** : Une technologie utilisée pour embellir la page web en définissant la présentation et le style des éléments HTML.
 
-3. **MySQL** : Un système de gestion de base de données relationnelle utilisé pour stocker et gérer les données de l'application.
+4. **MySQL** : Un système de gestion de base de données relationnelle utilisé pour stocker et gérer les données de l'application.
 
-4. **Apache** : Un serveur web qui héberge l'application et permet l'accès via le réseau.
+5. **Apache** : Un serveur web qui héberge l'application et permet l'accès via le réseau.
 
-5. **GitHub** : Une plateforme de gestion de code source qui héberge la documentation, le code source et les informations du projet.
+6. **GitHub** : Une plateforme de gestion de code source qui héberge la documentation, le code source et les informations du projet.
 
-6. **Serveur RPi 4** : Matériel serveur Raspberry Pi 4, qui sera utilisé pour héberger l'application.
+7. **Serveur RPi 4** : Matériel serveur Raspberry Pi 4, qui sera utilisé pour héberger l'application.
 
-7. **Site web statique** : Un site web dont le contenu ne change pas dynamiquement en fonction des actions de l'utilisateur, il est généralement composé de fichiers HTML, CSS et autres fichiers statiques.
+8. **Site web statique** : Un site web dont le contenu ne change pas dynamiquement en fonction des actions de l'utilisateur, il est généralement composé de fichiers HTML, CSS et autres fichiers statiques.
 
-8. **W3C (World Wide Web Consortium)** : Une organisation qui établit des normes pour le World Wide Web, y compris les normes de développement web et d'accessibilité.
+9. **W3C (World Wide Web Consortium)** : Une organisation qui établit des normes pour le World Wide Web, y compris les normes de développement web et d'accessibilité.
 
-9. **Développement agile** : Une méthodologie de développement logiciel itérative qui implique des livraisons fréquentes de versions du logiciel, avec une adaptation aux retours des utilisateurs.
+10. **Développement agile** : Une méthodologie de développement logiciel itérative qui implique des livraisons fréquentes de versions du logiciel, avec une adaptation aux retours des utilisateurs.
 
-10. **Maquettes de styles** : Des représentations visuelles des conceptions de l'interface utilisateur, généralement utilisées pour planifier la mise en page et le design.
+11. **Maquettes de styles** : Des représentations visuelles des conceptions de l'interface utilisateur, généralement utilisées pour planifier la mise en page et le design.
 
-11. **OS Linux (Système d'exploitation Linux)** : Un système d'exploitation open-source basé sur le noyau Linux.
+12. **OS Linux (Système d'exploitation Linux)** : Un système d'exploitation open-source basé sur le noyau Linux.
 
-12. **Critères de performance** : Les normes et mesures qui définissent la performance attendue de l'application.
+13. **Critères de performance** : Les normes et mesures qui définissent la performance attendue de l'application.
 
-13. **Tests de validation** : Des tests effectués pour vérifier que l'application fonctionne conformément aux spécifications et aux exigences.
+14. **Tests de validation** : Des tests effectués pour vérifier que l'application fonctionne conformément aux spécifications et aux exigences.
 
-14. **Acteur principal** : Le rôle ou l'entité principale impliquée dans un cas d'utilisation ou un processus.
+15. **Acteur principal** : Le rôle ou l'entité principale impliquée dans un cas d'utilisation ou un processus.
 
-15. **Utilisabilité** : La mesure de la convivialité et de l'efficacité de l'application du point de vue de l'utilisateur.
+16. **Utilisabilité** : La mesure de la convivialité et de l'efficacité de l'application du point de vue de l'utilisateur.
 
-16. **Version itérative** : Une version du logiciel qui est développée en suivant un processus itératif, où des améliorations sont apportées à chaque itération.
+17. **Version itérative** : Une version du logiciel qui est développée en suivant un processus itératif, où des améliorations sont apportées à chaque itération.
+
+18. **PHP (Hypertext Preprocessor)** : Language de programmation s'executant coté serveur qui permet de rendre une page web dynamique en laissant l'utilisateur intéragir avec le serveur par le biais de la page web.
 
 
 
@@ -98,10 +100,10 @@ Le présent recueil de besoins sera étoffé et mis à jour au fur et à mesure 
 ## La technologie employée
 Les technologies employées pour utiliser ce système sont :
 
-1. Langage de programmation : L'HTML pour la mise en page de l'application web, ainsi que le CSS pour embellir la page.
+1. Langage de programmation : Le PHP pour laisser l'utilisateur intéragir avec le site, l'HTML pour la mise en page de l'application web, ainsi que le CSS pour embellir la page.
 2. Base de données : MySQL pour stocker et gérer les données de l'application.
 3. Serveur web : Apache pour héberger l'application et permettre l'accès via le réseau.
-4. Matériel serveur : Pour le moment aucun matériel n'est utilisé.
+4. Matériel serveur : Utilisation d'une carte SD installée sur un RPI pour déployer localement les nouvelle versions du site.
 5. Gestion du projet et du code : Utilisation de GitHub pour héberger la documentation, le code source et les informations du projet.
 
 Ces éléments constituent l'infrastructure de base pour le système que vous envisagez de créer.
