@@ -1,4 +1,4 @@
-# Recueil de Besoin 3.0
+# Recueil de Besoin 3.1
 
 ## Introduction
 
@@ -46,7 +46,7 @@ Le présent recueil de besoins sera étoffé et mis à jour au fur et à mesure 
 
 18. **PHP (Hypertext Preprocessor)** : Language de programmation s'executant coté serveur qui permet de rendre une page web dynamique en laissant l'utilisateur intéragir avec le serveur par le biais de la page web.
 
-
+19. **RC4** : Rivest Cifer 4, c'est un algorithme chiffrement, selon un système de clé publique et de clé privée
 
 
 ## Tableau OAA+
@@ -127,7 +127,7 @@ Les utilisateurs et commanditaires souhaitent un suivi régulier du projet avec 
 Il est prévu d'acheter le matériel serveur RPi 4. L'application sera construite en interne. Il n'y a pas de concurrents identifiés pour ce projet spécifique.
 
 #### v) Autres exigences du processus
-- **Sécurité :** Pour le moment, ce site statique ne déploie aucun protocole de sécurité.
+- **Sécurité :** Ce site dynamic sera crypter selon l'algorithme RC4.
 - **Performances :** Nous devons nous assurer que le site statique est dans les critères de beauté du client.
 - **Tests et validation :** Effectuer des tests de validation.
 
@@ -143,7 +143,7 @@ Définir les critères de performance pour garantir un fonctionnement efficace d
 Définir les opérations nécessaires pour assurer le bon fonctionnement de l'application et du serveur.
 
 #### Sécurité
-Mettre en place des mesures de sécurité pour protéger les données et les utilisateurs du système.
+Mise en place d'un chiffrement de donnée via un algorithme RC4, une documentation sur cet algorithme.
 
 #### Documentation
 Fournir une documentation complète pour l'utilisation du site statique, les maquettes de styles 1 et 2, la documentation des logos et les deux logos du site.
