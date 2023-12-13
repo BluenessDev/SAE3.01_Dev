@@ -1,8 +1,8 @@
-# Recueil de Besoin 1.0
+# Recueil de Besoin 2.0
 
 ## Introduction
 
-Ce recueil de besoins présente les exigences et spécifications du projet de développement d'une application web statique. L'objectif de cette application est de fournir une interface conviviale aux utilisateurs de l'IUT de Vélizy pour la gestion des demandes de dépannage et des tickets.
+Ce recueil de besoins présente les exigences et spécifications du projet de développement d'une application web dynamique. L'objectif de cette application est de fournir une interface conviviale aux utilisateurs de l'IUT de Vélizy pour la gestion des demandes de dépannage et des tickets.
 
 Ce document met en évidence les fonctionnalités essentielles de l'application, les acteurs impliqués, les technologies envisagées ainsi que les contraintes et les exigences du projet. Il vise à servir de référence pour l'ensemble de l'équipe de développement et pour tous les intervenants impliqués dans ce projet.
 
@@ -12,75 +12,89 @@ Le présent recueil de besoins sera étoffé et mis à jour au fur et à mesure 
 
 ## Glossaire
 
-1. **HTML (HyperText Markup Language)** : Un langage de programmation utilisé pour la mise en page de l'application web.
+1. **HTML (HyperText Markup Language)** : Un language de balisage utilisé pour la mise en page de l'application web.
 
-2. **CSS (Cascading Style Sheets)** : Une technologie utilisée pour embellir la page web en définissant la présentation et le style des éléments HTML.
+3. **CSS (Cascading Style Sheets)** : Une technologie utilisée pour embellir la page web en définissant la présentation et le style des éléments HTML.
 
-3. **MySQL** : Un système de gestion de base de données relationnelle utilisé pour stocker et gérer les données de l'application.
+4. **MySQL** : Un système de gestion de base de données relationnelle utilisé pour stocker et gérer les données de l'application.
 
-4. **Apache** : Un serveur web qui héberge l'application et permet l'accès via le réseau.
+5. **Apache** : Un serveur web qui héberge l'application et permet l'accès via le réseau.
 
-5. **GitHub** : Une plateforme de gestion de code source qui héberge la documentation, le code source et les informations du projet.
+6. **GitHub** : Une plateforme de gestion de code source qui héberge la documentation, le code source et les informations du projet.
 
-6. **Serveur RPi 4** : Matériel serveur Raspberry Pi 4, qui sera utilisé pour héberger l'application.
+7. **Serveur RPi 4** : Matériel serveur Raspberry Pi 4, qui sera utilisé pour héberger l'application.
 
-7. **Site web statique** : Un site web dont le contenu ne change pas dynamiquement en fonction des actions de l'utilisateur, il est généralement composé de fichiers HTML, CSS et autres fichiers statiques.
+8. **Site web statique** : Un site web dont le contenu ne change pas dynamiquement en fonction des actions de l'utilisateur, il est généralement composé de fichiers HTML, CSS et autres fichiers statiques.
 
-8. **W3C (World Wide Web Consortium)** : Une organisation qui établit des normes pour le World Wide Web, y compris les normes de développement web et d'accessibilité.
+9. **W3C (World Wide Web Consortium)** : Une organisation qui établit des normes pour le World Wide Web, y compris les normes de développement web et d'accessibilité.
 
-9. **Développement agile** : Une méthodologie de développement logiciel itérative qui implique des livraisons fréquentes de versions du logiciel, avec une adaptation aux retours des utilisateurs.
+10. **Développement agile** : Une méthodologie de développement logiciel itérative qui implique des livraisons fréquentes de versions du logiciel, avec une adaptation aux retours des utilisateurs.
 
-10. **Maquettes de styles** : Des représentations visuelles des conceptions de l'interface utilisateur, généralement utilisées pour planifier la mise en page et le design.
+11. **Maquettes de styles** : Des représentations visuelles des conceptions de l'interface utilisateur, généralement utilisées pour planifier la mise en page et le design.
 
-11. **OS Linux (Système d'exploitation Linux)** : Un système d'exploitation open-source basé sur le noyau Linux.
+12. **OS Linux (Système d'exploitation Linux)** : Un système d'exploitation open-source basé sur le noyau Linux.
 
-12. **Critères de performance** : Les normes et mesures qui définissent la performance attendue de l'application.
+13. **Critères de performance** : Les normes et mesures qui définissent la performance attendue de l'application.
 
-13. **Tests de validation** : Des tests effectués pour vérifier que l'application fonctionne conformément aux spécifications et aux exigences.
+14. **Tests de validation** : Des tests effectués pour vérifier que l'application fonctionne conformément aux spécifications et aux exigences.
 
-14. **Acteur principal** : Le rôle ou l'entité principale impliquée dans un cas d'utilisation ou un processus.
+15. **Acteur principal** : Le rôle ou l'entité principale impliquée dans un cas d'utilisation ou un processus.
 
-15. **Utilisabilité** : La mesure de la convivialité et de l'efficacité de l'application du point de vue de l'utilisateur.
+16. **Utilisabilité** : La mesure de la convivialité et de l'efficacité de l'application du point de vue de l'utilisateur.
 
-16. **Version itérative** : Une version du logiciel qui est développée en suivant un processus itératif, où des améliorations sont apportées à chaque itération.
+17. **Version itérative** : Une version du logiciel qui est développée en suivant un processus itératif, où des améliorations sont apportées à chaque itération.
+
+18. **PHP (Hypertext Preprocessor)** : Language de programmation s'executant coté serveur qui permet de rendre une page web dynamique en laissant l'utilisateur intéragir avec le serveur par le biais de la page web.
 
 
 
 
 ## Tableau OAA+
-| Objet                                        | Acteur     | Action à entreprendre                      |
-|----------------------------------------------|------------|--------------------------------------------|
-| Page d'accueil                               | Utilisateur| Visualiser la page d'accueil du site       |
-| Formulaire de connexion                      | Utilisateur| Accéder à la page de formulaire de connexion via la page d'accueil |
-| Formulaire d'inscription                     | Utilisateur| Accéder à la page de formulaire d'inscription via la page d'accueil |
-| Page de profil                               | Utilisateur| Accéder à la page de profil via la page d'accueil |
-| Page de faux logs                            | Utilisateur| Accéder à la page de faux logs via la page d'accueil |
-| Tableau de bord fictif                       | Utilisateur| Accéder au tableau de bord fictif via la page d'accueil |
+| Objet                                                  | Acteur                                                 | Action à entreprendre                                                                            |
+|--------------------------------------------------------|--------------------------------------------------------|--------------------------------------------------------------------------------------------------|
+| Page d'accueil                                         | Visiteur                                               | Visualiser la page d'accueil du site                                                             |
+| Formulaire de connexion                                | Utilisateur                                            | Accéder à la page de formulaire de connexion via la page d'accueil                               |
+| Formulaire d'inscription                               | Utilisateur                                            | Accéder à la page de formulaire d'inscription via la page d'accueil                              |
+| Page de profil                                         | Utilisateur, Administrateur Web et Système, Technicien | Si l'utilisateur est connecté, accéder à la page de profil via la page d'accueil                 |
+| Page de faux logs                                      | Administrateur système                                 | Accéder à la page de faux logs via la page d'accueil                                             |
+| Tableau de bord                                        | Utilisateur, Administrateur Web et Système, Technicien | Si l'utilisateur est connecté, accéder au tableau de bord fictif via la page d'accueil           |
+| Formulaire de changement de mot de passe               | Utilisateur                                            | Si l'utilisateur est connecté, accéder à la page de création de tickets via son tableau de bord  |
 
-## Cas d'utilisation
+## Tableau des differents niveaux
 
-### Cas d'utilisation : Accéder aux pages du site
-- **Nom :** Accéder aux pages du site
-- **Portée :** Site web statique
-- **Niveau :** Stratégique
-- **Explication :** Ce cas d'utilisation décrit comment les utilisateurs accèdent aux différentes pages du site web statique.
-- **Acteur principal :** Utilisateur
-- **Scénario :**
-    1. L'utilisateur accède à la page d'accueil .
-    2. À partir de la page d'accueil, l'utilisateur peut accéder à différentes pages en cliquant sur les liens correspondants.
-    3. L'utilisateur peut accéder à la page de formulaire de connexion.
-    4. L'utilisateur peut accéder à la page de formulaire d'inscription.
-    5. L'utilisateur peut accéder à la page de profil.
-    6. L'utilisateur peut accéder à la page de faux logs.
-    7. L'utilisateur peut accéder au tableau de bord fictif.
+| Niveau 🪁 (Niveau stratégique) ◻️    | Niveau 🌊 (Niveau utilisateur) ◼ | Niveau 🐟 (Niveau sous-fonction)       |
+|---------------------------------------|-----------------------------------|----------------------------------------|
+| Gérer un ticket                       | Ouvrir un ticket                  | Se connecter                           |
+| Gérer liste libellés                  | Accéder au profil utilisateur     | S’inscrire                             |
+| Afficher/gérer l'historique           | Changer son email                 | Accéder au tableau de bord             |
+|                                       | Modifier son mot de passe         | Accéder à la page d'accueil            |
+|                                       |                                   | Se déconnecter                         |
+
+
+
+
+## Cas d'utilisation (Voir annexe)
+
+ - Se connecter
+ - Se déconnecter
+ - Modifier le mot de passe
+ - Accéder au profil utilisateur
+ - S'inscrire
+ - Accéder au tableau de bord
+ - Accéder à la liste de tickets
+ - Ouvrir un ticket
+ - Modifier son email
+ - Afficher et gérer l'historique
+ - Accéder à la page d'accueil
+ - Accéder au profil
 
 ## La technologie employée
 Les technologies employées pour utiliser ce système sont :
 
-1. Langage de programmation : L'HTML pour la mise en page de l'application web, ainsi que le CSS pour embellir la page.
+1. Langage de programmation : Le PHP pour laisser l'utilisateur intéragir avec le site, l'HTML pour la mise en page de l'application web, ainsi que le CSS pour embellir la page.
 2. Base de données : MySQL pour stocker et gérer les données de l'application.
 3. Serveur web : Apache pour héberger l'application et permettre l'accès via le réseau.
-4. Matériel serveur : Pour le moment aucun matériel n'est utilisé.
+4. Matériel serveur : Utilisation d'une carte SD installée sur un RPI pour déployer localement les nouvelle versions du site.
 5. Gestion du projet et du code : Utilisation de GitHub pour héberger la documentation, le code source et les informations du projet.
 
 Ces éléments constituent l'infrastructure de base pour le système que vous envisagez de créer.
@@ -151,3 +165,142 @@ Pour le moment, ce système permettra juste au client de visualiser à quoi ress
 
 ### d) Besoins en formation
 Le fonctionnement de ce système est très simple car nous pourrons juste naviguer dans ce site.
+
+## Annexes
+
+### Cas d'utilisation : Se connecter
+- **Nom :** Se connecter
+- **Portée :** Site web
+- **Niveau :** Sous-fonction
+- **Explication :** Ce cas d'utilisation décrit comment les utilisateurs se connectent au site web.
+- **Acteur principal :** Utilisateur, Administrateur Web et Système, Technicien
+- **Scénario nominal :** L’utilisateur entre son login et son mot de passe
+- **Pré-conditions :** L’utilisateur doit être inscrit
+- **Extension :**
+  - 1.a. L’utilisateur est un enseignant ou un étudiant
+    - 1.a.1. L’élève ou l’enseignant peuvent consulter leur tableau de bord et leur profil, ouvrir des tickets, changer leur mot de passe
+  - 1.b. L’utilisateur est un technicien
+    - 1.b.1. Le technicien consulte les tickets qui lui sont attribués
+  - 1.c. L’utilisateur est un administrateur web
+    - 1.c.1 L’administrateur gère les techniciens et les tickets
+  - 1.d. le client se trompe de login et/ou mot de passe
+    - 1.d.1. message d’erreur
+- **Post-conditions :** L'utilisateur est connecté
+
+### Cas d'utilisation : Se déconnecter
+- **Nom :** Se déconnecter
+- **Portée :** Site web
+- **Niveau :** Sous-fonction
+- **Explication :** Ce cas d'utilisation décrit comment les utilisateurs se déconnectent du site web.
+- **Acteur principal :** Utilisateur, Administrateur Web et Système, Technicien
+- **Pré-conditions :** L'utilisateur doit être connecté
+- **Scénario nominal :** L’utilisateur clique sur le bouton de déconnexion
+- **Post-conditions :** L'utilisateur est déconnecté.
+- **Extension :**
+  - 1.a. L’utilisateur n’est pas connecté
+    - 1.a.1. L’utilisateur ne peut pas se déconnecter
+
+### Cas d'utilisation : Modifier le mot de passe
+- **Nom :** Modifier le mot de passe
+- **Portée :** Site web
+- **Niveau :** Utilisateur
+- **Explication :** Ce cas d'utilisation décrit comment les utilisateurs modifient leur mot de passe.
+- **Acteur principal :** Utilisateur, Administrateur Web et Système, Technicien
+- **Pré-conditions :** L'utilisateur doit être connecté
+- **Scénario 1 :** C'est un utilisateur
+  - L'utilisateur se connecte à son compte
+  - L’utilisateur se rend sur son profil
+  - L’utilisateur entre son ancien mot de passe, son nouveau mot de passe et le confirme
+
+### Cas d'utilisation : Accéder au profil utilisateur
+- **Nom :** Accéder au profil utilisateur
+- **Portée :** Site web
+- **Niveau :** Sous-fonction
+- **Explication :** Ce cas d'utilisation décrit comment les utilisateurs accèdent à leur profil.
+- **Acteur principal :** Utilisateur, Administrateur Web et Système, Technicien
+- **Pré-conditions :** L'utilisateur doit être connecté
+- **Scénario 1 :** C'est un utilisateur
+  1. L’utilisateur se connecte à son compte
+  2. L’utilisateur se rend sur son profil
+  3. Il peut modifier son email et son mot de passe
+- **Scénario 2 :** C'est un technicien
+  1. Le technicien se connecte à son compte
+  2. Le technicien se rend sur son profil
+  3. Il peut modifier son email et son mot de passe
+- **Scénario 3 :** C'est un administrateur web
+  1. L’administrateur web se connecte à son compte
+  2. L’administrateur web se rend sur son profil
+  3. Il peut modifier son email et son mot de passe
+- **Scénario 4 :** C'est un administrateur système
+  1. L’administrateur système se connecte à son compte
+  2. L’administrateur système se rend sur son profil
+  3. Il peut modifier son email et son mot de passe
+- **Post-conditions :** L'utilisateur accède à son profil.
+
+### Cas d'utilisation : S'inscrire
+- **Nom :** S'inscrire
+- **Portée :** Site web
+- **Niveau :** Sous-fonction
+- **Explication :** Ce cas d'utilisation décrit comment les utilisateurs s'inscrivent au site web.
+- **Acteur principal :** Visiteur
+- **Pré-conditions :** L'utilisateur doit être déconnecté
+- **Scénario nominal :** L’utilisateur entre son email, son login, son mot de passe, le confirme et complète le captcha puis clique sur le bouton d’inscription.
+- **Post-conditions :** L'utilisateur est inscrit.
+- **Extension :**
+  - 1.a. Le login existe déja
+    - 1.a.1. Message d’erreur
+  - 1.b. Le mot de passe et la confirmation du mot de passe ne sont pas identiques
+    - 1.b.1. Message d’erreur
+  - 1.c. L’utilisateur ne complète pas le captcha ou se trompe dans le captcha
+    - 1.c.1. Message d’erreur
+  - 1.d. L’utilisateur est déjà connecté
+    - 1.d.1. L’utilisateur ne peut pas s’inscrire
+
+### Cas d'utilisation : Accéder au tableau de bord
+- **Nom :** Accéder au tableau de bord
+- **Portée :** Site web
+- **Niveau :** Sous-fonction
+- **Explication :** Ce cas d'utilisation décrit comment les utilisateurs accèdent au tableau de bord.
+- **Acteur principal :** Utilisateur, Administrateur Web et Système, Technicien
+- **Pré-conditions :** L'utilisateur doit être connecté
+- **Scénario 1 :** C'est un utilisateur
+  1. L’utilisateur se connecte à son compte
+  2. L’utilisateur accède à son tableau de bord
+  3. L’utilisateur peut ouvrir un ticket
+  4. L’utilisateur peut accéder à son profil
+  5. L'utilisateur peut accéder à la page d'affichage des tickets
+  6. L'utilisateur peut se déconnecter
+- **Post-conditions :** L'utilisateur accède au tableau de bord.
+- **Extension :**
+  - 1.a. Le visiteur n’est pas connecté
+    - 1.a.1. Le visiteur est redirigé vers la page d'accueil
+
+### Cas d'utilisation : Accéder à la liste de tickets
+- **Nom :** Accéder à la liste de tickets
+- **Portée :** Site web
+- **Niveau :** Sous-fonction
+- **Explication :** Ce cas d'utilisation décrit comment les utilisateurs accèdent à la liste de tickets.
+- **Acteur principal :** Utilisateur, Technicien
+- **Pré-conditions :** L'utilisateur doit être connecté
+- **Scénario 1 :** C'est un utilisateur
+  1. L’utilisateur se connecte à son compte
+  2. L’utilisateur accède à son tableau de bord
+  3. L’utilisateur peut accéder à la liste de tickets
+  4. L’utilisateur peut ouvrir un ticket
+  5. L’utilisateur voit les tickets qu'il a créés
+  6. L'utilisateur peut se déconnecter
+
+
+
+### Cas d'utilisation : Modifier son email
+- **Nom :** Modifier son email
+- **Portée :** Site web
+- **Niveau :** Utilisateur
+- **Explication :** Ce cas d'utilisation décrit comment les utilisateurs modifient leur email.
+- **Acteur principal :** Utilisateur, Administrateur Web et Système, Technicien
+- **Pré-conditions :** L'utilisateur doit être connecté
+- **Scénario 1 :** C'est un utilisateur
+  - L'utilisateur se connecte à son compte
+  - L’utilisateur se rend sur son profil
+  - L’utilisateur entre son nouvel email et le confirme
+
