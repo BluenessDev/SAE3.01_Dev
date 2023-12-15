@@ -3,7 +3,7 @@ session_start();
 
 $host = "localhost";
 $username = "root";
-$password = "root";
+$password = "";
 
 $operande1 = rand(1, 99);
 $operande2 = rand(1, 99);

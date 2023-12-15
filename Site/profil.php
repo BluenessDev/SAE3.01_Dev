@@ -7,13 +7,13 @@ echo "<!DOCTYPE html>
     <meta name='viewport' content='width=device-width'>
     <title>Profil</title>
     <link href='assets/style.css' rel='stylesheet' type='text/css'/>
-    <link href='assets/logo.png' rel='icon'>
+    <link href='assets/logo1_SAE_sans_texte.png' rel='icon'>
 </head>
 <body>";
 
 $host = "localhost";
 $username = "root";
-$password = "root";
+$password = "";
 
 $conn = mysqli_connect($host, $username, $password) or die("erreur de connexion");
 
@@ -111,7 +111,7 @@ if (isset($_SESSION['login'])) {
                     </div>
                     <form action='' method='post' class='formulaire'>
                         <p>Votre email actuel : <strong>$email[0]</strong></p>
-        <div class='email'>
+                        <div class='email'>
                             <label for='email'>Nouvel email :</label>
                             <input type='email' name='email' id='email' required>
                         </div>
