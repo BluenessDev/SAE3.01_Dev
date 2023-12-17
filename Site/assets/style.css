@@ -237,7 +237,7 @@ h1 {
     padding: 3%;
 }
 
-a {
+header > .inheader > a {
     color: black;
     text-decoration: none;
 }
@@ -590,6 +590,26 @@ p {
     font-size:1.1em;
 }
 
+footer > .infooter > a{
+    width: 22%;
+    padding: 10px;
+}
+
+footer > .infooter > a >img{
+    width: 100%;
+}
+
+.ligne > a{
+    color: black;
+    text-decoration: none;
+}
+
+.ligne > a:hover{
+    color: white;
+    text-decoration: none;
+}
+
+
 /* Pour les écrans de taille plus petite, comme les tablettes */
 @media screen and (max-width: 828px) {
 
@@ -599,20 +619,6 @@ p {
         padding-top: 0;
         margin: 0;
         overflow: hidden visible;
-    }
-
-    /* Vous pouvez ajouter des modifications pour une mise en page adaptative ici */
-    header > .inheader > img,
-    header > .inheader > a > img {
-        top : 2%;
-        left : 3%;
-        width: 10rem;
-        height: 10rem;
-    }
-
-    footer > .infooter > img {
-        width: 18%;
-        height: 10%;
     }
 
     iframe {
@@ -662,6 +668,4 @@ p {
         margin-block: 1%;
         overflow: hidden;
     }
-
-    /* Ajoutez d'autres modifications en fonction de vos besoins */
 }

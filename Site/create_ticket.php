@@ -22,7 +22,16 @@ $db = mysqli_select_db($conn, $namedb) or die("erreur de connexion base");
 
 session_start();
 
-$table = "users";
+$table = "tickets";
+
+if (isset($_POST['nature_pb'], $_POST['niveau'], $_POST['salle'], $_POST['demandeur'], $_POST['pers_conc'], $_POST['description'])){
+    $nature_pb = $_POST['nature_pb'];
+    $niveau = $_POST['niveau'];
+    $salle = $_POST['salle'];
+    $demandeur = $_POST['demandeur'];
+    $pers_conc = $_POST['pers_conc'];
+    $description = $_POST['description'];
+}
 
 
 if (isset($_SESSION['login'])) {
@@ -56,9 +65,9 @@ if (isset($_SESSION['login'])) {
                             <h2 class='highlight2'>Créer un ticket</h2>
                         </div>
                         <form action='' method='post' class='formulaire'>
-                        <blockquote>Pour creer un ticket merci de préciser la nature du problème, le niveau d’urgence estimée par le demandeur, la salle, le demandeur, la personne concernée par le problème et une description (300 characteres) si nécessaire. </blockquote>
+                        <blockquote>Pour creer un ticket merci de préciser la nature du problème, le niveau d’urgence estimée par le demandeur, la salle, le demandeur, la personne concernée par le problème et une description (300 caracteres) si nécessaire. </blockquote>
                         
-                        <div class='left'><
+                        <div class='left'>
                             <div class='nature_pb'>
                                 <label for='nature_pb'>Nature du probleme :</label>
                                 <input type='text' name='nature_pb' id='nature_pb' required>
