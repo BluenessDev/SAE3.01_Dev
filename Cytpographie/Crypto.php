@@ -1,5 +1,11 @@
 <?php
 
+// Vérifie si le fichier est appelé directement
+if (basename(__FILE__) == basename($_SERVER["SCRIPT_FILENAME"])) {
+    header("Location: index.php?error=access_denied");
+    exit();
+}
+
 // Fonction pour générer une clé en fonction du message donné
 function generateKey($message) {
     $firstLetter = strtolower($message[0]); // Récupère la première lettre du message en minuscule
@@ -98,8 +104,5 @@ $key = generateKey($plaintext);
 $encrypted_password = chiffrement_RC4($plaintext, $key);
 $decrypted_password = dechiffrement_RC4($encrypted_password, $key);
 
-// Affichage des résultats du test
-echo "Mot de passe chiffré : " . $encrypted_password . "\n";
-echo "Mot de passe déchiffré : " . $decrypted_password . "\n";
 
 ?>
