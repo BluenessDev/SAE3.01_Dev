@@ -24,16 +24,6 @@ session_start();
 
 $table = "tickets";
 
-if (isset($_POST['nature_pb'], $_POST['niveau'], $_POST['salle'], $_POST['demandeur'], $_POST['pers_conc'], $_POST['description'])){
-    $nature_pb = $_POST['nature_pb'];
-    $niveau = $_POST['niveau'];
-    $salle = $_POST['salle'];
-    $demandeur = $_POST['demandeur'];
-    $pers_conc = $_POST['pers_conc'];
-    $description = $_POST['description'];
-}
-
-
 if (isset($_SESSION['login'])) {
     $utilisateur = $_SESSION['login'];
     echo "<body>
@@ -163,7 +153,24 @@ if (isset($_SESSION['login'])) {
         </div>
     </main>
     </body>";
+
     include 'footer.html';
 }else {
     header('Location: index.php');
+}
+
+if (isset($_POST['nature_pb'], $_POST['niveau'], $_POST['salle'], $_POST['demandeur'], $_POST['pers_conc'], $_POST['description'])){
+    //initialisation des champs du ticket pour la BD
+    $nature_pb = $_POST['nature_pb'];
+    $niveau = $_POST['niveau'];
+    $salle = $_POST['salle'];
+    $demandeur = $_POST['demandeur'];
+    $pers_conc = $_POST['pers_conc'];
+    $description = $_POST['description'];
+
+    //Insertion du ticket cree dans la BD
+    $requete_ticket = "INSERT INTO $table (nature, niveau, salle, demandeur, concerne, description, login) values (?, ?, ?, ?, ?, ?, ?)";
+    $reqpre_ticket = mysqli_prepare($conn, $requete_ticket); //Prépare la requete requete_ticket.
+    mysqli_stmt_bind_param($reqpre_ticket, "sisssss", $nature_pb, $niveau, $salle, $demandeur, $pers_conc, $description, $utilisateur); // Permet de lier les valeurs aux marqueurs de position (?) dans la requête préparée.
+    mysqli_stmt_execute($reqpre_ticket); //Execute la requete
 }

@@ -42,10 +42,10 @@ if (isset($_SESSION['login'])) {
   <br>
   <br>
 </header>";
-    include 'dashboard.html';
+    include 'dashboard.php';
 } else {
     include 'banner.html';
-    include 'main.html';
+    include 'main.php';
 }
 
 include 'footer.html';
