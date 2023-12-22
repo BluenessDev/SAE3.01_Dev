@@ -57,9 +57,9 @@ if (isset($_SESSION['login'])) {
                 <table>
                   <thead>
                   <tr>
-                    <th>Problème</th>
-                    <th>Date</th>
-                    <th>Etat</th>
+                    <th><strong>Problème</strong></th>
+                    <th><strong>Date</strong></th>
+                    <th><strong>Etat</strong></th>
                   </tr>
                   </thead>
                   <tbody>";

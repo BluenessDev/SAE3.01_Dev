@@ -60,7 +60,12 @@ if (isset($_SESSION['login'])) {
                         <div class='left'>
                             <div class='nature_pb'>
                                 <label for='nature_pb'>Nature du probleme :</label>
-                                <input type='text' name='nature_pb' id='nature_pb' required>
+                                <select name='nature_pb' id='nature_pb' required>
+                                    <option>Problèmes de périphériques </option>
+                                    <option>Problèmes de logiciel</option>
+                                    <option>Problèmes de connectivité</option>
+                                    <option>Problèmes de matériel </option>
+                                </select>
                             </div>
                             
                             <div class='niveau'>
