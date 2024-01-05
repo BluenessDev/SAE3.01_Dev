@@ -4,11 +4,11 @@ function afficherTickets($utilisateur, $etat)
     global $conn;
 
     if ($etat === null) {
-        $requete = "SELECT id, nature, date, etat FROM tickets WHERE login=? ORDER BY id DESC LIMIT 15";;
+        $requete = "SELECT id, nature, date, etat FROM tickets WHERE login=? ORDER BY id DESC LIMIT 15";
         $reqpre = mysqli_prepare($conn, $requete);
         mysqli_stmt_bind_param($reqpre, "s", $utilisateur);
     } else {
-        $requete = "SELECT id, nature, date, etat FROM tickets WHERE login=? AND etat=? ORDER BY id DESC LIMIT 15";;
+        $requete = "SELECT id, nature, date, etat FROM tickets WHERE login=? AND etat=? ORDER BY id DESC LIMIT 15";
         $reqpre = mysqli_prepare($conn, $requete);
         mysqli_stmt_bind_param($reqpre, "ss", $utilisateur, $etat);
     }
@@ -62,8 +62,5 @@ function afficherTickets($utilisateur, $etat)
         die("Erreur dans la préparation de la requête: " . mysqli_error($conn));
     }
 }
-
-
-
 
 
