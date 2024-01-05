@@ -32,12 +32,11 @@ echo "<main role='main'>
             <h2>Explications :</h2>
           </div>
           <blockquote>
-            Cette application web vous permet d’ouvrir des tickets en ligne afin d’informer la direction
-            d’un éventuel probleme au niveau des machines de l’UVSQ. Un administrateur se chargera
-            d’assigner votre ticket à un technicien compétent.
+            Cette application web vous permet d'ouvrir des tickets en ligne afin d'informer la direction d'un éventuel problème au niveau des machines de l'UVSQ.
+            Un administrateur se chargera d'assigner votre ticket à un technicien compétent.
             <br>
             <br>
-            Pour retourner a l'acceuil, il vous suffit de cliquer sur le logo de l'application.
+            Pour retourner à l'accueil, il vous suffit de cliquer sur le logo de l'application.
           </blockquote>
         </div>
       </div>
