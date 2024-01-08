@@ -1,16 +1,37 @@
 <?php
-function afficherTickets($utilisateur, $etat)
+function afficherTickets($utilisateur, $etat, $role)
 {
     global $conn;
 
-    if ($etat === null) {
-        $requete = "SELECT id, nature, date, etat FROM tickets WHERE login=? ORDER BY id DESC LIMIT 15";
-        $reqpre = mysqli_prepare($conn, $requete);
-        mysqli_stmt_bind_param($reqpre, "s", $utilisateur);
+    if ($role === 'admin') {
+        if ($etat === null) {
+            $requete = "SELECT id, nature, date, etat FROM tickets ORDER BY id DESC LIMIT 15";
+            $reqpre = mysqli_prepare($conn, $requete);
+        } else {
+            $requete = "SELECT id, nature, date, etat FROM tickets WHERE etat=? ORDER BY id DESC LIMIT 15";
+            $reqpre = mysqli_prepare($conn, $requete);
+            mysqli_stmt_bind_param($reqpre, "s", $etat);
+        }
+    } elseif ($role === 'technicien') {
+        if ($etat === null) {
+            $requete = "SELECT id, nature, date, etat FROM tickets WHERE  technicien_login=? ORDER BY id DESC LIMIT 15";
+            $reqpre = mysqli_prepare($conn, $requete);
+            mysqli_stmt_bind_param($reqpre, "s", $utilisateur);
+        } else {
+            $requete = "SELECT id, nature, date, etat FROM tickets WHERE technicien_login=? AND etat=? ORDER BY id DESC LIMIT 15";
+            $reqpre = mysqli_prepare($conn, $requete);
+            mysqli_stmt_bind_param($reqpre, "ss", $utilisateur, $etat);
+        }
     } else {
-        $requete = "SELECT id, nature, date, etat FROM tickets WHERE login=? AND etat=? ORDER BY id DESC LIMIT 15";
-        $reqpre = mysqli_prepare($conn, $requete);
-        mysqli_stmt_bind_param($reqpre, "ss", $utilisateur, $etat);
+        if ($etat === null) {
+            $requete = "SELECT id, nature, date, etat FROM tickets WHERE login=? ORDER BY id DESC";
+            $reqpre = mysqli_prepare($conn, $requete);
+            mysqli_stmt_bind_param($reqpre, "s", $utilisateur);
+        } else {
+            $requete = "SELECT id, nature, date, etat FROM tickets WHERE login=? AND etat=? ORDER BY id DESC";
+            $reqpre = mysqli_prepare($conn, $requete);
+            mysqli_stmt_bind_param($reqpre, "ss", $utilisateur, $etat);
+        }
     }
 
     if ($reqpre) {
@@ -26,35 +47,24 @@ function afficherTickets($utilisateur, $etat)
                   </tr>
               </thead>";
 
-        $rowsCount = mysqli_num_rows($result);
+        while ($row = mysqli_fetch_assoc($result)) {
+            echo "<tr>";
 
-        if ($rowsCount > 0) {
-            while ($row = mysqli_fetch_assoc($result)) {
-                echo "<tr>";
+            // Faire de chaque cellule une cellule de lien
+            echo "<td><a href='ticket_informations.php?id=" . urlencode($row['id']) . "&nature=" . urlencode($row['nature']) . "'>" . $row['nature'] . "</a></td>";
+            echo "<td><a href='ticket_informations.php?id=" . urlencode($row['id']) . "&date=" . urlencode($row['date']) . "'>" . $row['date'] . "</a></td>";
+            echo "<td><a href='ticket_informations.php?id=" . urlencode($row['id']) . "&etat=" . urlencode($row['etat']) . "'>" . $row['etat'] . "</a></td>";
 
-                // Faire de chaque cellule une cellule de lien
-                echo "<td><a href='ticket_informations.php?id=" . urlencode($row['id']) . "&nature=" . urlencode($row['nature']) . "'>" . $row['nature'] . "</a></td>";
-                echo "<td><a href='ticket_informations.php?id=" . urlencode($row['id']) . "&date=" . urlencode($row['date']) . "'>" . $row['date'] . "</a></td>";
-                echo "<td><a href='ticket_informations.php?id=" . urlencode($row['id']) . "&etat=" . urlencode($row['etat']) . "'>" . $row['etat'] . "</a></td>";
+            echo "</tr>";
+        }
 
-                echo "</tr>";
-            }
-
-            for ($i = $rowsCount; $i < 15; $i++) {
-                echo "<tr>";
-                echo "<td>-</td>";
-                echo "<td>-</td>";
-                echo "<td>-</td>";
-                echo "</tr>";
-            }
-        } else {
-            for ($i = 0; $i < 15; $i++) {
-                echo "<tr>";
-                echo "<td>-</td>";
-                echo "<td>-</td>";
-                echo "<td>-</td>";
-                echo "</tr>";
-            }
+        // Complétez avec des lignes vides si moins de 15 lignes sont affichées
+        for ($i = 0; $i < (15 - mysqli_num_rows($result)); $i++) {
+            echo "<tr>";
+            echo "<td>-</td>";
+            echo "<td>-</td>";
+            echo "<td>-</td>";
+            echo "</tr>";
         }
 
         echo "</table>";
@@ -62,5 +72,7 @@ function afficherTickets($utilisateur, $etat)
         die("Erreur dans la préparation de la requête: " . mysqli_error($conn));
     }
 }
+
+
 
 
