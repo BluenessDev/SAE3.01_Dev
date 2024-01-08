@@ -51,25 +51,21 @@ $namedb = "sae";
 $db = mysqli_select_db($conn, $namedb) or die("erreur de connexion base");
 
 $table = "tickets";
+$users_table = "users";
 
 
 if (isset($_SESSION['login'])) {
     $utilisateur = $_SESSION['login'];
     include 'functions.php';
+    $requete_role = "SELECT role FROM $users_table WHERE login=?";
+    $reqpre_role = mysqli_prepare($conn, $requete_role);
+    mysqli_stmt_bind_param($reqpre_role, "s", $utilisateur);
+    mysqli_stmt_execute($reqpre_role);
+    $result_role = mysqli_stmt_get_result($reqpre_role);
+    $row_role = mysqli_fetch_assoc($result_role);
+    $role_utilisateur = $row_role['role'];  // Rôle de l'utilisateur
 
-    //Requete pour récuperer les tickets de l'utilisateur
-    $requete_recup_ticket = "SELECT nature, date, etat FROM $table WHERE login=? ORDER BY id DESC LIMIT 15";
-    $reqpre_recup_ticket = mysqli_prepare($conn, $requete_recup_ticket);
-
-    mysqli_stmt_bind_param($reqpre_recup_ticket, "s", $utilisateur);
-    mysqli_stmt_execute($reqpre_recup_ticket);
-
-    mysqli_stmt_bind_result($reqpre_recup_ticket, $nature, $date, $etat); // Liaison des variables pour stocker les résultats
-
-    while (mysqli_stmt_fetch($reqpre_recup_ticket)) {
-        //Pour chaque ligne recuperer on creer un tableau comprenant toutes les valeurs
-        $resultats[] = array("nature" => $nature, "date" => $date, "etat" => $etat);
-    }
+    mysqli_stmt_close($reqpre_role);
 
     echo "
 <main role='main'>
@@ -106,17 +102,17 @@ if (isset($_SESSION['login'])) {
                        <button class='tablinks' id='button3' data-content-id='fini' onclick='(\"fini\")'>Fini</button></div>
                     <div id='ouvert' class='tabcontent'>
                     <h3>Tableau des tickets ouverts</h3>";
-                    afficherTickets($utilisateur, 'ouvert');
+                    afficherTickets($utilisateur, 'ouvert', $role_utilisateur);
                 echo "
                     </div>
                     <div id='en_cours' class='tabcontent'>
                         <h3>Tableau des tickets en cours de réparation</h3>";
-                        afficherTickets($utilisateur, 'en_cours');
+                        afficherTickets($utilisateur, 'en_cours', $role_utilisateur);
                         echo "
                         </div>
                     <div id='fini' class='tabcontent'>
                         <h3>Tableau des tickets fini</h3>";
-                        afficherTickets($utilisateur, 'fini' );
+                        afficherTickets($utilisateur, 'fini', $role_utilisateur );
                         echo "
                         
                     </div>
@@ -125,7 +121,8 @@ if (isset($_SESSION['login'])) {
                 <br>
                 <br>
                 <h3>Tableau des tickets de tout type </h3>";
-                        afficherTickets($utilisateur,null);
+                        afficherTickets($utilisateur,null, $role_utilisateur);
+                        echo $role_utilisateur;
                         echo"               
                 </div>
               </div>
