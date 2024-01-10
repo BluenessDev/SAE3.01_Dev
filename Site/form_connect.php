@@ -1,7 +1,10 @@
 <?php
+
+include 'functions.php';
+
 $host = "localhost";
 $username = "root";
-$password = "";
+$password = "root";
 
 $conn = mysqli_connect($host, $username, $password) or die("erreur de connexion");
 
@@ -24,9 +27,20 @@ if (isset($_POST['login'], $_POST['password'])) {
         if (mysqli_num_rows($result) == 1) {
             session_start();
             $_SESSION['login'] = $login;
-            $_SESSION['date'] = date('d/m/Y');
+            $_SESSION['logip'] = getIp();
+            $date = date('d-m-Y');
+            $log_file = fopen("logs/$date.log", "a");
+            fwrite($log_file, "[" . date('d/m/Y H:i:s') . "] Connexion réussie de l'adresse IP " . $_SESSION['logip'] . " avec le login " . $_SESSION['login'] . "\n");
+            fclose($log_file);
             header('Location: index.php');
         } else {
+            session_start();
+            $_SESSION['loginlog'] = $login;
+            $_SESSION['logip'] = getIp();
+            $date = date('d-m-Y');
+            $log_file = fopen("logs/$date.log", "a");
+            fwrite($log_file, "[" . date('d/m/Y H:i:s') . "] Connexion échouée de l'adresse IP " . $_SESSION['logip'] . " avec le login " . $_SESSION['loginlog'] . "\n");
+            fclose($log_file);
             header('Location: form_connect.php?error=1');
         }
     }

@@ -15,7 +15,7 @@ echo "<!DOCTYPE html>
 // Connexion à la base de données
 $host = "localhost";
 $username = "root";
-$password = "";
+$password = "root";
 $dbname = "sae";
 $conn = mysqli_connect($host, $username, $password, $dbname) or die("erreur de connexion");
 

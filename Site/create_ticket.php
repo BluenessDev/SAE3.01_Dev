@@ -10,10 +10,11 @@ echo "<!DOCTYPE html>
     <link href='assets/logo.png' rel='icon'>
 </head>";
 
+include 'functions.php';
 
 $host = "localhost";
 $username = "root";
-$password = "";
+$password = "root";
 
 $conn = mysqli_connect($host, $username, $password) or die("erreur de connexion");
 
@@ -26,6 +27,28 @@ $table = "tickets";
 
 if (isset($_SESSION['login'])) {
     $utilisateur = $_SESSION['login'];
+    if (isset($_POST['nature_pb'], $_POST['niveau'], $_POST['salle'], $_POST['demandeur'], $_POST['pers_conc'], $_POST['description'])){
+        //initialisation des champs du ticket pour la BD
+        $nature_pb = $_POST['nature_pb'];
+        $niveau = $_POST['niveau'];
+        $salle = $_POST['salle'];
+        $demandeur = $_POST['demandeur'];
+        $pers_conc = $_POST['pers_conc'];
+        $description = $_POST['description'];
+        session_start();
+        $_SESSION['logip'] = getIp();
+        $date = date('d-m-Y');
+        $log_file = fopen("logs/$date.log", "a");
+        fwrite($log_file, "[" . date('d/m/Y H:i:s') . "] Création d'un ticket de l'adresse IP " . $_SESSION['logip'] . " avec le login " . $_SESSION['login'] . " : \n" . "\t\t\t\tNature du problème : " . $nature_pb . "\n" . "\t\t\t\tNiveau du problème : " . $niveau . "\n" . "\t\t\t\tSalle : " . $salle . "\n" . "\t\t\t\tDemandeur : " . $demandeur . "\n" . "\t\t\t\tPersonne concernée : " . $pers_conc . "\n" . "\t\t\t\tDescription : " . $description . "\n");
+        fclose($log_file);
+
+        //Insertion du ticket cree dans la BD
+        $requete_ticket = "INSERT INTO $table (nature, niveau, salle, demandeur, concerne, description, login) values (?, ?, ?, ?, ?, ?, ?)";
+        $reqpre_ticket = mysqli_prepare($conn, $requete_ticket); //Prépare la requete requete_ticket.
+        mysqli_stmt_bind_param($reqpre_ticket, "sisssss", $nature_pb, $niveau, $salle, $demandeur, $pers_conc, $description, $utilisateur); // Permet de lier les valeurs aux marqueurs de position (?) dans la requête préparée.
+        mysqli_stmt_execute($reqpre_ticket); //Execute la requete
+        header('Location: index.php');
+    }
     echo "<body>
     <header role='banner'>
         <nav role='navigation'>
@@ -162,20 +185,4 @@ if (isset($_SESSION['login'])) {
     include 'footer.html';
 }else {
     header('Location: index.php');
-}
-
-if (isset($_POST['nature_pb'], $_POST['niveau'], $_POST['salle'], $_POST['demandeur'], $_POST['pers_conc'], $_POST['description'])){
-    //initialisation des champs du ticket pour la BD
-    $nature_pb = $_POST['nature_pb'];
-    $niveau = $_POST['niveau'];
-    $salle = $_POST['salle'];
-    $demandeur = $_POST['demandeur'];
-    $pers_conc = $_POST['pers_conc'];
-    $description = $_POST['description'];
-
-    //Insertion du ticket cree dans la BD
-    $requete_ticket = "INSERT INTO $table (nature, niveau, salle, demandeur, concerne, description, login) values (?, ?, ?, ?, ?, ?, ?)";
-    $reqpre_ticket = mysqli_prepare($conn, $requete_ticket); //Prépare la requete requete_ticket.
-    mysqli_stmt_bind_param($reqpre_ticket, "sisssss", $nature_pb, $niveau, $salle, $demandeur, $pers_conc, $description, $utilisateur); // Permet de lier les valeurs aux marqueurs de position (?) dans la requête préparée.
-    mysqli_stmt_execute($reqpre_ticket); //Execute la requete
 }
