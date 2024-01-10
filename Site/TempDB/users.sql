@@ -38,11 +38,12 @@ CREATE TABLE `users` (
 -- Déchargement des données de la table `users`
 --
 
-INSERT INTO `users` (`login`, `password`, `email`,`role`) VALUES
+INSERT INTO `users` (`login`, `password`, `email`, `role`) VALUES
 ('admin', '21232f297a57a5a743894a0e4a801fc3', 'cyril.tilan@gmail.com', 'admin'),
-('cayoux', '34b3f2108789aa97a44392d807661561', 'google.com@gmail.com','technicien'),
-('Cyril', 'b46d3c8ee8032551c011745d587705cc', 'bluex9632@gmail.com',),
-('Max', '16d5d24f5b09a1991bd4e5f57bf11237', 'max@gmail.com','adminReseau');
+('cayoux', '34b3f2108789aa97a44392d807661561', 'google.com@gmail.com', 'technicien'),
+('Cyril', 'b46d3c8ee8032551c011745d587705cc', 'bluex9632@gmail.com', 'Utilisateur'),
+('Max', '16d5d24f5b09a1991bd4e5f57bf11237', 'max@gmail.com', 'adminReseau');
+
 
 --
 -- Index pour les tables déchargées
