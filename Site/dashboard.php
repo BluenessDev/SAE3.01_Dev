@@ -43,7 +43,7 @@ echo "<!DOCTYPE html>
 
 $host = "localhost";
 $username = "root";
-$password = "root";
+$password = "";
 
 $conn = mysqli_connect($host, $username, $password) or die("erreur de connexion");
 
@@ -69,66 +69,73 @@ if (isset($_SESSION['login'])) {
 
     echo "
 <main role='main'>
-      <div class='article'>
+    <div class='article'>
         <div class='main-article'>
-          <div class='content'>
-            <div class='ligne' id='col'>
-              <br>
-              <div class='ligne'>
-                <a href='profil.php'><div class='button'>
-                  <h2>Accéder au profil</h2>
-                </div></a>
-              </div>
-              <div class='ligne'>
-                <a href='create_ticket.php'><div class='button'>
-                  <h2>Ouvrir un ticket</h2>
-                </div></a>
-              </div>
-              <div class='ligne'>
-                <a href='log.php'><div class='button'>
-                  <h2>Voir les logs</h2>
-                </div></a>
-              </div>
-            </div>
-            <div class='ligne' id='col'>
-              <div class='subarticle'>
-                <div class='titre'>
-                  <h2>Mes derniers tickets ouverts :</h2>
-                </div>
-                <div id='alltabs'>
-                    <div id='tab'>
-                       <button class='tablinks' id='button1' data-content-id='ouvert' onclick='(\"ouvert\")'>Ouverts</button>
-                       <button class='tablinks' id='button2' data-content-id='en_cours' onclick='(\"en_cours\")'>En cours</button>
-                       <button class='tablinks' id='button3' data-content-id='fini' onclick='(\"fini\")'>Fini</button></div>
-                    <div id='ouvert' class='tabcontent'>
-                    <h3>Tableau des tickets ouverts</h3>";
-                    afficherTickets($utilisateur, 'ouvert', $role_utilisateur);
-                echo "
+            <div class='content'>
+                <div class='ligne' id='col'>
+                    <br>
+                    <div class='ligne'>
+                        <a href='profil.php'>
+                            <div class='button'>
+                                <h2>Accéder au profil</h2>
+                            </div>
+                        </a>
                     </div>
-                    <div id='en_cours' class='tabcontent'>
-                        <h3>Tableau des tickets en cours de réparation</h3>";
-                        afficherTickets($utilisateur, 'en_cours', $role_utilisateur);
-                        echo "
-                        </div>
-                    <div id='fini' class='tabcontent'>
-                        <h3>Tableau des tickets fini</h3>";
-                        afficherTickets($utilisateur, 'fini', $role_utilisateur );
-                        echo "
-                        
+                    <div class='ligne'>
+                        <a href='create_ticket.php'>
+                            <div class='button'>
+                                <h2>Ouvrir un ticket</h2>
+                            </div>
+                        </a>
+                    </div>
+                    <div class='ligne'>
+                        <a href='log.php'>
+                            <div class='button'>
+                                <h2>Voir les logs</h2>
+                            </div>
+                        </a>
                     </div>
                 </div>
-                <div id='tableau'>
-                <br>
-                <br>
-                <h3>Tableau des tickets de tout type </h3>";
-                        afficherTickets($utilisateur,null, $role_utilisateur);
-                        echo $role_utilisateur;
-                        echo"               
-                </div>
-              </div>
+                <div class='ligne' id='col'>
+                    <div class='subarticle'>
+                        <div class='titre'>
+                            <h2>Mes derniers tickets ouverts :</h2>
+                        </div>";
+
+// Display tabs only if the user is not a technician
+    if ($role_utilisateur != "technicien") {
+        echo "<div id='alltabs'>
+            <div id='tab'>
+                <button class='tablinks' id='button1' data-content-id='ouvert' onclick='(\"ouvert\")'>Ouverts</button>
+                <button class='tablinks' id='button2' data-content-id='en_cours' onclick='(\"en_cours\")'>En cours</button>
+                <button class='tablinks' id='button3' data-content-id='fini' onclick='(\"fini\")'>Fini</button>
             </div>
-          </div>
+            <div id='ouvert' class='tabcontent'>
+                <h3>Tableau des tickets ouverts</h3>";
+        afficherTickets($utilisateur, 'ouvert', $role_utilisateur);
+        echo "</div>
+            <div id='en_cours' class='tabcontent'>
+                <h3>Tableau des tickets en cours de réparation</h3>";
+        afficherTickets($utilisateur, 'en_cours', $role_utilisateur);
+        echo "</div>
+            <div id='fini' class='tabcontent'>
+                <h3>Tableau des tickets fini</h3>";
+        afficherTickets($utilisateur, 'fini', $role_utilisateur);
+        echo "</div>
+        </div>"; // Closing 'alltabs' div
+    }
+
+    echo "
+<div id='tableau'>
+    <br>
+    <br>
+    <h3>Tableau des tickets de tout type </h3>";
+    afficherTickets($utilisateur, null, $role_utilisateur);
+    echo $role_utilisateur;  // This is just for debugging purposes; you can remove or modify as needed
+    echo "</div>
+                </div>
+            </div>
         </div>
-      </div>
-    </main>";
+    </div>
+</main>";
 }
