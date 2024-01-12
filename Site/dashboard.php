@@ -87,7 +87,7 @@ if (isset($_SESSION['login'])) {
                     </div>";
 
 // Display de 'create_ticket' div ni pour 'adminReseau' ni pour 'technicien'
-    if ($role_utilisateur == "Utilisateur") {
+    if ($role_utilisateur == "utilisateur") {
         echo "<div class='ligne'>
             <a href='create_ticket.php'>
                 <div class='button'>
