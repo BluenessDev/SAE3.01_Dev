@@ -111,8 +111,11 @@ if (!empty($_POST)) {
 if (isset($_SESSION['login'])) {
     $utilisateur = $_SESSION['login'];
     $requete = "SELECT email FROM $table WHERE login='$utilisateur'";
+    $requete2 = "SELECT role FROM $table WHERE login ='$utilisateur'";
     $result = mysqli_query($conn, $requete);
+    $result2 = mysqli_query($conn, $requete2);
     $email = mysqli_fetch_row($result);
+    $role = mysqli_fetch_row($result2);
     echo "<header role='banner'>
   <nav role='navigation'>
     <ul class='nav-list'>
@@ -145,6 +148,7 @@ if (isset($_SESSION['login'])) {
                     <div class='left'>
                     <p>Login : $utilisateur</p>
                     <p>Email : $email[0]</p>
+                    <p>Role : $role[0]</p>
                     </div>
                     <div class='right'>
                     <table>

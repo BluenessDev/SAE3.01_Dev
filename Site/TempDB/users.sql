@@ -31,7 +31,7 @@ CREATE TABLE `users` (
   `login` varchar(15) NOT NULL,
   `password` varchar(40) NOT NULL,
   `email` varchar(50) NOT NULL,
-  `role` varchar(15) DEFAULT 'Utilisateur'
+  `role` varchar(15) DEFAULT 'utilisateur'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -39,9 +39,9 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`login`, `password`, `email`,`role`) VALUES
-('admin', '21232f297a57a5a743894a0e4a801fc3', 'cyril.tilan@gmail.com', 'admin'),
+('admin', '21232f297a57a5a743894a0e4a801fc3', 'cyril.tilan@gmail.com','admin'),
 ('cayoux', '34b3f2108789aa97a44392d807661561', 'google.com@gmail.com','technicien'),
-('Cyril', 'b46d3c8ee8032551c011745d587705cc', 'bluex9632@gmail.com',),
+('Cyril', 'b46d3c8ee8032551c011745d587705cc', 'bluex9632@gmail.com','utilisateur'),
 ('Max', '16d5d24f5b09a1991bd4e5f57bf11237', 'max@gmail.com','adminReseau');
 
 --
