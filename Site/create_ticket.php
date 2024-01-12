@@ -171,7 +171,7 @@ if (isset($_SESSION['login'])) {
                         </div>
                         <div class='submit_ticket'>
                             <input type='submit' id='confirmer' value='Confirmer'>
-                            <input type='reset' id='annuler' value='Annuler'>
+                            <input type='reset' id='annuler' value='Reset'>
                         </div>
                     </form>
                     </div>

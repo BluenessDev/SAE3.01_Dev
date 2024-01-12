@@ -141,7 +141,7 @@ if (isset($_SESSION['login'])) {
     <br>
     <h3>Tableau des tickets de tout type </h3>";
     afficherTickets($utilisateur, null, $role_utilisateur);
-    echo $role_utilisateur;  // Test pour voir le role user
+    //echo $role_utilisateur;  // Test pour voir le role user
     echo "</div>
                 </div>
             </div>

@@ -132,6 +132,48 @@ if (isset($_SESSION['login'])) {
   <br>
 </header>
 <main role='main'>
+    <div class='main'>
+        <div class='article'>
+            <div class='main-article'>
+                <div class='subarticle'>
+                    <div class='titre' id='formtit'>
+                        <h2 class='highlight'>Informations personnelles :</h2>
+                    </div>
+                    <ligne
+                    <div class='ligne'>
+                    <div class='left'>
+                    <p>Login : $utilisateur</p>
+                    <p>Email : $email[0]</p>
+                    </div>
+                    <div class='right'>
+                    <table>
+                        <thead>
+                        <tr>
+                            <th>Nombre de tickets créés</th>
+                            <th>Nombre de tickets résolus</th>
+                        </tr>
+                        </thead>
+                        <tbody>";
+$requete = "SELECT COUNT(*) FROM tickets WHERE login='$utilisateur'";
+$result = mysqli_query($conn, $requete);
+$nb_tickets = mysqli_fetch_row($result);
+$requete = "SELECT COUNT(*) FROM tickets WHERE login='$utilisateur' AND etat='fini'";
+$result = mysqli_query($conn, $requete);
+$nb_tickets_resolus = mysqli_fetch_row($result);
+echo "<tr>
+                            <td>$nb_tickets[0]</td>
+                            <td>$nb_tickets_resolus[0]</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    </div>
+                    </div>
+                    </div>
+                    </div>
+                    </div>
+                    </div>
+                    </div>
+                    </div>
     <div class='article'>
         <div class='main-article'>
             <div class='ligne'>
@@ -204,6 +246,7 @@ if (isset($_SESSION['login'])) {
             </div>
         </div>
     </div>
+ </div>
 </main>";
     include 'footer.html';
 } else {

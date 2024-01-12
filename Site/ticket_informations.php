@@ -52,7 +52,7 @@ if (isset($_SESSION['login'])) {
                             <a href='index.php'><img src='assets/logo.png' alt='logo du site tickimoa'></a>
                             <div class='title'>
                                 <h1>Ravi de vous revoir <span style='text-transform:uppercase'>$utilisateur</span></h1>
-                                <h1 class='highlight'>Vous êtes sur la page Création De Tickets</h1>
+                                <h1 class='highlight'>Vous êtes sur la page d'info de tickets</h1>
                             </div>
                         </div>
                         <br>
@@ -60,9 +60,17 @@ if (isset($_SESSION['login'])) {
                         <br>
                     </header>
                     <main role='main'>
-                        <div class='custom-container'>
-                            <div class='custom-bg-color rounded shadow'>
-                                <h2 class='text-center highlight2'>Information du ticket</h2>
+                      <div class='article'>
+                        <div class='main-article'>
+                            <div class ='subarticle'>
+                                <div class='title' id='formtit'>
+                                    <h2 class='highlight'>Information du ticket</h2>
+                                </div>
+
+                                <div class='container'>
+                                <br>
+                                <br>
+                                <br>
                                 <div class='row'> <!-- Utilisation du système de grille de Bootstrap -->
                                     
                                     <!-- Colonne pour les informations du ticket -->
@@ -92,6 +100,7 @@ if (isset($_SESSION['login'])) {
                                     $resultTechniciens = mysqli_query($conn, $sql);
 
                                     if ($resultTechniciens) {
+                                        echo "<br>";
                                         echo "<h5 class='card-title'>Sélectionner un technicien</h5>";
                                         echo "<form action='' method='post'>";
                                         echo "<div class='mb-3'>";
@@ -135,18 +144,18 @@ if (isset($_SESSION['login'])) {
                                             echo "<p>Nombre de lignes affectées pour l'état : " . mysqli_stmt_affected_rows($reqpre_update_etat) . "</p>";
 
                                             if (mysqli_stmt_affected_rows($reqpre_update_etat) >= 0) {
-                                                echo "<p>L'état du ticket a été mis à jour avec succès.</p>";
+                                                echo "<p style='color: green'>L'état du ticket a été mis à jour avec succès.</p>";
                                             } else {
-                                                echo "<p>Erreur lors de la mise à jour de l'état du ticket.</p>";
+                                                echo "<p style='color: red'>Erreur lors de la mise à jour de l'état du ticket.</p>";
                                             }
                                         } else {
-                                            echo "<p>Erreur lors de l'assignation du technicien au ticket.</p>";
+                                            echo "<p style='color: red'>Erreur lors de l'assignation du technicien au ticket.</p>";
                                         }
                                     }
 
                                 }
                                 else{
-                                    echo " <p><strong>Technicien:</strong> " . $ticket['technicien_login'] . "</p>";
+                                    echo "<p><strong>Technicien :</strong> " . $ticket['technicien_login'] . "</p>";
                                 }
 
 
@@ -155,12 +164,14 @@ if (isset($_SESSION['login'])) {
                                 <!-- Boutons de retour -->
                                 <form action='index.php' method='post'>
                                 <div class='submit_ticket d-flex justify-content-center mt-3'>
-                                    <input type='submit' id='retour' value='Retour' class='btn btn-primary mr-2'>
+                                    <input type='submit' id='annuler' value='Retour' class='btn btn-primary mr-2'>
                                 </div>
                                 </form>
 
                             </div>
+                            </div>
                         </div>
+                      </div>
                     </main>
 
                 <footer class='bg-dark text-white text-center py-3 fixed-bottom''>";
