@@ -20,6 +20,8 @@
         background-color: #ccc;
     }
 
+
+
     .tabcontent {
         display: none;
         padding: 20px;
@@ -27,7 +29,9 @@
 
     .tabcontent.show {
         display: block;
+        width: ;
     }
+
 </style>
 
 
@@ -104,6 +108,16 @@ if (isset($_SESSION['login'])) {
         </div>";
     }
 
+    if ($role_utilisateur == "admin"){
+        echo "<div class='ligne'>
+            <a href='assigner_role.php'>
+                <div class='button'>
+                    <h2>Voir les rôles User</h2>
+                </div>
+            </a>
+        </div>";
+    }
+
     echo "
                 </div>
                 <div class='ligne' id='col'>
@@ -120,15 +134,15 @@ if (isset($_SESSION['login'])) {
                 <button class='tablinks' id='button2' data-content-id='en_cours' onclick='(\"en_cours\")'>En cours</button>
                 <button class='tablinks' id='button3' data-content-id='fini' onclick='(\"fini\")'>Fini</button>
             </div>
-            <div id='ouvert' class='tabcontent'>
+            <div id='ouvert' class='tabcontent active' >
                 <h3>Tableau des tickets ouverts</h3>";
         afficherTickets($utilisateur, 'ouvert', $role_utilisateur);
         echo "</div>
-            <div id='en_cours' class='tabcontent'>
+            <div id='en_cours' class='tabcontent active'>
                 <h3>Tableau des tickets en cours de réparation</h3>";
         afficherTickets($utilisateur, 'en_cours', $role_utilisateur);
         echo "</div>
-            <div id='fini' class='tabcontent'>
+            <div id='fini' class='tabcontent active'>
                 <h3>Tableau des tickets fini</h3>";
         afficherTickets($utilisateur, 'fini', $role_utilisateur);
         echo "</div>
@@ -136,7 +150,7 @@ if (isset($_SESSION['login'])) {
     }
 
     echo "
-<div id='tableau'>
+<div id='tableau' >
     <br>
     <br>
     <h3>Tableau des tickets de tout type </h3>";
