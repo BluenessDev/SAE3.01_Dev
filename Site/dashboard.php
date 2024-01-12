@@ -43,7 +43,7 @@ echo "<!DOCTYPE html>
 
 $host = "localhost";
 $username = "root";
-$password = "";
+$password = "root";
 
 $conn = mysqli_connect($host, $username, $password) or die("erreur de connexion");
 
@@ -80,21 +80,31 @@ if (isset($_SESSION['login'])) {
                                 <h2>Accéder au profil</h2>
                             </div>
                         </a>
-                    </div>
-                    <div class='ligne'>
-                        <a href='create_ticket.php'>
-                            <div class='button'>
-                                <h2>Ouvrir un ticket</h2>
-                            </div>
-                        </a>
-                    </div>
-                    <div class='ligne'>
-                        <a href='log.php'>
-                            <div class='button'>
-                                <h2>Voir les logs</h2>
-                            </div>
-                        </a>
-                    </div>
+                    </div>";
+
+// Display de 'create_ticket' div ni pour 'adminReseau' ni pour 'technicien'
+    if ($role_utilisateur == "Utilisateur") {
+        echo "<div class='ligne'>
+            <a href='create_ticket.php'>
+                <div class='button'>
+                    <h2>Ouvrir un ticket</h2>
+                </div>
+            </a>
+        </div>";
+    }
+
+// Display de 'log' div uniquement pour l'adminReseau
+    if ($role_utilisateur == "adminReseau") {
+        echo "<div class='ligne'>
+            <a href='log.php'>
+                <div class='button'>
+                    <h2>Voir les logs</h2>
+                </div>
+            </a>
+        </div>";
+    }
+
+    echo "
                 </div>
                 <div class='ligne' id='col'>
                     <div class='subarticle'>
@@ -102,7 +112,7 @@ if (isset($_SESSION['login'])) {
                             <h2>Mes derniers tickets ouverts :</h2>
                         </div>";
 
-// Display tabs only if the user is not a technician
+// Display tabs pour les users non techniciens
     if ($role_utilisateur != "technicien") {
         echo "<div id='alltabs'>
             <div id='tab'>
@@ -122,7 +132,7 @@ if (isset($_SESSION['login'])) {
                 <h3>Tableau des tickets fini</h3>";
         afficherTickets($utilisateur, 'fini', $role_utilisateur);
         echo "</div>
-        </div>"; // Closing 'alltabs' div
+        </div>"; // Fermeture 'alltabs' div
     }
 
     echo "
@@ -131,7 +141,7 @@ if (isset($_SESSION['login'])) {
     <br>
     <h3>Tableau des tickets de tout type </h3>";
     afficherTickets($utilisateur, null, $role_utilisateur);
-    echo $role_utilisateur;  // This is just for debugging purposes; you can remove or modify as needed
+    echo $role_utilisateur;  // Test pour voir le role user
     echo "</div>
                 </div>
             </div>

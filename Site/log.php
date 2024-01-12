@@ -43,15 +43,18 @@ if (isset($_SESSION['login'])) {
                     <table>
                         <thead>
                         <tr>
-                            <th>Logs</th>
+                            <th>Téléchargement</th>
+                            <th>Date</th>
                         </tr>
                         </thead>
                         <tbody>";
     $nombrefichiers = glob('logs/*.log');
-    foreach ($nombrefichiers as $fichier) {
-        $fichier = str_replace('logs/', '', $fichier);
+    for ($i = count($nombrefichiers); $i > 0; $i--) {
+        $fichier = str_replace('logs/', '', $nombrefichiers[$i - 1]);
+        $date = str_replace('.log', '', $fichier);
         echo "<tr>
-                            <td><a href='logs/$fichier'>$fichier</a></td>
+                            <td><a href='logs/$fichier'>Télecharger</a></td>
+                            <td>$date</td>
                         </tr>";
     }
     echo "</tbody>

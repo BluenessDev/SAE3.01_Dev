@@ -540,7 +540,7 @@ th, td {
     padding-block: 1em;
 }
 
-#connect:hover, #accountcreate:hover {
+#connect:hover, #accountcreate:hover, #confirmer:hover, #annuler:hover {
     color: #ffe6c7;
 }
 

@@ -45,53 +45,45 @@ if (isset($_POST['email'], $_POST['login'], $_POST['creapassword'], $_POST['conf
                         unset($_SESSION['captcha']);
                         $_SESSION['login'] = $login;
                         $_SESSION['date'] = date('d/m/Y');
-                        $_SESSION['logip'] = getIp();
+                        $ip = getIp();
                         $date = date('d-m-Y');
                         $log_file = fopen("logs/$date.log", "a");
-                        fwrite($log_file, "[" . date('d/m/Y H:i:s') . "] Inscription réussie de l'adresse IP " . $_SESSION['logip'] . " avec le login " . $_SESSION['login'] . "\n");
+                        fwrite($log_file, "[" . date('d/m/Y H:i:s') . "] Inscription réussie de l'adresse IP " . $ip . " avec le login " . $login . "\n");
                         fclose($log_file);
                         header('Location: index.php');
                     } else {
-                        session_start();
-                        $_SESSION['loginlog'] = $login;
-                        $_SESSION['logip'] = getIp();
+                        $ip = getIp();
                         $date = date('d-m-Y');
                         $reason = "Erreur lors de la création du compte";
                         $log_file = fopen("logs/$date.log", "a");
-                        fwrite($log_file, "[" . date('d/m/Y H:i:s') . "] Inscription échouée de l'adresse IP " . $_SESSION['logip'] . " avec le login " . $_SESSION['loginlog'] . " : $reason\n");
+                        fwrite($log_file, "[" . date('d/m/Y H:i:s') . "] Inscription échouée de l'adresse IP " . $ip . " avec le login " . $login . " : $reason\n");
                         fclose($log_file);
                         header('Location: form_inscr?error=4.php');
                     }
                 } else {
-                    session_start();
-                    $_SESSION['loginlog'] = $login;
-                    $_SESSION['logip'] = getIp();
+                    $ip = getIp();
                     $date = date('d-m-Y');
                     $reason = "Capcha incorrect";
                     $log_file = fopen("logs/$date.log", "a");
-                    fwrite($log_file, "[" . date('d/m/Y H:i:s') . "] Inscription échouée de l'adresse IP " . $_SESSION['logip'] . " avec le login " . $_SESSION['loginlog'] . " : $reason\n");
+                    fwrite($log_file, "[" . date('d/m/Y H:i:s') . "] Inscription échouée de l'adresse IP " . $ip . " avec le login " . $login . " : $reason\n");
                     fclose($log_file);
                     header('Location: form_inscr.php?error=3');
                 }
             } else {
-                session_start();
-                $_SESSION['loginlog'] = $login;
-                $_SESSION['logip'] = getIp();
+                $ip = getIp();
                 $date = date('d-m-Y');
                 $reason = "Mots de passe différents";
                 $log_file = fopen("logs/$date.log", "a");
-                fwrite($log_file, "[" . date('d/m/Y H:i:s') . "] Inscription échouée de l'adresse IP " . $_SESSION['logip'] . " avec le login " . $_SESSION['loginlog'] . " : $reason\n");
+                fwrite($log_file, "[" . date('d/m/Y H:i:s') . "] Inscription échouée de l'adresse IP " . $ip . " avec le login " . $login . " : $reason\n");
                 fclose($log_file);
                 header('Location: form_inscr.php?error=1');
             }
         } else {
-            session_start();
-            $_SESSION['loginlog'] = $login;
-            $_SESSION['logip'] = getIp();
+            $ip = getIp();
             $date = date('d-m-Y');
             $reason = "Login déjà utilisé";
             $log_file = fopen("logs/$date.log", "a");
-            fwrite($log_file, "[" . date('d/m/Y H:i:s') . "] Inscription échouée de l'adresse IP " . $_SESSION['logip'] . " avec le login " . $_SESSION['loginlog'] . " : $reason\n");
+            fwrite($log_file, "[" . date('d/m/Y H:i:s') . "] Inscription échouée de l'adresse IP " . $ip . " avec le login " . $login . " : $reason\n");
             fclose($log_file);
             header('Location: form_inscr.php?error=2');
         }

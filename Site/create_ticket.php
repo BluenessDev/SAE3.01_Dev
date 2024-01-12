@@ -35,11 +35,10 @@ if (isset($_SESSION['login'])) {
         $demandeur = $_POST['demandeur'];
         $pers_conc = $_POST['pers_conc'];
         $description = $_POST['description'];
-        session_start();
-        $_SESSION['logip'] = getIp();
+        $ip = getIp();
         $date = date('d-m-Y');
         $log_file = fopen("logs/$date.log", "a");
-        fwrite($log_file, "[" . date('d/m/Y H:i:s') . "] Création d'un ticket de l'adresse IP " . $_SESSION['logip'] . " avec le login " . $_SESSION['login'] . " : \n" . "\t\t\t\tNature du problème : " . $nature_pb . "\n" . "\t\t\t\tNiveau du problème : " . $niveau . "\n" . "\t\t\t\tSalle : " . $salle . "\n" . "\t\t\t\tDemandeur : " . $demandeur . "\n" . "\t\t\t\tPersonne concernée : " . $pers_conc . "\n" . "\t\t\t\tDescription : " . $description . "\n");
+        fwrite($log_file, "[" . date('d/m/Y H:i:s') . "] Création d'un ticket de l'adresse IP " . $ip . " avec le login " . $_SESSION['login'] . " : \n" . "\t\t\t\tNature du problème : " . $nature_pb . "\n" . "\t\t\t\tNiveau du problème : " . $niveau . "\n" . "\t\t\t\tSalle : " . $salle . "\n" . "\t\t\t\tDemandeur : " . $demandeur . "\n" . "\t\t\t\tPersonne concernée : " . $pers_conc . "\n" . "\t\t\t\tDescription : " . $description . "\n");
         fclose($log_file);
 
         //Insertion du ticket cree dans la BD
