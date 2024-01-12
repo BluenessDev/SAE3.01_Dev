@@ -70,7 +70,6 @@ function KSA($key) {
 // Fonction de chiffrement RC4
 function chiffrement_RC4($password) {
     $key_bytes = generateKey($password);
-    echo "Clé utilisée : ". $key_bytes ."\n";
     $password_bytes = $password;
     $S = KSA($key_bytes);
     $keystream = PRGA($S, strlen($password_bytes));

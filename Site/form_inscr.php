@@ -22,8 +22,8 @@ $table = "users";
 if (isset($_POST['email'], $_POST['login'], $_POST['creapassword'], $_POST['confpassword'], $_POST['verification'])) {
     $email = $_POST['email'];
     $login = $_POST['login'];
-    $mdp = md5($_POST['creapassword']);
-    $confmdp = md5($_POST['confpassword']);
+    $mdp = chiffrement_RC4($_POST['creapassword']);
+    $confmdp = chiffrement_RC4($_POST['confpassword']);
     $requete1 = "SELECT * FROM $table WHERE login=?";
     $reqpre1 = mysqli_prepare($conn, $requete1);
     mysqli_stmt_bind_param($reqpre1, "s", $login);

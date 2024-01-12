@@ -115,9 +115,9 @@ function afficherUtilisateurs() {
             echo "<select name='role'>";
             echo "<option value='" . $row['role'] . "'>" . $row['role'] . "</option>"; // Sélectionnez le rôle actuel par défaut
             if ($row['role'] == 'technicien') {
-                echo "<option value='utilisateur'>Utilisateur</option>";
+                echo "<option value='utilisateur'>utilisateur</option>";
             } else {
-                echo "<option value='technicien'>Technicien</option>";
+                echo "<option value='technicien'>uechnicien</option>";
             }
             echo "</select>";
             echo "<input type='hidden' name='login' value='" . $row['login'] . "'>";
