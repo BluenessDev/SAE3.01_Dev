@@ -1,6 +1,7 @@
 <?php
 
 include 'functions.php';
+include 'Crypto.php';
 
 session_start();
 

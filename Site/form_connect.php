@@ -1,6 +1,7 @@
 <?php
 
 include 'functions.php';
+include 'Crypto.php';
 
 $host = "localhost";
 $username = "root";
@@ -15,7 +16,7 @@ $table = "users";
 
 if (isset($_POST['login'], $_POST['password'])) {
     $login = $_POST['login'];
-    $mdp = md5($_POST['password']);
+    $mdp = chiffrement_RC4($_POST['password']);
     $requete = "SELECT * FROM $table WHERE login=? AND password=?";
     $reqpre = mysqli_prepare($conn, $requete);
 

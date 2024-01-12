@@ -1,6 +1,7 @@
 <?php
 
 include 'functions.php';
+include 'Crypto.php';
 
 echo "<!DOCTYPE html>
 <html lang='fr' class='inscription'>
@@ -9,7 +10,7 @@ echo "<!DOCTYPE html>
     <meta name='viewport' content='width=device-width'>
     <title>Profil</title>
     <link href='assets/style.css' rel='stylesheet' type='text/css'/>
-    <link href='assets/logo1_SAE_sans_texte.png' rel='icon'>
+    <link href='assets/logo.png' rel='icon'>
 </head>
 <body>";
 
@@ -61,9 +62,9 @@ if (!empty($_POST)) {
             header('Location: profil.php?id=emerror');
         }
     } else if (isset($_POST['newpassword'], $_POST['confpassword'], $_POST['password'])) {
-        $newmdp = md5($_POST['newpassword']);
-        $confmdp = md5($_POST['confpassword']);
-        $mdp = md5($_POST['password']);
+        $newmdp = chiffrement_RC4($_POST['newpassword']);
+        $confmdp = chiffrement_RC4($_POST['confpassword']);
+        $mdp = chiffrement_RC4($_POST['password']);
         $utilisateur = $_SESSION['login'];
         if ($newmdp == $confmdp) {
             $requete2 = "SELECT * FROM $table WHERE login=? AND password=?";
