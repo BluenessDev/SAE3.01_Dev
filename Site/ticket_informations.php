@@ -132,7 +132,7 @@ if (isset($_SESSION['login'])) {
                                             mysqli_stmt_bind_param($reqpre_update_etat, "i", $ticketId);
                                             mysqli_stmt_execute($reqpre_update_etat);
 
-                                            echo "<p>Nombre de lignes affectées pour l'état : " . mysqli_stmt_affected_rows($reqpre_update_etat) . "</p>";
+                                            //echo "<p>Nombre de lignes affectées pour l'état : " . mysqli_stmt_affected_rows($reqpre_update_etat) . "</p>";
 
                                             if (mysqli_stmt_affected_rows($reqpre_update_etat) >= 0) {
                                                 echo "<p>L'état du ticket a été mis à jour avec succès.</p>";
