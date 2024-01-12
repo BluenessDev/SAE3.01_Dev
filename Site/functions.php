@@ -145,3 +145,54 @@ function afficherUtilisateurs() {
 }
 
 
+function displayTechnicianSelection($conn, $ticketId) {
+    $sql = "SELECT login FROM users WHERE role = 'technicien'";
+    $resultTechniciens = mysqli_query($conn, $sql);
+
+    if ($resultTechniciens) {
+        echo "<h5 class='card-title'>Sélectionner un technicien</h5>";
+        echo "<form action='' method='post'>";
+        echo "<div class='mb-3' >";
+        echo "<label for='technicienSelect' class='form-label'>Technicien :</label>";
+        echo "<select class='form-select' id='technicienSelect' name='technicien'>";
+
+        while ($row = mysqli_fetch_assoc($resultTechniciens)) {
+            $login = htmlspecialchars($row['login']);
+            echo "<option value='$login'>$login</option>";
+        }
+
+        echo "</select>";
+        echo "</div>";
+        echo "<input type='submit' value='Assigner' class='btn btn-primary'>";
+        echo "</form>";
+    } else {
+        echo "Erreur lors de la récupération des techniciens: " . mysqli_error($conn);
+    }
+}
+
+function assignTechnicianToTicket($conn, $ticketId) {
+    if (isset($_POST['technicien'])) {
+        $technicienLogin = $_POST['technicien'];
+        $requete_update = "UPDATE tickets SET technicien_login = ?, etat = 'en_cours' WHERE id = ?";
+        $reqpre_update = mysqli_prepare($conn, $requete_update);
+        mysqli_stmt_bind_param($reqpre_update, "si", $technicienLogin, $ticketId);
+        mysqli_stmt_execute($reqpre_update);
+
+        if (mysqli_stmt_affected_rows($reqpre_update) > 0) {
+            echo "<p>$technicienLogin a été assigné avec succès au ticket.</p>";
+            updateTicketStatus($conn, $ticketId);
+        } else {
+            echo "<p>Erreur lors de l'assignation du technicien au ticket.</p>";
+        }
+    }
+}
+
+function updateTicketStatus($conn, $ticketId) {
+    $requete_update_etat = "UPDATE tickets SET etat = 'en_cours' WHERE id = ?";
+    $reqpre_update_etat = mysqli_prepare($conn, $requete_update_etat);
+    mysqli_stmt_bind_param($reqpre_update_etat, "i", $ticketId);
+    mysqli_stmt_execute($reqpre_update_etat);
+    echo "<p>L'état du ticket a été mis à jour avec succès.</p>";
+}
+
+

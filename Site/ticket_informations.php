@@ -25,21 +25,34 @@ if (isset($_SESSION['login'])) {
     $utilisateur = $_SESSION['login'];
     include 'functions.php';
 
-    if (isset($_GET['id'])) {
-        $ticketId = $_GET['id'];
+    // Récupérer le rôle de l'utilisateur
+    $requete_role = "SELECT role FROM users WHERE login = ?";
+    $reqpre_role = mysqli_prepare($conn, $requete_role);
 
-        $requete = "SELECT * FROM tickets WHERE id=?";
-        $reqpre = mysqli_prepare($conn, $requete);
+    if ($reqpre_role) {
+        mysqli_stmt_bind_param($reqpre_role, "s", $utilisateur);
+        mysqli_stmt_execute($reqpre_role);
+        $result_role = mysqli_stmt_get_result($reqpre_role);
 
-        if ($reqpre) {
-            mysqli_stmt_bind_param($reqpre, "i", $ticketId);
-            mysqli_stmt_execute($reqpre);
-            $result = mysqli_stmt_get_result($reqpre);
+        if (mysqli_num_rows($result_role) > 0) {
+            $row = mysqli_fetch_assoc($result_role);
+            $roleUtilisateur = $row['role'];
 
-            if (mysqli_num_rows($result) > 0) {
-                $ticket = mysqli_fetch_assoc($result);
+            // Récupérer les informations du ticket
+            if (isset($_GET['id'])) {
+                $ticketId = $_GET['id'];
+                $requete_ticket = "SELECT * FROM tickets WHERE id=?";
+                $reqpre_ticket = mysqli_prepare($conn, $requete_ticket);
 
-                echo "<body>
+                if ($reqpre_ticket) {
+                    mysqli_stmt_bind_param($reqpre_ticket, "i", $ticketId);
+                    mysqli_stmt_execute($reqpre_ticket);
+                    $result_ticket = mysqli_stmt_get_result($reqpre_ticket);
+
+                    if (mysqli_num_rows($result_ticket) > 0) {
+                        $ticket = mysqli_fetch_assoc($result_ticket);
+
+                        echo "<body>
                         <header role='banner'>
                         <nav role='navigation'>
                             <ul class='nav-list'>
@@ -68,6 +81,7 @@ if (isset($_SESSION['login'])) {
                                     <!-- Colonne pour les informations du ticket -->
                                     <div class='col-md-6'> <!-- Colonne de 6 colonnes sur 12 (pour les grands écrans) -->
                                         <div class='article'>
+                                                <p><strong>ID:</strong> " . $utilisateur . "</p>
                                                 <p><strong>ID:</strong> " . $ticket['id'] . "</p>
                                                 <p><strong>Nature:</strong> " . $ticket['nature'] . "</p>
                                                 <p><strong>Niveau:</strong> " . $ticket['niveau'] . "</p>
@@ -84,78 +98,44 @@ if (isset($_SESSION['login'])) {
                                         <div class='card' style='margin-top: auto'>
                                             <div class='card-body' style='width: 50%'>
                                                 <h5 class='card-title'>Description du problème</h5>
-                                                <p class='card-text'>" .$ticket['description'] ."</p>
+                                                <p class='card-text'>" . $ticket['description'] . "</p>
                                             </div>
                                         </div>";
-                                if($utilisateur == 'admin') {
-                                    $sql = "SELECT login FROM users WHERE role = 'technicien'";
-                                    $resultTechniciens = mysqli_query($conn, $sql);
+                        if ($roleUtilisateur == 'admin') {
+                            displayTechnicianSelection($conn, $_GET['id']);
+                            assignTechnicianToTicket($conn, $_GET['id']);
+                        } elseif ($roleUtilisateur == 'technicien') {
+                            echo "<div class='text-center mt-3'>";
+                            echo "<form action='' method='post'>";
+                            echo "<input type='hidden' name='ticket_id' value='" . $ticket['id'] . "'>";
+                            echo "<button  type='submit' name='finir_ticket' class='btn btn-primary mr-2'>Marquer comme fini</button>";
+                            echo "</form>";
+                            echo "</div>";
 
-                                    if ($resultTechniciens) {
-                                        echo "<h5 class='card-title'>Sélectionner un technicien</h5>";
-                                        echo "<form action='' method='post'>";
-                                        echo "<div class='mb-3'>";
-                                        echo "<label for='technicienSelect' class='form-label'>Technicien :</label>";
-                                        echo "<select class='form-select' id='technicienSelect' name='technicien'>";
+                            if (isset($_POST['finir_ticket'])) {
+                                $ticketId = $_POST['ticket_id'];
+                                $requete_update_etat = "UPDATE tickets SET etat = 'fini' WHERE id = ?";
+                                $reqpre_update_etat = mysqli_prepare($conn, $requete_update_etat);
+                                mysqli_stmt_bind_param($reqpre_update_etat, "i", $ticketId);
 
-                                        while ($row = mysqli_fetch_assoc($resultTechniciens)) {
-                                            $login = htmlspecialchars($row['login']);
-                                            echo "<option value='$login'>$login</option>";
-                                        }
-
-                                        echo "</select>";
-                                        echo "</div>";
-                                        echo "<input type='submit' value='Assigner' class='btn btn-primary'>";
-                                        echo "</form>";
-
-                                    } else {
-                                        echo "Erreur lors de la récupération des techniciens: " . mysqli_error($conn);
-                                    }
-                                    if (isset($_POST['technicien'])) {
-                                        $ticketId = $_GET['id'];
-
-                                        // Récupérez le technicien sélectionné
-                                        $technicienLogin = $_POST['technicien'];
-
-                                        // Mettre à jour le ticket dans la base de données avec le technicien sélectionné
-                                        $requete_update = "UPDATE tickets SET technicien_login = ?, etat = 'en_cours' WHERE id = ?";
-                                        $reqpre_update = mysqli_prepare($conn, $requete_update);
-                                        mysqli_stmt_bind_param($reqpre_update, "si", $technicienLogin, $ticketId);
-                                        mysqli_stmt_execute($reqpre_update);
-
-                                        if (mysqli_stmt_affected_rows($reqpre_update) > 0) {
-                                            echo "<p>Le technicien a été assigné avec succès au ticket.</p>";
-
-                                            // Mettre à jour l'état du ticket
-                                            $requete_update_etat = "UPDATE tickets SET etat = 'en_cours' WHERE id = ?";
-                                            $reqpre_update_etat = mysqli_prepare($conn, $requete_update_etat);
-                                            mysqli_stmt_bind_param($reqpre_update_etat, "i", $ticketId);
-                                            mysqli_stmt_execute($reqpre_update_etat);
-
-                                            //echo "<p>Nombre de lignes affectées pour l'état : " . mysqli_stmt_affected_rows($reqpre_update_etat) . "</p>";
-
-                                            if (mysqli_stmt_affected_rows($reqpre_update_etat) >= 0) {
-                                                echo "<p>L'état du ticket a été mis à jour avec succès.</p>";
-                                            } else {
-                                                echo "<p>Erreur lors de la mise à jour de l'état du ticket.</p>";
-                                            }
-                                        } else {
-                                            echo "<p>Erreur lors de l'assignation du technicien au ticket.</p>";
-                                        }
-                                    }
-
+                                if (mysqli_stmt_execute($reqpre_update_etat)) {
+                                    echo "<p>Le ticket a été marqué comme fini avec succès.</p>";
+                                } else {
+                                    echo "<p>Erreur lors de la mise à jour de l'état du ticket.</p>";
                                 }
-                                else{
-                                    echo " <p><strong>Technicien:</strong> " . $ticket['technicien_login'] . "</p>";
-                                }
+                            }
+                        } else {
+                            echo "<p><strong>Technicien:</strong> " . $ticket['technicien_login'] . "</p>";
+                        }
 
 
-                                    echo "</div> <!-- Fin de la row -->
+
+                        echo "</div> <!-- Fin de la row -->
 
                                 <!-- Boutons de retour -->
                                 <form action='index.php' method='post'>
                                 <div class='submit_ticket d-flex justify-content-center mt-3'>
-                                    <input type='submit' id='retour' value='Retour' class='btn btn-primary mr-2'>
+                                    <input type='submit' id='confirmer' value='Retour' class='btn btn-primary mr-2' >
                                 </div>
                                 </form>
 
@@ -164,27 +144,29 @@ if (isset($_SESSION['login'])) {
                     </main>
 
                 <footer class='bg-dark text-white text-center py-3 fixed-bottom''>";
-                 include 'footer.html';
-                echo "</footer>";
+                        include 'footer.html';
+                        echo "</footer>";
 
 
+                    } else {
+                        echo "<p>Aucun ticket trouvé avec cet ID.</p>";
+                    }
+                } else {
+                    die("Erreur dans la préparation de la requête: " . mysqli_error($conn));
+                }
             } else {
-                echo "<p>Aucun ticket trouvé avec cet ID.</p>";
+                echo "<p>Aucun ID de ticket spécifié.</p>";
             }
         } else {
-            die("Erreur dans la préparation de la requête: " . mysqli_error($conn));
+            echo "<p>Veuillez vous connecter pour accéder à cette page.</p>";
         }
     } else {
-        echo "<p>Aucun ID de ticket spécifié.</p>";
+        echo "Erreur lors de la préparation de la requête pour récupérer le rôle.";
     }
-} else {
-    echo "<p>Veuillez vous connecter pour accéder à cette page.</p>";
-}
 
-echo "</body>
+    echo "</body>
 </html>";
-
-
+}
 
 
 
