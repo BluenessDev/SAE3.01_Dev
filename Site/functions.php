@@ -117,7 +117,7 @@ function afficherUtilisateurs() {
             if ($row['role'] == 'technicien') {
                 echo "<option value='utilisateur'>utilisateur</option>";
             } else {
-                echo "<option value='technicien'>uechnicien</option>";
+                echo "<option value='technicien'>technicien</option>";
             }
             echo "</select>";
             echo "<input type='hidden' name='login' value='" . $row['login'] . "'>";
