@@ -23,7 +23,7 @@ Nous avons ainsi décidé de créer une application fournissant un diagramme rep
 
 Pour commencer, notre application a besoin a besoin de charger differents packages qui sont les packages Shiny, dplyr et ggplot2 utile au bon fonctionnement de l'application.
 - Le package shiny nous permettra donc d'utiliser les fonctions necessaires a la creation d'une application web interactive en R.
-- Le package dplyr va permettre la manipulation et et me filtrage des données des tickets
+- Le package dplyr va permettre la manipulation et le filtrage des données des tickets
 - Le package ggplot2 va lui permettre de générer des graphiques pour visualiser la répartition des tickets par mois.
 
 Pour le package shiny on utilise les fonctions suivantes :
