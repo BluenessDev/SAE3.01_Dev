@@ -1,4 +1,52 @@
 <?php
+
+include 'functions.php';
+include 'Crypto.php';
+
+$host = "localhost";
+$username = "root";
+$password = "root";
+
+$conn = mysqli_connect($host, $username, $password) or die("erreur de connexion");
+
+$namedb = "sae";
+$db = mysqli_select_db($conn, $namedb) or die("erreur de connexion base");
+
+$table = "users";
+
+if (isset($_POST['login'], $_POST['password'])) {
+    $login = $_POST['login'];
+    $mdp = chiffrement_RC4($_POST['password']);
+    $requete = "SELECT * FROM $table WHERE login=? AND password=?";
+    $reqpre = mysqli_prepare($conn, $requete);
+
+    mysqli_stmt_bind_param($reqpre, "ss", $login, $mdp);
+
+    mysqli_stmt_execute($reqpre);
+
+    if ($result = mysqli_stmt_get_result($reqpre)) {
+        if (mysqli_num_rows($result) == 1) {
+            session_start();
+            $_SESSION['login'] = $login;
+            $ip = getIp();
+            $date = date('d-m-Y');
+            $log_file = fopen("logs/$date.log", "a");
+            fwrite($log_file, "[" . date('d/m/Y H:i:s') . "] Connexion réussie de l'adresse IP " . $ip . " avec le login " . $_SESSION['login'] . "\n");
+            fclose($log_file);
+            header('Location: index.php');
+        } else {
+            $ip = getIp();
+            $date = date('d-m-Y');
+            $log_file = fopen("logs/$date.log", "a");
+            fwrite($log_file, "[" . date('d/m/Y H:i:s') . "] Connexion échouée de l'adresse IP " . $ip . " avec le login " . $login . "\n");
+            fclose($log_file);
+            header('Location: form_connect.php?error=1');
+        }
+    }
+} else if (isset($_SESSION['login'])) {
+    header('Location: index.php');
+}
+
 echo "<!DOCTYPE html>
 <html lang='fr' class='inscription'>
 <head>
@@ -23,7 +71,7 @@ echo "<main role='main'>
                         <h2 class='highlight2'>Se connecter</h2>
                     </div>
                     <br>
-                    <form action='action.php' method='post' class='formulaire'>
+                    <form action='' method='post' class='formulaire'>
                         <div class='login'>
                             <label for='login'>Login :</label>
                             <input type='text' name='login' id='login' required>
@@ -39,7 +87,7 @@ echo "<main role='main'>
                         </div>";
 if (!empty($_GET["error"]) && $_GET['error'] == 1) {
     echo "<p style='color: red'>Mot de passe incorrect</p>";
-}else {
+} else {
     echo "<br>";
     echo "<br>";
 }

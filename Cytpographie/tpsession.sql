@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.2.0
+-- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
--- Hôte : localhost:8889
--- Généré le : sam. 11 nov. 2023 à 01:46
--- Version du serveur : 5.7.39
--- Version de PHP : 8.2.0
+-- Hôte : 127.0.0.1
+-- Généré le : mar. 19 déc. 2023 à 15:19
+-- Version du serveur : 10.4.32-MariaDB
+-- Version de PHP : 8.2.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -28,21 +28,17 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `users` (
-  `login` varchar(15) NOT NULL,
-  `password` varchar(40) NOT NULL,
-  `email` varchar(50) NOT NULL,
-  `role` varchar(15) DEFAULT 'utilisateur'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  `login` varchar(8) NOT NULL,
+  `password` varchar(50) NOT NULL,
+  `email` varchar(100) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Déchargement des données de la table `users`
 --
 
-INSERT INTO `users` (`login`, `password`, `email`,`role`) VALUES
-('admin', '21232f297a57a5a743894a0e4a801fc3', 'cyril.tilan@gmail.com','admin'),
-('cayoux', '34b3f2108789aa97a44392d807661561', 'google.com@gmail.com','technicien'),
-('Cyril', 'b46d3c8ee8032551c011745d587705cc', 'bluex9632@gmail.com','utilisateur'),
-('Max', '16d5d24f5b09a1991bd4e5f57bf11237', 'max@gmail.com','adminReseau');
+INSERT INTO `users` (`login`, `password`, `email`) VALUES
+('admin', 'c958ad66ff', 'admin@admin.admin');
 
 --
 -- Index pour les tables déchargées

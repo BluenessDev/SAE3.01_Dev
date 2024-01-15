@@ -3,21 +3,21 @@
 html, body {
     font-family: 'Poppins', sans-serif;
     font-size: 12px;
-    padding-top: 0px;
-    margin: 0px;
+    padding-top: 0;
+    margin: 0;
     overflow: hidden visible;
 }
 
 h1, h2, h3, h4, h5, h6 {
-    margin: 0px;
+    margin: 0;
 }
 
 header {
-    border-radius: 0px 0px 20px 20px;
+    border-radius: 0 0 20px 20px;
     background: linear-gradient(94deg, #969291 38.89%, #B2ABA5 87.78%);
-    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+    box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.25);
     width: 100%;
-    margin: 0px;
+    margin: 0;
     color: white;
     padding-bottom: 3%;
 }
@@ -43,7 +43,7 @@ header > .inheader > a > img {
 }
 
 footer {
-    border-radius: 10px 10px 0px 0px;
+    border-radius: 10px 10px 0 0;
     background: linear-gradient(94deg, #969291 38.89%, #B2ABA5 87.78%);
     color: white;
     width: 100%;
@@ -52,7 +52,7 @@ footer {
 footer > .infooter > p {
     padding-left: 2%;
     padding-block: 1%;
-    margin: 0px;
+    margin: 0;
 }
 
 footer > .infooter > img {
@@ -104,6 +104,8 @@ footer > .infooter > img {
     align-items: center;
 }
 
+
+
 .inheader {
     display: flex;
     flex-direction: row;
@@ -135,7 +137,7 @@ nav > ul > li {
 .conn-button {
     border-radius: 13px;
     background: none;
-    box-shadow: inset 0px 0px 15px 5px rgba(0, 0, 0, 0.25);
+    box-shadow: inset 0 0 15px 5px rgba(0, 0, 0, 0.25);
     padding-inline: 1.4em;
     padding-block: 0.5em;
 }
@@ -208,7 +210,7 @@ h1 {
 .subarticle {
     background: #D2D2D2;
     border-radius: 2.5rem;
-    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+    box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.25);
     display: flex;
     text-align: left;
     justify-content: flex-start;
@@ -223,7 +225,7 @@ h1 {
 .button {
     background: #BDBBB9;
     border-radius: 2.5rem;
-    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+    box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.25);
     width: 91%;
     height: 78%;
     display: flex;
@@ -235,7 +237,7 @@ h1 {
     padding: 3%;
 }
 
-a {
+header > .inheader > a {
     color: black;
     text-decoration: none;
 }
@@ -249,9 +251,9 @@ a {
     display: flex;
     flex-direction: row;
     align-items: center;
-    padding-left: 11%;
-    padding-right: 11%;
     padding-top:4%;
+    padding-bottom:2.5%;
+    width: 100%;
 }
 
 #texte {
@@ -291,7 +293,7 @@ th, td {
 }
 
 .ligne > img {
-    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+    box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.25);
     border-radius: 2.5em;
     width: 66.5rem;
     height: 57em;
@@ -368,7 +370,17 @@ th, td {
     width: 100%;
 }
 
-.formulaire > .submit {
+.formulaire > .verif {
+    display: flex;
+    font-style: normal;
+    font-size: 1.36em;
+    flex-direction: column;
+    align-items: center;
+    margin: 0 auto;
+    width: 100%;
+}
+
+.formulaire > .submit{
     display: flex;
     font-style: normal;
     flex-direction: column;
@@ -379,7 +391,113 @@ th, td {
     height: 90%;
 }
 
-#login, #password, #email, #confpassword, #creapassword, #newpassword {
+.formulaire > .left > .nature_pb {
+    display: flex;
+    font-style: normal;
+    font-size: 1.36em;
+    flex-direction: column;
+    align-items: center;
+    margin: 0 auto;
+    width: 100%;
+    padding: 10px;
+}
+
+.formulaire > .left >.niveau{
+    display: flex;
+    font-style: normal;
+    font-size: 1.36em;
+    flex-direction: column;
+    align-items: center;
+    margin: 0 auto;
+    width: 100%;
+    padding: 10px;
+}
+
+.formulaire > .left > .salle {
+    display: flex;
+    font-style: normal;
+    font-size: 1.36em;
+    flex-direction: column;
+    align-items: center;
+    margin: 0 auto;
+    width: 100%;
+    padding: 10px;
+}
+
+.formulaire > .left > .demandeur {
+    display: flex;
+    font-style: normal;
+    font-size: 1.36em;
+    flex-direction: column;
+    align-items: center;
+    margin: 0 auto;
+    width: 100%;
+    padding: 10px;
+}
+
+.formulaire > .left > .pers_conc {
+    display: flex;
+    font-style: normal;
+    font-size: 1.36em;
+    flex-direction: column;
+    align-items: center;
+    margin: 0 auto;
+    width: 100%;
+    padding: 10px;
+}
+
+.formulaire > .right > .description{
+    display: flex;
+    font-style: normal;
+    font-size: 1.36em;
+    flex-direction: column;
+    align-items: center;
+    margin: 0 auto;
+    width: 100%;
+    padding: 10px;
+}
+
+.formulaire > .left > .niveau > select{
+    text-align: center;
+}
+
+.formulaire > .left > .salle > select{
+    text-align: center;
+}
+
+.formulaire > .left{
+    margin-left: 100px;
+    float: left;
+    border-right: 3px solid #8D8D8D;
+    padding-right: 110px;
+    padding-bottom: 15px;
+}
+
+.formulaire > .right{
+    float: right;
+    margin-right: 50px;
+}
+
+
+
+.formulaire > .submit_ticket{
+    display: flex;
+    font-style: normal;
+    justify-content: center;
+    padding-top: 20px;
+    width: 100%;
+    height: 90%;
+}
+
+.formulaire > .submit_ticket input{
+    margin-right: 25px;
+}
+
+.formulaire > blockquote{
+    font-size: 1.2em;
+}
+
+#login, #password, #email, #confpassword, #creapassword, #newpassword, #verification, #niveau, #salle {
     width: 13em;
     border-radius: 5px;
     border: none;
@@ -388,7 +506,29 @@ th, td {
     color: #000000;
 }
 
-#connect, #accountcreate {
+#nature_pb, #demandeur, #pers_conc{
+    width: 20em;
+    text-align: center;
+    border-radius: 5px;
+    border: none;
+    font-size: 1.2em;
+    font-weight: 500;
+    color: #000000;
+}
+
+#description{
+    width: 25em;
+    height: 15em;
+    border-radius: 5px;
+    border: none;
+    font-size: 1.2em;
+    justify-content: normal;
+    font-weight: 500;
+    color: #000000;
+    resize: none;
+}
+
+#connect, #accountcreate, #confirmer, #annuler {
     border-radius: 0.8125rem;
     border: none;
     font-size: 1.4em;
@@ -400,7 +540,7 @@ th, td {
     padding-block: 1em;
 }
 
-#connect:hover, #accountcreate:hover {
+#connect:hover, #accountcreate:hover, #confirmer:hover, #annuler:hover {
     color: #ffe6c7;
 }
 
@@ -435,11 +575,11 @@ th, td {
 
 #col > .prix{
     text-align: center;
-    padding:0px;
+    padding:0;
 }
 
 #col > .prix > *{
-    margin-left:0px;
+    margin-left:0;
 }
 
 #col > div > *{
@@ -448,4 +588,84 @@ th, td {
 
 p {
     font-size:1.1em;
+}
+
+footer > .infooter > a{
+    width: 12%;
+    padding: 10px;
+}
+
+footer > .infooter > a >img{
+    width: 100%;
+}
+
+.ligne > a{
+    color: black;
+    text-decoration: none;
+}
+
+.ligne > a:hover{
+    color: white;
+    text-decoration: none;
+}
+
+
+/* Pour les écrans de taille plus petite, comme les tablettes */
+@media screen and (max-width: 828px) {
+
+    html, body {
+        font-family: 'Poppins', sans-serif;
+        font-size: 10px;
+        padding-top: 0;
+        margin: 0;
+        overflow: hidden visible;
+    }
+
+    iframe {
+        width: 100%;
+        height: 285px;
+    }
+
+    h1 {
+        font-size: 1.5em;
+    }
+
+    nav > ul > li {
+        margin-top: 2%;
+        margin-right: 1%;
+    }
+
+    nav > ul {
+        list-style-type: none;
+        padding: 0;
+        font-weight: 500;
+        font-size: 1.0em;
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-end;
+        margin-top: 0;
+    }
+
+    p {
+        font-size:1.0em;
+    }
+
+    .titre {
+        color: #000000;
+        text-align: center;
+        font-style: normal;
+        font-weight: 700;
+        font-size: 1.1em;
+        align-items: center;
+        gap: 0.5em;
+    }
+
+    .ligne > img {
+        box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.25);
+        border-radius: 2.5em;
+        width: 50%;
+        height: 50%;
+        margin-block: 1%;
+        overflow: hidden;
+    }
 }

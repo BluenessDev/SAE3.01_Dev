@@ -1,4 +1,100 @@
 <?php
+
+include 'functions.php';
+include 'Crypto.php';
+
+session_start();
+
+$host = "localhost";
+$username = "root";
+$password = "root";
+
+$operande1 = rand(1, 10);
+$operande2 = rand(1, 10);
+
+$conn = mysqli_connect($host, $username, $password) or die("erreur de connexion");
+
+$namedb = "sae";
+$db = mysqli_select_db($conn, $namedb) or die("erreur de connexion base");
+
+$table = "users";
+
+if (isset($_POST['email'], $_POST['login'], $_POST['creapassword'], $_POST['confpassword'], $_POST['verification'])) {
+    $email = $_POST['email'];
+    $login = $_POST['login'];
+    $mdp = chiffrement_RC4($_POST['creapassword']);
+    $confmdp = chiffrement_RC4($_POST['confpassword']);
+    $requete1 = "SELECT * FROM $table WHERE login=?";
+    $reqpre1 = mysqli_prepare($conn, $requete1);
+    mysqli_stmt_bind_param($reqpre1, "s", $login);
+    mysqli_stmt_execute($reqpre1);
+    if ($result1 = mysqli_stmt_get_result($reqpre1)) {
+        if (mysqli_num_rows($result1) == 0) {
+            if ($mdp == $confmdp) {
+                $verification = intval($_POST['verification']);
+                if ($verification == $_SESSION['capcha']) {
+                    $requete2 = "INSERT INTO $table (email, login, password) VALUES (?, ?, ?)";
+                    $reqpre2 = mysqli_prepare($conn, $requete2);
+                    mysqli_stmt_bind_param($reqpre2, "sss", $email, $login, $mdp);
+                    mysqli_stmt_execute($reqpre2);
+                    $requete3 = "SELECT * FROM $table WHERE login=? AND password=?";
+                    $reqpre3 = mysqli_prepare($conn, $requete3);
+                    mysqli_stmt_bind_param($reqpre3, "ss", $login, $mdp);
+                    mysqli_stmt_execute($reqpre3);
+                    if ($result3 = mysqli_stmt_get_result($reqpre3)) {
+                        session_start();
+                        unset($_SESSION['captcha']);
+                        $_SESSION['login'] = $login;
+                        $_SESSION['date'] = date('d/m/Y');
+                        $ip = getIp();
+                        $date = date('d-m-Y');
+                        $log_file = fopen("logs/$date.log", "a");
+                        fwrite($log_file, "[" . date('d/m/Y H:i:s') . "] Inscription réussie de l'adresse IP " . $ip . " avec le login " . $login . "\n");
+                        fclose($log_file);
+                        header('Location: index.php');
+                    } else {
+                        $ip = getIp();
+                        $date = date('d-m-Y');
+                        $reason = "Erreur lors de la création du compte";
+                        $log_file = fopen("logs/$date.log", "a");
+                        fwrite($log_file, "[" . date('d/m/Y H:i:s') . "] Inscription échouée de l'adresse IP " . $ip . " avec le login " . $login . " : $reason\n");
+                        fclose($log_file);
+                        header('Location: form_inscr?error=4.php');
+                    }
+                } else {
+                    $ip = getIp();
+                    $date = date('d-m-Y');
+                    $reason = "Capcha incorrect";
+                    $log_file = fopen("logs/$date.log", "a");
+                    fwrite($log_file, "[" . date('d/m/Y H:i:s') . "] Inscription échouée de l'adresse IP " . $ip . " avec le login " . $login . " : $reason\n");
+                    fclose($log_file);
+                    header('Location: form_inscr.php?error=3');
+                }
+            } else {
+                $ip = getIp();
+                $date = date('d-m-Y');
+                $reason = "Mots de passe différents";
+                $log_file = fopen("logs/$date.log", "a");
+                fwrite($log_file, "[" . date('d/m/Y H:i:s') . "] Inscription échouée de l'adresse IP " . $ip . " avec le login " . $login . " : $reason\n");
+                fclose($log_file);
+                header('Location: form_inscr.php?error=1');
+            }
+        } else {
+            $ip = getIp();
+            $date = date('d-m-Y');
+            $reason = "Login déjà utilisé";
+            $log_file = fopen("logs/$date.log", "a");
+            fwrite($log_file, "[" . date('d/m/Y H:i:s') . "] Inscription échouée de l'adresse IP " . $ip . " avec le login " . $login . " : $reason\n");
+            fclose($log_file);
+            header('Location: form_inscr.php?error=2');
+        }
+    }
+} else if (isset($_SESSION['login'])) {
+    header('Location: index.php');
+}
+
+$_SESSION['capcha'] = $operande1 + $operande2;
+
 echo "<!DOCTYPE html>
 <html lang='fr' class='inscription'>
 <head>
@@ -23,7 +119,7 @@ echo "<main role='main'>
                         <h2 class='highlight2'>Créer un compte</h2>
                     </div>
                     <br>
-                    <form action='creation.php' method='post' class='formulaire'>
+                    <form action='' method='post' class='formulaire'>
                         <div class='email'>
                             <label for='email'>Email :</label>
                             <input type='email' name='email' id='email' required>
@@ -45,22 +141,27 @@ echo "<main role='main'>
                         <div class='confpassword'>
                             <label for='confpassword'>Confirmer le mot de passe :</label>
                             <input type='password' name='confpassword' id='confpassword' required>
+                        </div>
+                        <br>
+                        <br>
+                        <div class='verif'>
+                            <label for='verification'>Vérification : Que fait $operande1 + $operande2 ?</label>
+                            <input type='number' min='0' max='999' name='verification' id='verification' required>
                         </div>";
 if (!empty($_GET["error"]) && $_GET['error'] == 1) {
     echo "<p style='color: red'>Les mots de passe ne correspondent pas</p>";
-}
-elseif (!empty($_GET["error"]) && $_GET['error'] == 2) {
+} elseif (!empty($_GET["error"]) && $_GET['error'] == 2) {
     echo "<p style='color: red'>Ce login est déjà utilisé</p>";
-}
-else {
+} elseif (!empty($_GET["error"]) && $_GET['error'] == 3) {
+    echo "<p style='color: red'>La vérification est incorrecte</p>";
+} else if (!empty($_GET["error"]) && $_GET['error'] == 4) {
+    echo "<p style='color: red'>Erreur lors de la création de votre compte</p>";
+} else {
+    echo "<br>";
     echo "<br>";
     echo "<br>";
 }
 echo "                  <br>
-                        <br>
-                        <br>
-                        <br>
-                        <br>
                         <br>
                         <br>
                         <div class='submit'>

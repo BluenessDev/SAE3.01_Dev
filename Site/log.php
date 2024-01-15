@@ -31,8 +31,39 @@ if (isset($_SESSION['login'])) {
   <br>
   <br>
   <br>
-</header>";
-    include 'log.html';
+</header>
+<main role='main'>
+    <div class='article'>
+        <div class='main-article'>
+            <div class='ligne'>
+                <div class='subarticle'>
+                    <div class='titre'>
+                        <h2>Liste des logs :</h2>
+                    </div>
+                    <table>
+                        <thead>
+                        <tr>
+                            <th>Téléchargement</th>
+                            <th>Date</th>
+                        </tr>
+                        </thead>
+                        <tbody>";
+    $nombrefichiers = glob('logs/*.log');
+    for ($i = count($nombrefichiers); $i > 0; $i--) {
+        $fichier = str_replace('logs/', '', $nombrefichiers[$i - 1]);
+        $date = str_replace('.log', '', $fichier);
+        echo "<tr>
+                            <td><a href='logs/$fichier'>Télecharger</a></td>
+                            <td>$date</td>
+                        </tr>";
+    }
+    echo "</tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>";
     include 'footer.html';
 } else {
     header('Location: index.php');
