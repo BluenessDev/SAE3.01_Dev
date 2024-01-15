@@ -37,7 +37,7 @@ CREATE TABLE `tickets` (
                            `description` varchar(400) NOT NULL,
                            `etat` varchar(50) NOT NULL DEFAULT 'ouvert',
                            `login` varchar(15) NOT NULL,
-                           `date` date NOT NULL DEFAULT current_timestamp(),
+                           `date` datetime NOT NULL DEFAULT current_timestamp(),
                            `technicien_login` varchar(15) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
