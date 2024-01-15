@@ -5,8 +5,8 @@ $host = "localhost";
 $username = "root";
 $password = "";
 
-$operande1 = rand(1, 99);
-$operande2 = rand(1, 99);
+$operande1 = rand(1, 10);
+$operande2 = rand(1, 10);
 
 $conn = mysqli_connect($host, $username, $password) or die("erreur de connexion");
 
@@ -113,7 +113,7 @@ echo "<main role='main'>
                         <br>
                         <div class='verif'>
                             <label for='verification'>Vérification : Que fait $operande1 + $operande2 ?</label>
-                            <input type='number' min='0' max='999' name='verification' id='verification' required>
+                            <input type='number' min='0' max='20' name='verification' id='verification' required>
                         </div>";
 if (!empty($_GET["error"]) && $_GET['error'] == 1) {
     echo "<p style='color: red'>Les mots de passe ne correspondent pas</p>";
