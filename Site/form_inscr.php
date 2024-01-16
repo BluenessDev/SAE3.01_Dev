@@ -20,10 +20,14 @@ $db = mysqli_select_db($conn, $namedb) or die("erreur de connexion base");
 $table = "users";
 
 if (isset($_POST['email'], $_POST['login'], $_POST['creapassword'], $_POST['confpassword'], $_POST['verification'])) {
-    $email = $_POST['email'];
-    $login = $_POST['login'];
-    $mdp = chiffrement_RC4($_POST['creapassword']);
-    $confmdp = chiffrement_RC4($_POST['confpassword']);
+    $clean_email = strip_tags($_POST['email']);
+    $clean_login = strip_tags($_POST['login']);
+    $clean_password = strip_tags($_POST['creapassword']);
+    $clean_confpassword = strip_tags($_POST['confpassword']);
+    $email = $clean_email;
+    $login = $clean_login;
+    $mdp = chiffrement_RC4($clean_password);
+    $confmdp = chiffrement_RC4($clean_confpassword);
     $requete1 = "SELECT * FROM $table WHERE login=?";
     $reqpre1 = mysqli_prepare($conn, $requete1);
     mysqli_stmt_bind_param($reqpre1, "s", $login);

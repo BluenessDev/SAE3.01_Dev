@@ -29,12 +29,18 @@ if (isset($_SESSION['login'])) {
     $utilisateur = $_SESSION['login'];
     if (isset($_POST['nature_pb'], $_POST['niveau'], $_POST['salle'], $_POST['demandeur'], $_POST['pers_conc'], $_POST['description'])){
         //initialisation des champs du ticket pour la BD
-        $nature_pb = $_POST['nature_pb'];
-        $niveau = $_POST['niveau'];
-        $salle = $_POST['salle'];
-        $demandeur = $_POST['demandeur'];
-        $pers_conc = $_POST['pers_conc'];
-        $description = $_POST['description'];
+        $clean_nature = strip_tags($_POST['nature_pb']);
+        $clean_niveau = strip_tags($_POST['niveau']);
+        $clean_salle = strip_tags($_POST['salle']);
+        $clean_demandeur = strip_tags($_POST['demandeur']);
+        $clean_pers_conc = strip_tags($_POST['pers_conc']);
+        $clean_description = strip_tags($_POST['description']);
+        $nature_pb = $clean_nature;
+        $niveau = $clean_niveau;
+        $salle = $clean_salle;
+        $demandeur = $clean_demandeur;
+        $pers_conc = $clean_pers_conc;
+        $description = $clean_description;
         $ip = getIp();
         $date = date('d-m-Y');
         $log_file = fopen("logs/$date.log", "a");

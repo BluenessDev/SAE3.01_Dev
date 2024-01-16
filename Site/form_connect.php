@@ -15,8 +15,10 @@ $db = mysqli_select_db($conn, $namedb) or die("erreur de connexion base");
 $table = "users";
 
 if (isset($_POST['login'], $_POST['password'])) {
-    $login = $_POST['login'];
-    $mdp = chiffrement_RC4($_POST['password']);
+    $clean_login = strip_tags($_POST['login']);
+    $clean_password = strip_tags($_POST['password']);
+    $login = $clean_login;
+    $mdp = chiffrement_RC4($clean_password);
     $requete = "SELECT * FROM $table WHERE login=? AND password=?";
     $reqpre = mysqli_prepare($conn, $requete);
 
