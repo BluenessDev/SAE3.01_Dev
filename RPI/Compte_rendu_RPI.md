@@ -18,7 +18,7 @@ Pour l'installation de l'OS, nous avons utilisé Debian 8 sans interface graphiq
 * Une fois la carte SD flashée, nous avons inséré celle-ci dans le Raspberry Pi 4 et nous avons démarré celui-ci.
 
 * Nous avons ensuite configuré le Raspberry Pi 4 en suivant les étapes suivantes :
-  * Nous avons défini du Raspberry Pi 4 -> `rpi4-23092`
+  * Nous avons défini le nom du Raspberry Pi 4 -> `rpi4-23092`
   * Nous n'avons pas défini de nom de domaine car nous n'en avons pas besoin.
   * Nous avons changé le mot de passe root -> `root`
   * La connection au réseau se fait par câble ethernet mais nous l'avons aussi configuré pour qu'il fonctionne en wifi.
