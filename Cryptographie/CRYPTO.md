@@ -35,7 +35,7 @@ function generateKey($message) {
 ```
 
 ## Algorithme RC4
-  ### Key Scheduling Algorithm (KSA)
+  ### Key Scheduling Algorithm (`KSA`)
   La fonction `KSA` initialise un tableau d'état ($S) de 256 octets en fonction de la clé générée par `generateKey`. Elle utilise l'algorithme de génération d'horloge de RC4, mélangeant les octets du tableau d'état basé sur la clé fournie.
 
    ```php
@@ -56,7 +56,7 @@ function KSA($key) {
 }
   ```
   
-  ### Pseudo-Random Generation Algorithm (PRGA)
+  ### Pseudo-Random Generation Algorithm (`PRGA`)
   La fonction `PRGA` est responsable de la génération de la séquence pseudo-aléatoire de la clé (keystream) basée sur l'état du tableau $S. Elle mélange les octets de manière itérative pour produire un flux de données pseudo-aléatoire.
 
   ```php
