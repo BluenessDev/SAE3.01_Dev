@@ -56,7 +56,7 @@ Le présent recueil de besoins sera étoffé et mis à jour au fur et à mesure 
 | Formulaire de connexion                                | Utilisateur                                            | Accéder à la page de formulaire de connexion via la page d'accueil                               |
 | Formulaire d'inscription                               | Utilisateur                                            | Accéder à la page de formulaire d'inscription via la page d'accueil                              |
 | Page de profil                                         | Utilisateur, Administrateur Web et Système, Technicien | Si l'utilisateur est connecté, accéder à la page de profil via la page d'accueil                 |
-| Page de faux logs                                      | Administrateur système                                 | Accéder à la page de faux logs via la page d'accueil                                             |
+| Page  logs                                             | Administrateur système                                 | Accéder à la page de faux logs via la page d'accueil                                             |
 | Tableau de bord                                        | Utilisateur, Administrateur Web et Système, Technicien | Si l'utilisateur est connecté, accéder au tableau de bord fictif via la page d'accueil           |
 | Creation de tickets                                    | Utilisateur                                            | Si l'utilisateur est connecté, accéder à la page de création de tickets via son tableau de bord  |
 | Affichage des tickets                                  | Utilisateur                                            | Si l'utilisateur est connecté, accéder à la page d'affichage des tickets via son tableau de bord |
@@ -498,5 +498,6 @@ Le fonctionnement de ce système est très simple car nous pourrons juste navigu
 - **Scénario nominal :** C'est un administrateur web
   - L’administrateur web se connecte à son compte
   - L’administrateur web accède à son tableau de bord
-  - L’administrateur web peut gérer les rôles utilisateurs
+  - L’administrateur web clique sur le bouton Gerer kes rôles
+  - L'administrateur web peut changer les rôles en Utilisateur ou en Technicien 
 - **Post-conditions :** L'utilisateur a géré les rôles utilisateurs.
