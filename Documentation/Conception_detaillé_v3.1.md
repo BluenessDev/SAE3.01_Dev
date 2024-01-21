@@ -95,7 +95,7 @@ Création du composant **assigner_role** pour l'abstraction de la page de gestio
 
 Création du composant **TabsTicket** pour l'abstraction de la page de javascript TabsTicket.
 
-<img src="[https://cdn.discordapp.com/attachments/688468048985849886/1198712308285853706/image.png?ex=65bfe6d5&is=65ad71d5&hm=391fb2c469b35ab2f06355aa1151d3431aa01fae7d65a3c2270877e0a6f3dd3b&]">
+<img src="https://cdn.discordapp.com/attachments/688468048985849886/1198712308285853706/image.png?ex=65bfe6d5&is=65ad71d5&hm=391fb2c469b35ab2f06355aa1151d3431aa01fae7d65a3c2270877e0a6f3dd3b&">
 
 **Figure 2 :** Diagramme UML des composants du site web statique
 
