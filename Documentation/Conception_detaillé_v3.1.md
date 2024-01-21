@@ -38,17 +38,24 @@ De plus, dans la base de données, la table tickets a été créée, mais est un
 | Composant           | État                      | Comportement|
 |---------------------|---------------------------|----------------------------------------------|
 | Page d'accueil avec l'inscription et connexion  |                | - Afficher la vidéo, texte explicatif, accès au formulaire d'inscription et de connexion           |
-| Page d'accueil avec profil | Accès au Profil    | - Afficher vidéo, texte explicatif, accès au profil et la page de faux logs|
-| Page de formulaire de connexion |       | - En construction, accessible depuis la page d'accueil |
-| Page de formulaire d'inscription |        | - En construction, accessible depuis la page d'accueil |
-| Page de profil      |                | - En construction, affiche les informations sur le profil, permet la modification du mot de passe et de l'adresse e-mail, affiche le tableau de bord pour les tickets |
-| Page de faux logs   |               | - En construction, pour des connexions factices |
+| Page d'accueil avec profil | Accès au Profil    | - Afficher vidéo, texte explicatif, accès au profil, selon le role de l'utilisateur le profil changera et certains accès seront bloqué|
+| Page de formulaire de connexion |       | -  accessible depuis la page d'accueil |
+| Page de formulaire d'inscription |        | accessible depuis la page d'accueil |
+| Page de profil      |                | -  affiche les informations sur le profil, permet la modification du mot de passe et de l'adresse e-mail, affiche le tableau de bord pour les tickets |
+| Page de logs   |               | - acces aux information de connexions|
 | Charte graphique 1 et 2                |                | - Définit les styles pour l'ensemble du site web |
-| Base de données users | Contient les utilisateurs inscrits |                                    |
-| Base de données tickets |                       |                                              |
+| Base de données users | Contient les utilisateurs inscrits ainsi que leur roles|                                    |
+| Base de données tickets |                       |Contient les informations obtenue à partir de la page de création des tickets|
 | Système de connexion au profil |      | Se connecter à son compte |
 | Système d'inscription sur le site |                        | Créer un nouvel utilisateur |
 | Système de déconnexion de l'utilisateur |                 |  Déconnecter l'utilisateur  |
+| page de gestions des rôles |   changement possible entre Utilisateur et Techniciens  |  changer les rôles des utilisateurs |
+| page d'information des tickets|   3 états possible du tickets ouvert/en cours/fini |  selon le role on peut ajouter un techniciens à un ticket dans le cas de l'administrateur web, qui changera aussi l'état en "en cours" et pour le techniciens on 
+ pourras changer l'etat en "fini" si le tickets est fini |
+| page de création de ticket |  a la création le ticket sera libellé en "ouvert" | permet de créer un ticket avec la nature, le niveau d'urgence, la salle, le demandeur, la personne concernée et le descriptif |
+| page php functions |     |  page php, fonction qui permettra d'aérer le les pages php avec moins de fonction pour une meilleurs compréhension|
+| page de Dashboard |   include dans l'index  | Tableau de bord de l'utilisateur ainsi que des boutons des différentes pages   tel que page de création de tickets, accès des logs, accès profil, et les information tickets|
+| page de javascript TabsTicket |                |   changement des tableaux des dashboards selon l'etat du ticket   |
  
 **Figure 1 :** Abstraction du domaine du problème.
 
@@ -76,6 +83,18 @@ Création du composant **users** pour l'abstraction de la table users de la base
 
 Création du composant **tickets** pour l'abstraction de la table tickets de la base de donnée.
 
+Création du composant **create_ticket** pour l'abstraction de la page de création de ticket.
+
+Création du composant **dashboard** pour l'abstraction de la page de Dashboard.
+
+Création du composant **ticket_informations** pour l'abstraction de la page d'information des tickets.
+
+Création du composant **functions** pour l'abstraction de la page php page de function.
+
+Création du composant **assigner_role** pour l'abstraction de la page de gestions des rôles.
+
+Création du composant **TabsTicket** pour l'abstraction de la page de javascript TabsTicket.
+
 <img src="https://cdn.discordapp.com/attachments/1148278381767569508/1175848874343137340/diagramme_conception_detaille_v2.jpg?ex=656cb999&is=655a4499&hm=34b17c68c3cfeedd52ab3711432673081b58f7f55ac2e99aa562f3c5c78b0a19&">
 
 **Figure 2 :** Diagramme UML des composants du site web statique
@@ -95,13 +114,111 @@ Création du composant **tickets** pour l'abstraction de la table tickets de la 
    - Composants :
      - Deux sections distinctes d'articles (`<div class="article">`) avec des éléments de contenu.
      - La première section comportera un titre ("Explications") et un paragraphe explicatif.
-     - La deuxième section comprendra un titre ("Vidéo démonstration") et une vidéo YouTube, ainsi qu'un tableau présentant les 10 derniers tickets.
+     - La deuxième section comprendra un titre ("Vidéo démonstration") et une vidéo YouTube, ainsi qu'un include de la page de Dashboard.
    - Relation : Les deux sections d'articles seront indépendantes, chacune présentant un contenu différent. Cependant, elles seront regroupées sous la balise `<main>` pour indiquer qu'il s'agit du contenu principal de la page.
 
 3. **Pied de page (Footer)** :
    - Composants :
      - Balise `<footer>` contenant des informations sur la plateforme de ticketing (SAÉ 3.01) et le logo de l'UVSQ.
    - Relation : Le pied de page contiendra des informations sur la plateforme et inclura le logo de l'UVSQ pour la crédibilité et la marque.
+
+**Dashboard**
+
+**1. En-tête (Header):**
+   - *Composants:*
+      - `<header>` contenant la barre de navigation (`<nav>`) et le contenu de l'en-tête.
+      - Logo du site (`<img>`) et les titres ("Bienvenue sur TICKIMOA" et "Votre site de ticketing").
+
+**2. Contenu Principal (Main):**
+   - *Composants:*
+      - Deux sections distinctes d'articles (`<div class="article">`) avec des éléments de contenu.
+      - avec tout les boutons des différentes pages avec des accès différent selon les rôles 
+      - Le dashboard avec les différents tickets et les boutons ouvert, en cours et fini, les tickets sont des liens qui mènes à leur informations
+   - *Relation :* Les deux sections d'articles seront indépendantes, chacune présentant un contenu différent. Cependant, elles seront regroupées sous la balise `<main>` pour indiquer qu'il s'agit du contenu principal de la page.
+
+**3. Pied de page (Footer):**
+   - *Composants:*
+      - Balise `<footer>` contenant des informations sur la plateforme de ticketing (SAÉ 3.01) et le logo de l'UVSQ.
+   - *Relation :* Le pied de page contiendra des informations sur la plateforme et inclura le logo de l'UVSQ pour la crédibilité et la marque.
+
+**TabsTicket**
+
+1. **Fonction `init`:**
+   - La fonction `init` est associée à l'événement `window.onload`, ce qui signifie qu'elle est appelée lorsque la page est entièrement chargée.
+   - À l'intérieur de la fonction, une requête XMLHttpRequest est créée et ouverte pour récupérer le contenu de "dashboard.php".
+   - La fonction `traitementReponse` est définie comme gestionnaire d'événements pour le changement d'état de la requête.
+
+2. **Fonction `traitementReponse`:**
+   - Cette fonction est appelée chaque fois que l'état de la requête change.
+   - Si l'état est 4 (requête terminée) et le statut est 200 (OK), la fonction effectue les opérations suivantes :
+     - Cache tous les éléments avec la classe "tabcontent".
+     - Associe un gestionnaire d'événements à chaque enfant de l'élément avec l'ID "tab". Lorsque ces éléments sont cliqués, la fonction `openTicketButton` est appelée.
+   - Elle prépare l'interface pour interagir avec les onglets.
+
+3. **Fonction `openTicketButton`:**
+   - Cette fonction gère l'ouverture et la fermeture des onglets.
+   - Elle prend un objet d'événement en paramètre (evt) et récupère l'ID du contenu associé à l'onglet cliqué.
+   - Elle gère également la logique pour afficher ou masquer le contenu de l'onglet et ajuste l'affichage en conséquence.
+   - La variable `dernierOngletClique` est utilisée pour suivre le dernier onglet cliqué afin de gérer les cas où le même onglet est cliqué deux fois.
+   - Les classes "tabcontent" et "tablinks" sont ajustées pour refléter l'état actif de l'onglet sélectionné.
+
+**Functions**
+
+1. **Afficher Tickets**
+   - Fonction qui affiche les tickets en fonction du rôle de l'utilisateur et de leur état.
+
+2. **Afficher Utilisateurs**
+   - Fonction affichant une liste d'utilisateurs avec la possibilité de mettre à jour leur rôle.
+
+3. **Sélection du Technicien**
+   - Fonction affichant un formulaire pour sélectionner un technicien lors de la création ou de la modification d'un ticket.
+
+4. **Assignation du Technicien au Ticket**
+   - Fonction assignant un technicien à un ticket et mettant à jour son état.
+
+5. **Mise à Jour de l'État du Ticket**
+   - Fonction mettant à jour l'état d'un ticket, généralement appelée après l'assignation d'un technicien.
+
+**create_ticket**
+
+**1. En-tête (Header):**
+   - *Composants:*
+      - `<header>` contenant la barre de navigation (`<nav>`) et le contenu de l'en-tête.
+      - Logo du site (`<img>`) et les titres ("Bienvenue sur TICKIMOA" et "Votre site de ticketing").
+
+**2. Contenu Principal (Main):**
+   - *Composants:*
+      - Deux sections distinctes d'articles (`<div class="article">`) avec des éléments de contenu.
+      - première section à droite avec le type de problème, le niveau, la salle, le demandeur et la personne concernée
+      - Block de texte pour ajouter une description au problème 
+   - *Relation :* Les deux sections d'articles seront indépendantes, chacune présentant un contenu différent. Cependant, elles seront regroupées sous la balise `<main>` pour indiquer qu'il s'agit du contenu principal de la page.
+    
+  **3. Pied de page (Footer):**
+   - *Composants:*
+      - Balise `<footer>` contenant des informations sur la plateforme de ticketing (SAÉ 3.01) et le logo de l'UVSQ.
+   - *Relation :* Le pied de page contiendra des informations sur la plateforme et inclura le logo de l'UVSQ pour la crédibilité et la marque.
+
+**ticket_informations**
+
+ **1. En-tête (Header):**
+   - *Composants:*
+      - `<header>` contenant la barre de navigation (`<nav>`) et le contenu de l'en-tête.
+      - Logo du site (`<img>`) et les titres ("Bienvenue sur TICKIMOA" et "Votre site de ticketing").
+
+ **2. Contenu Principal (Main):**
+   - *Composants:*
+      - Deux sections distinctes d'articles (`<div class="article">`) avec des éléments de contenu.
+      - première section à droite avec le type de problème, le niveau d'urgence, la salle, le demandeur et la personne concernée
+      - deuxième section à gauche Block avec la description donnée du ticket
+      - Si admin il y aura un bouton déroulant avec tout les techniciens et un boutons assigner, pour assigner un technicien
+      - si technicien bouton marquer comme finir pour marquer le ticket comme fini 
+   - *Relation :* Les deux sections d'articles seront indépendantes, chacune présentant un contenu différent. Cependant, elles seront regroupées sous la balise `<main>` pour indiquer qu'il s'agit du contenu principal de la page.
+    
+**3. Pied de page (Footer):**
+   - *Composants:*
+      - Balise `<footer>` contenant des informations sur la plateforme de ticketing (SAÉ 3.01) et le logo de l'UVSQ.
+   - *Relation :* Le pied de page contiendra des informations sur la plateforme et inclura le logo de l'UVSQ pour la crédibilité et la marque.
+
 
 **index_connected**
 
