@@ -30,7 +30,7 @@ $table = "users";
 if (!empty($_POST)) {
     if (isset($_POST['email'], $_POST['password'])) {
         $email = $_POST['email'];
-        $mdp = md5($_POST['password']);
+        $mdp = chiffrement_RC4($_POST['password']);
         $utilisateur = $_SESSION['login'];
         $requete2 = "SELECT * FROM $table WHERE login=? AND password=?";
         $reqpre2 = mysqli_prepare($conn, $requete2);
