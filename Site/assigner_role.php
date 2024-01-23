@@ -1,8 +1,8 @@
 <?php
 session_start();
-$utilisateur = $_SESSION['login'];
 
 if (isset($_SESSION['login'])) {
+    $utilisateur = $_SESSION['login'];
     $host = "localhost";
     $username = "root";
     $password = "root";
@@ -13,8 +13,22 @@ if (isset($_SESSION['login'])) {
     $db = mysqli_select_db($conn, $namedb) or die("erreur de connexion base");
 
     $users_table = "users";
-    include "functions.php";
-    echo "<!DOCTYPE html>
+
+    $requete = "SELECT `role` FROM $users_table WHERE login=?";
+
+    $reqpre = mysqli_prepare($conn, $requete);
+
+    mysqli_stmt_bind_param($reqpre, "s", $utilisateur);
+
+    mysqli_stmt_execute($reqpre);
+
+    mysqli_stmt_bind_result($reqpre, $role);
+
+    mysqli_stmt_fetch($reqpre);
+
+    if ($role == "admin") {
+        include "functions.php";
+        echo "<!DOCTYPE html>
 <html lang='fr' class='inscription'>
 <head>
     <meta charset='utf-8'>
@@ -52,8 +66,8 @@ if (isset($_SESSION['login'])) {
                         <h2 class='highlight2'>Liste des Utilisateurs et Techniciens :</h2>
                     </div>
                     <div class='userTable'>";
-    afficherUtilisateurs();
-    echo "</div>
+        afficherUtilisateurs();
+        echo "</div>
                     <form action='index.php' method='post'>
                     <br>
                         <div class='submit_ticket align-content-center mt-3'>
@@ -66,8 +80,11 @@ if (isset($_SESSION['login'])) {
 </main>
 
 <footer class='bg-dark text-white text-center py-3 fixed-bottom''>";
-    include 'footer.html';
-    echo "</footer>";
+        include 'footer.html';
+        echo "</footer>";
+    } else {
+        header('Location: index.php');
+    }
 } else {
     header('Location: index.php');
 }
