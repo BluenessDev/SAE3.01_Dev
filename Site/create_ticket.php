@@ -41,18 +41,27 @@ if (isset($_SESSION['login'])) {
         $demandeur = $clean_demandeur;
         $pers_conc = $clean_pers_conc;
         $description = $clean_description;
-        $ip = getIp();
-        $date = date('d-m-Y');
-        $log_file = fopen("logs/$date.log", "a");
-        fwrite($log_file, "[" . date('d/m/Y H:i:s') . "] Création d'un ticket de l'adresse IP " . $ip . " avec le login " . $_SESSION['login'] . " : \n" . "\t\t\t\tNature du problème : " . $nature_pb . "\n" . "\t\t\t\tNiveau du problème : " . $niveau . "\n" . "\t\t\t\tSalle : " . $salle . "\n" . "\t\t\t\tDemandeur : " . $demandeur . "\n" . "\t\t\t\tPersonne concernée : " . $pers_conc . "\n" . "\t\t\t\tDescription : " . $description . "\n");
-        fclose($log_file);
-
-        //Insertion du ticket cree dans la BD
-        $requete_ticket = "INSERT INTO $table (nature, niveau, salle, demandeur, concerne, description, login) values (?, ?, ?, ?, ?, ?, ?)";
-        $reqpre_ticket = mysqli_prepare($conn, $requete_ticket); //Prépare la requete requete_ticket.
-        mysqli_stmt_bind_param($reqpre_ticket, "sisssss", $nature_pb, $niveau, $salle, $demandeur, $pers_conc, $description, $utilisateur); // Permet de lier les valeurs aux marqueurs de position (?) dans la requête préparée.
-        mysqli_stmt_execute($reqpre_ticket); //Execute la requete
-        header('Location: index.php');
+        if ($nature_pb != "" && $niveau != "" && $salle != "" && $demandeur != "" && $pers_conc != "" && $description != "") {
+            //initialisation des champs du ticket pour le log
+            $ip = getIp();
+            $date = date('d-m-Y');
+            $log_file = fopen("logs/$date.log", "a");
+            fwrite($log_file, "[" . date('d/m/Y H:i:s') . "] Création d'un ticket de l'adresse IP " . $ip . " avec le login " . $_SESSION['login'] . " : \n" . "\t\t\t\tNature du problème : " . $nature_pb . "\n" . "\t\t\t\tNiveau du problème : " . $niveau . "\n" . "\t\t\t\tSalle : " . $salle . "\n" . "\t\t\t\tDemandeur : " . $demandeur . "\n" . "\t\t\t\tPersonne concernée : " . $pers_conc . "\n" . "\t\t\t\tDescription : " . $description . "\n");
+            fclose($log_file);
+            //Insertion du ticket cree dans la BD
+            $requete_ticket = "INSERT INTO $table (nature, niveau, salle, demandeur, concerne, description, login) values (?, ?, ?, ?, ?, ?, ?)";
+            $reqpre_ticket = mysqli_prepare($conn, $requete_ticket); //Prépare la requete requete_ticket.
+            mysqli_stmt_bind_param($reqpre_ticket, "sisssss", $nature_pb, $niveau, $salle, $demandeur, $pers_conc, $description, $utilisateur); // Permet de lier les valeurs aux marqueurs de position (?) dans la requête préparée.
+            mysqli_stmt_execute($reqpre_ticket); //Execute la requete
+            header('Location: index.php');
+        } else {
+            $ip = getIp();
+            $date = date('d-m-Y');
+            $log_file = fopen("logs/$date.log", "a");
+            fwrite($log_file, "[" . date('d/m/Y H:i:s') . "] Création d'un ticket échouée de l'adresse IP " . $ip . " avec le login " . $_SESSION['login'] . " : \n" . "\t\t\t\tNature du problème : " . $nature_pb . "\n" . "\t\t\t\tNiveau du problème : " . $niveau . "\n" . "\t\t\t\tSalle : " . $salle . "\n" . "\t\t\t\tDemandeur : " . $demandeur . "\n" . "\t\t\t\tPersonne concernée : " . $pers_conc . "\n" . "\t\t\t\tDescription : " . $description . "\n");
+            fclose($log_file);
+            header('Location: create_ticket.php');
+        }
     }
     echo "<body>
     <header role='banner'>

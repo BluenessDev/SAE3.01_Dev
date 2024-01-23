@@ -29,7 +29,8 @@ $table = "users";
 
 if (!empty($_POST)) {
     if (isset($_POST['email'], $_POST['password'])) {
-        $email = $_POST['email'];
+        $email_clean = strip_tags($_POST['email']);
+        $email = $email_clean;
         $mdp = chiffrement_RC4($_POST['password']);
         $utilisateur = $_SESSION['login'];
         $requete2 = "SELECT * FROM $table WHERE login=? AND password=?";
@@ -42,7 +43,7 @@ if (!empty($_POST)) {
             $reqpre = mysqli_prepare($conn, $requete);
             mysqli_stmt_bind_param($reqpre, "ss", $utilisateur, $mdp);
             $result = mysqli_stmt_execute($reqpre);
-            if (mysqli_stmt_affected_rows($reqpre) == 1) {
+            if (mysqli_stmt_affected_rows($reqpre) == 1 and $email != "") {
                 session_start();
                 $ip = getIp();
                 $date = date('d-m-Y');
