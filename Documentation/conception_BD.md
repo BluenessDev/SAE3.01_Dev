@@ -17,24 +17,29 @@ Sur le schéma ci-dessus, on peut voir deux tables qui vont être détaillées c
 - **Users**
   - *<u>login</u>* (Clé primaire et Identifiant de l'utilisateur)
   - *email* (Adresse e-mail de l'utilisateur)
-  - *password* (Mot de passe de l'utilisateur, stocké en MD5 pour plus de sécurité)
+  - *password* (Mot de passe de l'utilisateur, chiffré en RC4 pour plus de sécurité)
+  - *role* (permet de detecter le role de l'utilisateur pour donner les bonnes permissions aux utilisateurs)
 
 ### Table "Tickets"
 
 - **Tickets**
-  - *libellé* (libellé du ticket)
-  - *description* (Description détaillée du problème ou de la demande)
-  - *statut* (Statut actuel du ticket, par exemple : ouvert, en cours, résolu)
-  - *urgence* (Le niveau d'urgence du ticket)
-  - *date* (Date à laquelle le ticket a été créé)
-  - *#loginU* (Clé étrangère liée à la table Users, indiquant l'utilisateur qui a créé ce ticket)
-  - *#loginT* (Clé étrangère liée à la table Users, indiquant le technicien qui prend en charge ce ticket)
+  - *id* (Clé primaire, identifiant numéro du ticket ajouté dans la base de donnée)
+  - *nature* (nature du ticket, qui sont des types de problèmes récupéré via un menu déroulant)
+  - *niveau* (niveau d'urgence du ticket)
+  - *salle* (la salle dans laquelle le problème est apparu)
+  - *demandeur* (le personne qui fait la demande pour le ticket)
+  - *concerne* (la personne concerné du problème créer)
+  - *description* (la description du problème)
+  - *etat* (etat actuel du ticket, par exemple : ouvert, en cours, résolu)
+  - *#login* (Clé étrangère liée à la table Users, indiquant l'utilisateur qui a créé ce ticket)
+  - *date* (Date à laquelle le ticket a été créé)
+  - *#technicien_login* (Clé étrangère liée à la table Users, indiquant le technicien qui prend en charge ce ticket)
 
 ### Relations
 
-- La table "Tickets" a une clé étrangère (*loginU*) qui référence la clé primaire de la table "Users". Cela établit une relation entre les deux tables, indiquant quel utilisateur a créé quel ticket.
+- La table "Tickets" a une clé étrangère (*login*) qui référence la clé primaire de la table "Users". Cela établit une relation entre les deux tables, indiquant quel utilisateur a créé quel ticket.
 
-- La table "Tickets" a une clé étrangère (*loginT*) qui référence la clé primaire de la table "Users". Cela établit une relation entre les deux tables, indiquant quel technicien s'occupe de quel ticket.
+- La table "Tickets" a une clé étrangère (*technicien_login*) qui référence la clé primaire de la table "Users". Cela établit une relation entre les deux tables, indiquant quel technicien s'occupe de quel ticket.
 
 ## Conclusion
 
