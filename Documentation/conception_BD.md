@@ -33,7 +33,7 @@ Sur le schéma ci-dessus, on peut voir deux tables qui vont être détaillées c
   - *etat* (etat actuel du ticket, par exemple : ouvert, en cours, résolu)
   - *#login* (Clé étrangère liée à la table Users, indiquant l'utilisateur qui a créé ce ticket)
   - *date* (Date à laquelle le ticket a été créé)
-  - *#technicien_login* (Clé étrangère liée à la table Users, indiquant le technicien qui prend en charge ce ticket)
+  - *#technicien_login* (Clé étrangère liée à la table Users, indiquant le technicien qui prend en charge ce ticket)
 
 ### Relations
 
