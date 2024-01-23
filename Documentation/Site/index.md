@@ -49,5 +49,5 @@ Le code suivant est un exemple de génération de page HTML dynamique en PHP, ba
     - Si aucun utilisateur n'est connecté, affichage d'une bannière et d'un contenu principal alternatif.
 
 4. **Inclusion de fichiers HTML** :
-    - Les fichiers HTML (`dashboard.html`, `banner.html`, `main.html`, `footer.html`) sont inclus dans la page en fonction de l'état de la session utilisateur.
+    - Les fichiers HTML (`dashboard.php`, `banner.html`, `main.php`, `footer.html`) sont inclus dans la page en fonction de l'état de la session utilisateur.
     - Ils contiennent probablement du contenu HTML à afficher en conséquence.

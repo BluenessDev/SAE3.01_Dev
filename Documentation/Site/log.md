@@ -1,31 +1,27 @@
-## Documentation du fichier log.php
+## Documentation de la page log.php
 
-Ce fichier est responsable de l'affichage de la page des logs pour un utilisateur connecté.
+Cette page est principalement responsable de l'affichage des logs du site pour les utilisateurs ayant le rôle "adminReseau". Elle récupère tous les fichiers de logs disponibles et les affiche dans un tableau avec des liens pour les télécharger.
 
-### Affichage de la page des logs :
+### Connexion à la base de données :
 
-1. **Démarrage de la session** :
-   - Commence ou restaure une session existante en utilisant `session_start()`.
+- Les informations de connexion à la base de données sont définies (`$host`, `$username`, `$password`).
+- Une connexion à la base de données est établie en utilisant `mysqli_connect()`.
+- La base de données `sae` est sélectionnée en utilisant `mysqli_select_db()`.
 
-2. **Récupération de l'identifiant de l'utilisateur** :
-   - Récupère l'identifiant de l'utilisateur connecté depuis la variable de session `$_SESSION['login']` et le stocke dans la variable `$utilisateur`.
+### Vérification du rôle de l'utilisateur :
 
-3. **Vérification de la session utilisateur** :
-   - Vérifie si l'utilisateur est connecté en vérifiant si la clé `$_SESSION['login']` est définie.
-   - Si l'utilisateur est connecté :
-      - Affiche une structure HTML pour la page des logs avec les éléments suivants :
-         - Doctype HTML et métadonnées pour la configuration de la page.
-         - Liens vers des fichiers CSS et l'icône du site.
-         - En-tête de la page avec une barre de navigation contenant un lien pour la déconnexion (`logout.php?out`).
-         - Affiche le nom de l'utilisateur connecté et indique qu'il est sur la page des logs.
-         - Inclut le contenu de la page des logs à partir du fichier `log.html`.
-         - Inclut le contenu du pied de page à partir du fichier `footer.html`.
+- Une requête SQL est préparée pour récupérer le rôle de l'utilisateur connecté de la table `users`.
+- La requête est exécutée en utilisant `mysqli_stmt_execute()`.
+- Le rôle est récupéré en utilisant `mysqli_stmt_fetch()`.
 
-4. **Redirection en cas d'utilisateur non connecté** :
-   - Si l'utilisateur n'est pas connecté (la session n'est pas active), l'utilisateur est redirigé vers la page d'accueil (`index.php`) en utilisant `header()` et `Location`.
+### Affichage du contenu :
 
-### Points à noter :
+- Si l'utilisateur a le rôle "adminReseau", le contenu principal de la page est affiché.
+- Un bloc `<main>` est affiché, qui contient le contenu principal de la page.
+- Une section de tableau des logs est affichée, qui contient un tableau HTML. Tous les fichiers de logs disponibles sont affichés dans ce tableau avec des liens pour les télécharger.
+- Si l'utilisateur n'a pas le rôle "adminReseau" ou n'est pas connecté, il est redirigé vers la page `index.php`.
 
-- Ce fichier est destiné à afficher la page des logs pour un utilisateur connecté.
-- Il vérifie la présence d'une session active pour l'utilisateur avant d'afficher le contenu de la page.
-- En cas d'absence de session, l'utilisateur est redirigé vers la page d'accueil.
+### Récupération des fichiers de logs :
+
+- Tous les fichiers de logs disponibles sont récupérés en utilisant la fonction `glob()`.
+- Pour chaque fichier de log, le nom du fichier est nettoyé pour ne garder que la date et affiché dans le tableau.

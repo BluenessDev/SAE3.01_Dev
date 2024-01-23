@@ -6,6 +6,14 @@
 - La connexion est établie en utilisant `mysqli_connect()`.
 - La base de données spécifique est sélectionnée avec `mysqli_select_db()`.
 
+### Affichage des informations de profil :
+1. **Informations basiques** :
+   - Affiche le login de l'utilisateur.
+   - Affiche l'email de l'utilisateur.
+   - Affiche le role de l'utilisateur connecté.
+2. **Informations avancées** :
+   - Tableau qui affiche le nombre de tickets créés par l'utilisateur et le nombre de tickets résolus.
+
 ### Traitement du formulaire de profil :
 
 1. **Vérification des données postées** :
