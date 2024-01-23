@@ -8,7 +8,7 @@ La base de données vise à gérer les utilisateurs et les tickets dans le conte
 
 ### Schéma
 
-![Schéma représentant la BDD](https://cdn.discordapp.com/attachments/1172662570369433670/1172662595879190609/image.png?ex=65612225&is=654ead25&hm=7828d3c18f14c7dce5e7d91f433dbcd89f96af0371649d618985a8abc84d05b7& "Schéma de la BDD")
+![Schéma représentant la BDD](https://cdn.discordapp.com/attachments/688468048985849886/1199297074735353896/image.png?ex=65c20770&is=65af9270&hm=7a959ed0cfa91e48866f559d1e159050c5274c38976069addeee29dd74006655& "Schéma de la BDD")
 
 Sur le schéma ci-dessus, on peut voir deux tables qui vont être détaillées ci-dessous.
 
