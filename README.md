@@ -3,6 +3,9 @@
   <a href="https://fr.wikipedia.org/wiki/Hypertext_Markup_Language"><img src="https://img.shields.io/badge/HTML-E34F26?style=for-the-badge&logo=html5&logoColor=white"/></a>
   <a href="https://fr.wikipedia.org/wiki/Feuilles_de_style_en_cascade"><img src="https://img.shields.io/badge/CSS-1572B6?style=for-the-badge&logo=css3&logoColor=white"/></a>
   <a href="https://fr.wikipedia.org/wiki/php"><img src="https://img.shields.io/badge/PHP%20-7F00FF?style=for-the-badge&logo=php&logoColor=white"/></a>
+  <a href="https://fr.wikipedia.org/wiki/Python_(Language)"><img src="https://img.shields.io/badge/Python%20-98FB9?style=for-the-badge&logo=python&logoColor=white"/></a>
+  <a href="https://fr.wikipedia.org/wiki/JavaScript"><img src="https://img.shields.io/badge/Java Script%20-FFA500?style=for-the-badge&logo=JavaScript&logoColor=white"/></a>
+  <a href="https://fr.wikipedia.org/wiki/R_(Language)"><img src="https://img.shields.io/badge/R%20-FF6347?style=for-the-badge&logo=R&logoColor=white"/></a>
 </div>
 
 ## À propos
@@ -15,15 +18,17 @@ a la possiblité de créer un ticket, qui sera ensuite vu par l'administrateur w
 
 **Note :** Prenez en compte que le projet est toujours en développement et qu'il risque d'y avoir d'éventuelles modifications dans le contenu.
 
+* Un répertoire Cryptographie qui contient les fichiers de cryptographie utilisés pour le projet.
 * Un répertoire Documentation qui contient toute la documentaion relative à l'application web :
-  * Le [Cahier des charges](/Documentation/Cahier_des_Charges.pdf) qui contient le planning du projet ainsi que les spécifications de la version actuelle du projet.
-  * La [Conception architecturale](/Documentation/Conception_architecturale_v2.pdf) du projet.
-  * La [Ronception détaillée](/Documentation/Conception_detaille_v2.pdf) du projet.
-  * Le [Recueil de besoin](/Documentation/Recueil_de_Besoin.pdf) qui comprend la gestion des risques liée à notre projet.
+  * Le [Cahier des charges](/Documentation/Cahier_des_Charges_v3.md) qui contient le planning du projet ainsi que les spécifications de la version actuelle du projet.
+  * La [Conception architecturale](/Documentation/Conception_architecturale_v3.md) du projet.
+  * La [Ronception détaillée](/Documentation/Conception_detaillé_v3.1.md) du projet.
+  * Le [Recueil de besoin](/Documentation/Recueil_de_besoin_V3.md) qui comprend la gestion des risques liée à notre projet ainsi que les différents cas d'utilisations.
   * Le [WBS](/Documentation/WBS_SAE_3.01.mvdx) du projet.
-  * La [Conception BD](/Documentation/conception_BD.pdf) qui comprend la conception de la base de donnée du site dans sa version actuelle.
+  * La [Conception BD](/Documentation/conception_BD_v3.1.md) qui comprend la conception de la base de donnée du site dans sa version actuelle.
   * Un repertoire [Logo](/Documentation/Logo) qui comprend les deux differentes version du logo lors du choix de la V1.
   * Un repertoire [Site](/Documentation/Site) qui contient la documentation relative au code PHP en expliquant le code de chaque fichier constituant l'application web.
+* Un répertoire Proba qui contient les fichiers de probabilité utilisés pour le projet.
 * Un répertoire Maquettes qui contient les deux maquettes possibles du site lors de la V1.
 * Un répertoire RPI qui contient le compte rendu de la mise en place du Raspberry Pi.
 * Un répertoire Site qui contient le code source de l'application web ainsi que les assets et les bases de données temporaires utilisées.
