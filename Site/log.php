@@ -1,9 +1,34 @@
 <?php
 session_start();
-$utilisateur = $_SESSION['login'];
 
 if (isset($_SESSION['login'])) {
-    echo "<!DOCTYPE html>
+    $utilisateur = $_SESSION['login'];
+
+    $host = "localhost";
+    $username = "root";
+    $password = "root";
+
+    $conn = mysqli_connect($host, $username, $password) or die("erreur de connexion");
+
+    $namedb = "sae";
+    $db = mysqli_select_db($conn, $namedb) or die("erreur de connexion base");
+
+    $table = "users";
+
+    $requete = "SELECT `role` FROM $table WHERE login=?";
+
+    $reqpre = mysqli_prepare($conn, $requete);
+
+    mysqli_stmt_bind_param($reqpre, "s", $utilisateur);
+
+    mysqli_stmt_execute($reqpre);
+
+    mysqli_stmt_bind_result($reqpre, $role);
+
+    mysqli_stmt_fetch($reqpre);
+
+    if ($role == "adminReseau") {
+        echo "<!DOCTYPE html>
 <html lang='fr' class='inscription'>
 <head>
     <meta charset='utf-8'>
@@ -48,23 +73,26 @@ if (isset($_SESSION['login'])) {
                         </tr>
                         </thead>
                         <tbody>";
-    $nombrefichiers = glob('logs/*.log');
-    for ($i = count($nombrefichiers); $i > 0; $i--) {
-        $fichier = str_replace('logs/', '', $nombrefichiers[$i - 1]);
-        $date = str_replace('.log', '', $fichier);
-        echo "<tr>
+        $nombrefichiers = glob('logs/*.log');
+        for ($i = count($nombrefichiers); $i > 0; $i--) {
+            $fichier = str_replace('logs/', '', $nombrefichiers[$i - 1]);
+            $date = str_replace('.log', '', $fichier);
+            echo "<tr>
                             <td><a href='logs/$fichier'>Télecharger</a></td>
                             <td>$date</td>
                         </tr>";
-    }
-    echo "</tbody>
+        }
+        echo "</tbody>
                     </table>
                 </div>
             </div>
         </div>
     </div>
 </main>";
-    include 'footer.html';
+        include 'footer.html';
+    } else {
+        header('Location: index.php');
+    }
 } else {
     header('Location: index.php');
 }
