@@ -32,7 +32,7 @@ if (isset($_POST['email'], $_POST['login'], $_POST['creapassword'], $_POST['conf
     $reqpre1 = mysqli_prepare($conn, $requete1);
     mysqli_stmt_bind_param($reqpre1, "s", $login);
     mysqli_stmt_execute($reqpre1);
-    if ($result1 = mysqli_stmt_get_result($reqpre1)) {
+    if ($result1 = mysqli_stmt_get_result($reqpre1) and $login != "" and $mdp != "" and $email != "") {
         if (mysqli_num_rows($result1) == 0) {
             if ($mdp == $confmdp) {
                 $verification = intval($_POST['verification']);
@@ -92,6 +92,14 @@ if (isset($_POST['email'], $_POST['login'], $_POST['creapassword'], $_POST['conf
             fclose($log_file);
             header('Location: form_inscr.php?error=2');
         }
+    } else {
+        $ip = getIp();
+        $date = date('d-m-Y');
+        $reason = "Champs vides";
+        $log_file = fopen("logs/$date.log", "a");
+        fwrite($log_file, "[" . date('d/m/Y H:i:s') . "] Inscription échouée de l'adresse IP " . $ip . " avec le login " . $login . " : $reason\n");
+        fclose($log_file);
+        header('Location: form_inscr.php?error=5');
     }
 } else if (isset($_SESSION['login'])) {
     header('Location: index.php');
@@ -160,6 +168,8 @@ if (!empty($_GET["error"]) && $_GET['error'] == 1) {
     echo "<p style='color: red'>La vérification est incorrecte</p>";
 } else if (!empty($_GET["error"]) && $_GET['error'] == 4) {
     echo "<p style='color: red'>Erreur lors de la création de votre compte</p>";
+} else if (!empty($_GET["error"]) && $_GET['error'] == 5) {
+    echo "<p style='color: red'>Veuillez remplir tous les champs</p>";
 } else {
     echo "<br>";
     echo "<br>";
