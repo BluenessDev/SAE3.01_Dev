@@ -56,8 +56,8 @@ Le présent recueil de besoins sera étoffé et mis à jour au fur et à mesure 
 | Formulaire de connexion                                | Utilisateur                                            | Accéder à la page de formulaire de connexion via la page d'accueil                               |
 | Formulaire d'inscription                               | Utilisateur                                            | Accéder à la page de formulaire d'inscription via la page d'accueil                              |
 | Page de profil                                         | Utilisateur, Administrateur Web et Système, Technicien | Si l'utilisateur est connecté, accéder à la page de profil via la page d'accueil                 |
-| Page de faux logs                                      | Administrateur système                                 | Accéder à la page de faux logs via la page d'accueil                                             |
-| Tableau de bord                                        | Utilisateur, Administrateur Web et Système, Technicien | Si l'utilisateur est connecté, accéder au tableau de bord fictif via la page d'accueil           |
+| Page des logs                                          | Administrateur système                                 | Accéder à la page de faux logs via la page d'accueil                                             |
+| Tableau de bord                                        | Utilisateur, Administrateur Web et Système, Technicien | Si l'utilisateur est connecté, accéder au tableau de bord via la page d'accueil                  |
 | Creation de tickets                                    | Utilisateur                                            | Si l'utilisateur est connecté, accéder à la page de création de tickets via son tableau de bord  |
 | Affichage des tickets                                  | Utilisateur                                            | Si l'utilisateur est connecté, accéder à la page d'affichage des tickets via son tableau de bord |
 | Afficher les 10 derniers tickets sur la page d'accueil | Visiteur                                               | Visualiser les 10 derniers tickets sur la page d'accueil                                         |
@@ -67,11 +67,12 @@ Le présent recueil de besoins sera étoffé et mis à jour au fur et à mesure 
 | Niveau 🪁 (Niveau stratégique) ◻️     | Niveau 🌊 (Niveau utilisateur) ◼️ | Niveau 🐟 (Niveau sous-fonction)       |
 |---------------------------------------|-----------------------------------|----------------------------------------|
 | Gérer un ticket                       | Ouvrir un ticket                  | Se connecter                           |
-| Gérer liste libellés                  | Accéder au profil utilisateur     | S’inscrire                             |
-| Valider un ticket                     | Changer son email                 | Accéder au tableau de bord             |
+| Valider un ticket                     | Accéder au profil utilisateur     | S’inscrire                             |
+| Gérer l'état d'un ticket              | Changer son email                 | Accéder au tableau de bord             |
 | Afficher/gérer l'historique           | Modifier son mot de passe         | Accéder à la page d'accueil            |
 | Gérer le niveau d'urgence d'un ticket | Attribuer un technicien           | Accéder à la liste des tickets ouverts |
-| Gérer l'état d'un ticket              | Gérer les rôles utilisateurs      | Se déconnecter                         |
+|                                       | Gérer les rôles utilisateurs      | Se déconnecter                         |
+|                                       | Reinitialiser le mot de passe     | Accéder à la page des logs             |
 
 
 
@@ -89,13 +90,14 @@ Le présent recueil de besoins sera étoffé et mis à jour au fur et à mesure 
  - Afficher et gérer l'historique
  - Gérer les tickets
  - Valider un ticket
- - Gérer les libellés
  - Gérer l'état d'un ticket
  - Gérer le niveau d'urgence d'un ticket
  - Gérer les rôles utilisateurs
  - Accéder à la page d'accueil
  - Accéder au profil
  - Attribuer un technicien
+ - Accéder à la page des logs
+ - Réinitialiser le mot de passe
 
 ## La technologie employée
 Les technologies employées pour utiliser ce système sont :
@@ -446,22 +448,6 @@ Le fonctionnement de ce système est très simple car nous pourrons juste navigu
   - L’administrateur web peut valider un ticket
 - **Post-conditions :** L'utilisateur a validé un ticket.
 
-### Cas d'utilisation : Gérer les libellés
-- **Nom :** Gérer les libellés
-- **Portée :** Site web
-- **Niveau :** Stratégique
-- **Explication :** Ce cas d'utilisation décrit comment l'administrateur web gère les libellés.
-- **Acteur principal :** Administrateur Web
-- **Pré-conditions :** L'utilisateur doit être connecté
-- **Scénario nominal :** C'est un administrateur web
-  - L’administrateur web se connecte à son compte
-  - L’administrateur web accède à son tableau de bord
-  - L’administrateur web peut gérer les libellés
-  - L’administrateur web peut ajouter un libellé
-  - L’administrateur web peut modifier un libellé
-  - L’administrateur web peut supprimer un libellé
-- **Post-conditions :** L'utilisateur a géré les libellés.
-
 ### Cas d'utilisation : Gérer l'état d'un ticket
 - **Nom :** Gérer l'état d'un ticket
 - **Portée :** Site web
@@ -500,3 +486,42 @@ Le fonctionnement de ce système est très simple car nous pourrons juste navigu
   - L’administrateur web accède à son tableau de bord
   - L’administrateur web peut gérer les rôles utilisateurs
 - **Post-conditions :** L'utilisateur a géré les rôles utilisateurs.
+
+### Cas d'utilisation : Accéder à la page d'accueil
+- **Nom :** Accéder à la page d'accueil
+- **Portée :** Site web
+- **Niveau :** Sous-fonction
+- **Explication :** Ce cas d'utilisation décrit comment les utilisateurs accèdent à la page d'accueil.
+- **Acteur principal :** Visiteur, Utilisateur, Administrateur Web et Système, Technicien
+- **Pré-conditions :** L'utilisateur doit être déconnecté
+- **Scénario nominal :** L’utilisateur accède à la page d'accueil
+- **Post-conditions :** L'utilisateur accède à la page d'accueil.
+- **Extension :**
+  - 1.a. L’utilisateur est connecté
+    - 1.a.1. L’utilisateur est redirigé vers son tableau de bord
+
+### Cas d'utilisation : Accéder à la page des logs
+- **Nom :** Accéder à la page des logs
+- **Portée :** Site web
+- **Niveau :** Sous-fonction
+- **Explication :** Ce cas d'utilisation décrit comment les utilisateurs accèdent à la page des logs.
+- **Acteur principal :** Administrateur système
+- **Pré-conditions :** L'utilisateur doit être connecté
+- **Scénario nominal :** L’administrateur système accède à la page des logs
+- **Post-conditions :** L'utilisateur accède à la page des logs.
+- **Extension :**
+  - 1.a. L’utilisateur n’est pas connecté
+    - 1.a.1. L’utilisateur est redirigé vers la page d'accueil
+  - 1.b. L’utilisateur n’est pas un administrateur système
+    - 1.b.1. L’utilisateur est redirigé vers la page d'accueil
+
+### Cas d'utilisation : Réinitialiser le mot de passe
+- **Nom :** Réinitialiser le mot de passe
+- **Portée :** Site web
+- **Niveau :** Utilisateur
+- **Explication :** Ce cas d'utilisation décrit comment les utilisateurs réinitialisent leur mot de passe.
+- **Acteur principal :** Utilisateur, Administrateur Web et Système, Technicien
+- **Pré-conditions :** L'utilisateur doit être déconnecté
+- **Scénario :**
+  - L'utilisateur n'arrive pas à se connecter car il a oublié son mot de passe
+  - L'utilisateur clique sur le bouton "Mot de passe oublié"

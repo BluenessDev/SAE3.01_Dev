@@ -20,10 +20,10 @@ a la possiblité de créer un ticket, qui sera ensuite vu par l'administrateur w
 
 * Un répertoire Cryptographie qui contient les fichiers de cryptographie utilisés pour le projet.
 * Un répertoire Documentation qui contient toute la documentaion relative à l'application web :
-  * Le [Cahier des charges](/Documentation/Cahier_des_Charges_v3.md) qui contient le planning du projet ainsi que les spécifications de la version actuelle du projet.
-  * La [Conception architecturale](/Documentation/Conception_architecturale_v3.md) du projet.
+  * Le [Cahier des charges](/Documentation/Cahier_des_Charges_v3.1) qui contient le planning du projet ainsi que les spécifications de la version actuelle du projet.
+  * La [Conception architecturale](/Documentation/Conception_architecturale_v3.1) du projet.
   * La [Ronception détaillée](/Documentation/Conception_detaillé_v3.1.md) du projet.
-  * Le [Recueil de besoin](/Documentation/Recueil_de_besoin_V3.md) qui comprend la gestion des risques liée à notre projet ainsi que les différents cas d'utilisations.
+  * Le [Recueil de besoin](/Documentation/Recueil_de_besoin_V3.1) qui comprend la gestion des risques liée à notre projet ainsi que les différents cas d'utilisations.
   * Le [WBS](/Documentation/WBS_SAE_3.01.mvdx) du projet.
   * La [Conception BD](/Documentation/conception_BD_v3.1.md) qui comprend la conception de la base de donnée du site dans sa version actuelle.
   * Un repertoire [Logo](/Documentation/Logo) qui comprend les deux differentes version du logo lors du choix de la V1.
