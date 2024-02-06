@@ -83,9 +83,6 @@ echo "<main role='main'>
                         <div class='password'>
                             <label for='password'>Mot de passe :</label>
                             <input type='password' name='password' id='password' required>
-                        </div>
-                        <div class='iforgor'>
-                            <a href='forgot.html'>Mot de passe oublié ?</a>
                         </div>";
 if (!empty($_GET["error"]) && $_GET['error'] == 1) {
     echo "<p style='color: red'>Mot de passe incorrect</p>";
@@ -95,11 +92,13 @@ if (!empty($_GET["error"]) && $_GET['error'] == 1) {
 }
 echo "
                         <br>
-                        <br>
                         <div class='submit'>
                             <input type='submit' id='connect' value='Connexion'>
                         </div>
                         <br>
+                        <div class='iforgor'>
+                            <a href='forgot.html'>Mot de passe oublié ?</a>
+                        </div>
                         <br>
                         <br>
                         <br>
