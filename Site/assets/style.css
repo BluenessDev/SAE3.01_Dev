@@ -565,6 +565,15 @@ th, td {
     text-align: center;
 }
 
+.iforgor > a{
+    text-decoration: none;
+}
+
+.iforgor > a:hover{
+    text-decoration: none;
+    color: #942A2A;
+}
+
 #form {
     flex-direction: column;
     align-items: center;
