@@ -562,7 +562,16 @@ th, td {
     font-weight: 500;
     font-size: 0.95em;
     text-decoration: none;
-    margin-top: auto;
+    text-align: center;
+}
+
+.iforgor > a{
+    text-decoration: none;
+}
+
+.iforgor > a:hover{
+    text-decoration: none;
+    color: #942A2A;
 }
 
 #form {
