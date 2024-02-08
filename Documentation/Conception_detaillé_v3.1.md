@@ -35,27 +35,27 @@ De plus, dans la base de données, la table tickets a été créée, mais est un
 
 ### Abstraction du Domaine
 
-| Composant           | État                      | Comportement|
-|---------------------|---------------------------|----------------------------------------------|
-| Page d'accueil avec l'inscription et connexion  |                | - Afficher la vidéo, texte explicatif, accès au formulaire d'inscription et de connexion           |
-| Page d'accueil avec profil | Accès au Profil    | - Afficher vidéo, texte explicatif, accès au profil, selon le role de l'utilisateur le profil changera et certains accès seront bloqué|
-| Page de formulaire de connexion |       | -  accessible depuis la page d'accueil |
-| Page de formulaire d'inscription |        | accessible depuis la page d'accueil |
-| Page de profil      |                | -  affiche les informations sur le profil, permet la modification du mot de passe et de l'adresse e-mail, affiche le tableau de bord pour les tickets |
-| Page de logs   |               | - acces aux information de connexions|
-| Charte graphique 1 et 2                |                | - Définit les styles pour l'ensemble du site web |
-| Base de données users | Contient les utilisateurs inscrits ainsi que leur roles|                                    |
-| Base de données tickets |                       |Contient les informations obtenue à partir de la page de création des tickets|
-| Système de connexion au profil |      | Se connecter à son compte |
-| Système d'inscription sur le site |                        | Créer un nouvel utilisateur |
-| Système de déconnexion de l'utilisateur |                 |  Déconnecter l'utilisateur  |
-| page de gestions des rôles |   changement possible entre Utilisateur et Techniciens  |  changer les rôles des utilisateurs |
-| page d'information des tickets|   3 états possible du tickets ouvert/en cours/fini |  selon le role on peut ajouter un techniciens à un ticket dans le cas de l'administrateur web, qui changera aussi l'état en "en cours" et pour le techniciens on 
- pourras changer l'etat en "fini" si le tickets est fini |
-| page de création de ticket |  a la création le ticket sera libellé en "ouvert" | permet de créer un ticket avec la nature, le niveau d'urgence, la salle, le demandeur, la personne concernée et le descriptif |
-| page php functions |     |  page php, fonction qui permettra d'aérer le les pages php avec moins de fonction pour une meilleurs compréhension|
-| page de Dashboard |   include dans l'index  | Tableau de bord de l'utilisateur ainsi que des boutons des différentes pages   tel que page de création de tickets, accès des logs, accès profil, et les information tickets|
-| page de javascript TabsTicket |                |   changement des tableaux des dashboards selon l'etat du ticket   |
+| Composant                                               | État                                                    | Comportement                                                                                                                                                                 |
+|---------------------------------------------------------|---------------------------------------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| Page d'accueil avec l'inscription et connexion          |                                                         | - Afficher la vidéo, texte explicatif, accès au formulaire d'inscription et de connexion                                                                                     |
+| Page d'accueil avec profil                              | Accès au Profil                                         | - Afficher vidéo, texte explicatif, accès au profil, selon le role de l'utilisateur le profil changera et certains accès seront bloqué                                       |
+| Page de formulaire de connexion                         |                                                         | -  accessible depuis la page d'accueil                                                                                                                                       |
+| Page de formulaire d'inscription                        |                                                         | accessible depuis la page d'accueil                                                                                                                                          |
+| Page de profil                                          |                                                         | -  affiche les informations sur le profil, permet la modification du mot de passe et de l'adresse e-mail, affiche le tableau de bord pour les tickets                        |
+| Page de logs                                            |                                                         | - acces aux information de connexions                                                                                                                                        |
+| Charte graphique 1 et 2                                 |                                                         | - Définit les styles pour l'ensemble du site web                                                                                                                             |
+| Base de données users                                   | Contient les utilisateurs inscrits ainsi que leur roles |                                                                                                                                                                              |
+| Base de données tickets                                 |                                                         | Contient les informations obtenue à partir de la page de création des tickets                                                                                                |
+| Système de connexion au profil                          |                                                         | Se connecter à son compte                                                                                                                                                    |
+| Système d'inscription sur le site                       |                                                         | Créer un nouvel utilisateur                                                                                                                                                  |
+| Système de déconnexion de l'utilisateur                 |                                                         | Déconnecter l'utilisateur                                                                                                                                                    |
+| page de gestions des rôles                              | changement possible entre Utilisateur et Techniciens    | changer les rôles des utilisateurs                                                                                                                                           |
+| page d'information des tickets                          | 3 états possible du tickets ouvert/en cours/fini        | selon le role on peut ajouter un techniciens à un ticket dans le cas de l'administrateur web, qui changera aussi l'état en "en cours" et pour le techniciens on              |
+| pourras changer l'etat en "fini" si le tickets est fini |                                                         |                                                                                                                                                                              |
+| page de création de ticket                              | a la création le ticket sera libellé en "ouvert"        | permet de créer un ticket avec la nature, le niveau d'urgence, la salle, le demandeur, la personne concernée et le descriptif                                                |
+| page php functions                                      |                                                         | page php, fonction qui permettra d'aérer le les pages php avec moins de fonction pour une meilleurs compréhension                                                            |
+| page de Dashboard                                       | include dans l'index                                    | Tableau de bord de l'utilisateur ainsi que des boutons des différentes pages   tel que page de création de tickets, accès des logs, accès profil, et les information tickets |
+| page de javascript TabsTicket                           |                                                         | changement des tableaux des dashboards selon l'etat du ticket                                                                                                                |
  
 **Figure 1 :** Abstraction du domaine du problème.
 
@@ -331,7 +331,7 @@ Création du composant **TabsTicket** pour l'abstraction de la page de javascrip
 
 **CSS**
 
-**Voir le document de la spécification de la charte graphique et la maquette 1 **
+**Voir le document de la spécification de la charte graphique et la maquette 1**
 
 **Action**
    - Composant :
