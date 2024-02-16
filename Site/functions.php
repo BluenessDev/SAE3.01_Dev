@@ -17,20 +17,20 @@ function afficherTickets($utilisateur, $etat, $role)
 
     if ($role === 'admin') {
         if ($etat === null) {
-            $requete = "SELECT id, nature, date, etat FROM tickets ORDER BY id DESC LIMIT 15";
+            $requete = "SELECT id, nature, date, etat, technicien_login FROM tickets ORDER BY id DESC LIMIT 15";
             $reqpre = mysqli_prepare($conn, $requete);
         } else {
-            $requete = "SELECT id, nature, date, etat FROM tickets WHERE etat=? ORDER BY id DESC LIMIT 15";
+            $requete = "SELECT id, nature, date, etat, technicien_login FROM tickets WHERE etat=? ORDER BY id DESC LIMIT 15";
             $reqpre = mysqli_prepare($conn, $requete);
             mysqli_stmt_bind_param($reqpre, "s", $etat);
         }
     } elseif ($role === 'technicien') {
         if ($etat === null) {
-            $requete = "SELECT id, nature, date, etat FROM tickets WHERE  technicien_login=? ORDER BY id DESC LIMIT 15";
+            $requete = "SELECT id, nature, date, etat, technicien_login FROM tickets WHERE technicien_login=? ORDER BY id DESC LIMIT 15";
             $reqpre = mysqli_prepare($conn, $requete);
             mysqli_stmt_bind_param($reqpre, "s", $utilisateur);
         } else {
-            $requete = "SELECT id, nature, date, etat FROM tickets WHERE technicien_login=? AND etat=? ORDER BY id DESC LIMIT 15";
+            $requete = "SELECT id, nature, date, etat, technicien_login FROM tickets WHERE technicien_login=? AND etat=? ORDER BY id DESC LIMIT 15";
             $reqpre = mysqli_prepare($conn, $requete);
             mysqli_stmt_bind_param($reqpre, "ss", $utilisateur, $etat);
         }
@@ -40,7 +40,7 @@ function afficherTickets($utilisateur, $etat, $role)
             $reqpre = mysqli_prepare($conn, $requete);
             mysqli_stmt_bind_param($reqpre, "s", $utilisateur);
         } else {
-            $requete = "SELECT id, nature, date, etat FROM tickets WHERE login=? AND etat=? ORDER BY id DESC";
+            $requete = "SELECT id, nature, date, etat, technicien_login FROM tickets WHERE login=? AND etat=? ORDER BY id DESC";
             $reqpre = mysqli_prepare($conn, $requete);
             mysqli_stmt_bind_param($reqpre, "ss", $utilisateur, $etat);
         }
@@ -56,16 +56,23 @@ function afficherTickets($utilisateur, $etat, $role)
                     <th><strong>Problème</strong></th>
                     <th><strong>Date</strong></th>
                     <th><strong>Etat</strong></th>
+                    <th><strong>Technicien</strong></th>
                   </tr>
               </thead>";
 
         while ($row = mysqli_fetch_assoc($result)) {
-            echo "<tr>";
+            echo "<tr class='lignetableau'>";
 
             // Faire de chaque cellule une cellule de lien
             echo "<td><a href='ticket_informations.php?id=" . urlencode($row['id']) . "&nature=" . urlencode($row['nature']) . "'>" . $row['nature'] . "</a></td>";
             echo "<td><a href='ticket_informations.php?id=" . urlencode($row['id']) . "&date=" . urlencode($row['date']) . "'>" . $row['date'] . "</a></td>";
             echo "<td><a href='ticket_informations.php?id=" . urlencode($row['id']) . "&etat=" . urlencode($row['etat']) . "'>" . $row['etat'] . "</a></td>";
+            if ($row['technicien_login'] != null) {
+                echo "<td><a href='ticket_informations.php?id=" . urlencode($row['id']) . "&technicien_login=" . urlencode($row['technicien_login']) . "'>" . $row['technicien_login'] . "</a></td>";
+            }
+            else {
+                echo "<td>-</td>";
+            }
 
             echo "</tr>";
         }
@@ -73,6 +80,7 @@ function afficherTickets($utilisateur, $etat, $role)
         // Complétez avec des lignes vides si moins de 15 lignes sont affichées
         for ($i = 0; $i < (15 - mysqli_num_rows($result)); $i++) {
             echo "<tr>";
+            echo "<td>-</td>";
             echo "<td>-</td>";
             echo "<td>-</td>";
             echo "<td>-</td>";
@@ -87,10 +95,20 @@ function afficherTickets($utilisateur, $etat, $role)
 
 
 function afficherUtilisateurs() {
-    global $conn;
+    $host = "localhost";
+    $username = "root";
+    $password = "root";
+
+    $conn = mysqli_connect($host, $username, $password) or die("erreur de connexion");
+
+    $namedb = "sae";
+
+    $db = mysqli_select_db($conn, $namedb) or die("erreur de connexion base");
+
+    $table = "users";
 
     // Requête pour récupérer tous les utilisateurs ayant les rôles 'technicien' ou 'utilisateur'
-    $requete = "SELECT login, email, role FROM users WHERE role IN ('technicien', 'utilisateur') ORDER BY login DESC";
+    $requete = "SELECT login, email, role FROM $table WHERE role IN ('technicien', 'utilisateur') ORDER BY login DESC";
     $reqpre = mysqli_prepare($conn, $requete);
 
     if ($reqpre) {
@@ -185,7 +203,7 @@ function displayTechnicianSelection($conn, $ticketId) {
 function assignTechnicianToTicket($conn, $ticketId) {
     if (isset($_POST['technicien'])) {
         $technicienLogin = $_POST['technicien'];
-        $requete_update = "UPDATE tickets SET technicien_login = ?, etat = 'en_cours' WHERE id = ?";
+        $requete_update = "UPDATE tickets SET technicien_login = ?, etat = 'Assigné' WHERE id = ?";
         $reqpre_update = mysqli_prepare($conn, $requete_update);
         mysqli_stmt_bind_param($reqpre_update, "si", $technicienLogin, $ticketId);
         mysqli_stmt_execute($reqpre_update);
@@ -200,9 +218,31 @@ function assignTechnicianToTicket($conn, $ticketId) {
 }
 
 function updateTicketStatus($conn, $ticketId) {
-    $requete_update_etat = "UPDATE tickets SET etat = 'en_cours' WHERE id = ?";
+    $requete_update_etat = "UPDATE tickets SET etat = 'Assigné' WHERE id = ?";
     $reqpre_update_etat = mysqli_prepare($conn, $requete_update_etat);
     mysqli_stmt_bind_param($reqpre_update_etat, "i", $ticketId);
     mysqli_stmt_execute($reqpre_update_etat);
     echo "<p>L'état du ticket a été mis à jour avec succès.</p>";
+}
+
+function afficherLogs() {
+    echo "<table>
+                   <thead>
+                        <tr>
+                            <th>Téléchargement</th>
+                            <th>Date</th>
+                        </tr>
+                        </thead>
+                        <tbody>";
+        $nombrefichiers = glob('logs/*.log');
+        for ($i = count($nombrefichiers); $i > 0; $i--) {
+            $fichier = str_replace('logs/', '', $nombrefichiers[$i - 1]);
+            $date = str_replace('.log', '', $fichier);
+            echo "<tr>
+                            <td><a href='logs/$fichier'>Télecharger</a></td>
+                            <td>$date</td>
+                        </tr>";
+        }
+        echo "</tbody>
+                    </table>";
 }

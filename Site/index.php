@@ -48,4 +48,6 @@ if (isset($_SESSION['login'])) {
     include 'main.php';
 }
 
+echo "<footer class='bg-dark text-white text-center py-3 fixed-bottom''>";
 include 'footer.html';
+echo "</footer>";

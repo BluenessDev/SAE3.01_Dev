@@ -121,7 +121,7 @@ if (isset($_SESSION['login'])) {
 
                             if (isset($_POST['finir_ticket'])) {
                                 $ticketId = $_POST['ticket_id'];
-                                $requete_update_etat = "UPDATE tickets SET etat = 'fini' WHERE id = ?";
+                                $requete_update_etat = "UPDATE tickets SET etat = 'Fermé' WHERE id = ?";
                                 $reqpre_update_etat = mysqli_prepare($conn, $requete_update_etat);
                                 mysqli_stmt_bind_param($reqpre_update_etat, "i", $ticketId);
 
@@ -174,10 +174,3 @@ if (isset($_SESSION['login'])) {
 else {
     header('Location: index.php');
 }
-
-
-
-
-
-
-

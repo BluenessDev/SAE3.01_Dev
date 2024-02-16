@@ -626,6 +626,18 @@ footer > .infooter > a >img{
     text-decoration: none;
 }
 
+.lignetableau > td > a {
+    color: #0052ad;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.lignetableau:hover > td > a {
+    color: black;
+    text-decoration: none;
+    font-weight: bold;
+}
+
 .ligne > a:hover{
     color: white;
     text-decoration: none;
