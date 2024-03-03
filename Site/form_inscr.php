@@ -49,56 +49,32 @@ if (isset($_POST['email'], $_POST['login'], $_POST['creapassword'], $_POST['conf
                         session_start();
                         unset($_SESSION['captcha']);
                         $_SESSION['login'] = $login;
-                        $_SESSION['date'] = date('d/m/Y');
                         $ip = getIp();
-                        $date = date('d-m-Y');
-                        $log_file = fopen("logs/$date.log", "a");
-                        fwrite($log_file, "[" . date('d/m/Y H:i:s') . "] Inscription réussie de l'adresse IP " . $ip . " avec le login " . $login . "\n");
-                        fclose($log_file);
+                        logEvent("Inscription réussie de l'adresse IP " . $ip . " avec le login " . $_SESSION['login']);
                         header('Location: index.php');
                     } else {
                         $ip = getIp();
-                        $date = date('d-m-Y');
-                        $reason = "Erreur lors de la création du compte";
-                        $log_file = fopen("logs/$date.log", "a");
-                        fwrite($log_file, "[" . date('d/m/Y H:i:s') . "] Inscription échouée de l'adresse IP " . $ip . " avec le login " . $login . " : $reason\n");
-                        fclose($log_file);
+                        logEvent("Erreur lors de la création du compte de l'adresse IP " . $ip . " avec le login " . $login);
                         header('Location: form_inscr?error=4.php');
                     }
                 } else {
                     $ip = getIp();
-                    $date = date('d-m-Y');
-                    $reason = "Capcha incorrect";
-                    $log_file = fopen("logs/$date.log", "a");
-                    fwrite($log_file, "[" . date('d/m/Y H:i:s') . "] Inscription échouée de l'adresse IP " . $ip . " avec le login " . $login . " : $reason\n");
-                    fclose($log_file);
+                    logEvent("Inscription échouée de l'adresse IP " . $ip . " avec le login " . $login . " : La vérification est incorrecte");
                     header('Location: form_inscr.php?error=3');
                 }
             } else {
                 $ip = getIp();
-                $date = date('d-m-Y');
-                $reason = "Mots de passe différents";
-                $log_file = fopen("logs/$date.log", "a");
-                fwrite($log_file, "[" . date('d/m/Y H:i:s') . "] Inscription échouée de l'adresse IP " . $ip . " avec le login " . $login . " : $reason\n");
-                fclose($log_file);
+                logEvent("Inscription échouée de l'adresse IP " . $ip . " avec le login " . $login . " : Les mots de passe ne correspondent pas");
                 header('Location: form_inscr.php?error=1');
             }
         } else {
             $ip = getIp();
-            $date = date('d-m-Y');
-            $reason = "Login déjà utilisé";
-            $log_file = fopen("logs/$date.log", "a");
-            fwrite($log_file, "[" . date('d/m/Y H:i:s') . "] Inscription échouée de l'adresse IP " . $ip . " avec le login " . $login . " : $reason\n");
-            fclose($log_file);
+            logEvent("Inscription échouée de l'adresse IP " . $ip . " avec le login " . $login . " : Login déjà utilisé");
             header('Location: form_inscr.php?error=2');
         }
     } else {
         $ip = getIp();
-        $date = date('d-m-Y');
-        $reason = "Champs vides";
-        $log_file = fopen("logs/$date.log", "a");
-        fwrite($log_file, "[" . date('d/m/Y H:i:s') . "] Inscription échouée de l'adresse IP " . $ip . " avec le login " . $login . " : $reason\n");
-        fclose($log_file);
+        logEvent("Inscription échouée de l'adresse IP " . $ip . " avec le login " . $login . " : Champs vides");
         header('Location: form_inscr.php?error=5');
     }
 } else if (isset($_SESSION['login'])) {
@@ -115,6 +91,7 @@ echo "<!DOCTYPE html>
     <title>Inscription</title>
     <link href='assets/style.css' rel='stylesheet' type='text/css'/>
     <link href='assets/logo.png' rel='icon'>
+    <script src='JavaScript/FormInscr.js'></script>
 </head>
 <body>";
 
@@ -131,7 +108,7 @@ echo "<main role='main'>
                         <h2 class='highlight2'>Créer un compte</h2>
                     </div>
                     <br>
-                    <form action='' method='post' class='formulaire'>
+                    <form action='' method='post' class='formulaire' onsubmit='conserverChamps();'>
                         <div class='email'>
                             <label for='email'>Email :</label>
                             <input type='email' name='email' id='email' required>
