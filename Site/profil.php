@@ -46,17 +46,11 @@ if (!empty($_POST)) {
             if (mysqli_stmt_affected_rows($reqpre) == 1 and $email != "") {
                 session_start();
                 $ip = getIp();
-                $date = date('d-m-Y');
-                $log_file = fopen("logs/$date.log", "a");
-                fwrite($log_file, "[" . date('d/m/Y H:i:s') . "] Changement d'email de l'adresse IP " . $ip . " avec le login " . $_SESSION['login'] . "\n");
-                fclose($log_file);
+                logEvent("Changement d'email réussi de l'adresse IP " . $ip . " avec le login " . $_SESSION['login']);
                 header('Location: profil.php?id=emchange');
             } else {
                 $ip = getIp();
-                $date = date('d-m-Y');
-                $log_file = fopen("logs/$date.log", "a");
-                fwrite($log_file, "[" . date('d/m/Y H:i:s') . "] Erreur lors du changement d'email de l'adresse IP " . $ip . " avec le login " . $_SESSION['login'] . " : Mot de passe incorrect" . "\n");
-                fclose($log_file);
+                logEvent("Erreur lors du changement d'email de l'adresse IP " . $ip . " avec le login " . $_SESSION['login']);
                 header('Location: profil.php?id=emerror');
             }
         } else {
@@ -80,31 +74,22 @@ if (!empty($_POST)) {
                 $result = mysqli_stmt_execute($reqpre);
                 if (mysqli_stmt_affected_rows($reqpre) == 1) {
                     $ip = getIp();
-                    $date = date('d-m-Y');
-                    $log_file = fopen("logs/$date.log", "a");
-                    fwrite($log_file, "[" . date('d/m/Y H:i:s') . "] Changement de mot de passe réussi de l'adresse IP " . $ip . " avec le login " . $_SESSION['login'] . "\n");
-                    fclose($log_file);
+                    logEvent("Changement de mot de passe réussi de l'adresse IP " . $ip . " avec le login " . $_SESSION['login']);
                     header('Location: profil.php?id=mdpchange');
                 } else {
                     $ip = getIp();
-                    $date = date('d-m-Y');
-                    $log_file = fopen("logs/$date.log", "a");
-                    fwrite($log_file, "[" . date('d/m/Y H:i:s') . "] Erreur lors du changement de mot de passe de l'adresse IP " . $ip . " avec le login " . $_SESSION['login'] . " : Erreur" . "\n");
+                    logEvent("Erreur lors du changement de mot de passe de l'adresse IP " . $ip . " avec le login " . $_SESSION['login']);
                     header('Location: profil.php?id=mdperror');
                 }
             }
         } else {
             $ip = getIp();
-            $date = date('d-m-Y');
-            $log_file = fopen("logs/$date.log", "a");
-            fwrite($log_file, "[" . date('d/m/Y H:i:s') . "] Erreur lors du changement de mot de passe de l'adresse IP " . $ip . " avec le login " . $_SESSION['login'] . " : Ancien mot de passe incorrect" . "\n");
+            logEvent("Erreur lors du changement de mot de passe de l'adresse IP " . $ip . " avec le login " . $_SESSION['login'] . " : Ancien mot de passe incorrect");
             header('Location: profil.php?id=mdperror2');
         }
     } else {
         $ip = getIp();
-        $date = date('d-m-Y');
-        $log_file = fopen("logs/$date.log", "a");
-        fwrite($log_file, "[" . date('d/m/Y H:i:s') . "] Erreur lors du changement de mot de passe de l'adresse IP " . $ip . " avec le login " . $_SESSION['login'] . " : Les mots de passe ne correspondent pas" . "\n");
+        logEvent("Erreur lors du changement de mot de passe de l'adresse IP " . $ip . " avec le login " . $_SESSION['login'] . " : Les mots de passe ne correspondent pas");
         header('Location: profil.php?id=mdperror2');
     }
 }

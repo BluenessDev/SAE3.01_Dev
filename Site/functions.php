@@ -201,17 +201,21 @@ function displayTechnicianSelection($conn, $ticketId) {
 }
 
 function assignTechnicianToTicket($conn, $ticketId) {
+    #1
     if (isset($_POST['technicien'])) {
+        #2
         $technicienLogin = $_POST['technicien'];
         $requete_update = "UPDATE tickets SET technicien_login = ?, etat = 'Assigné' WHERE id = ?";
         $reqpre_update = mysqli_prepare($conn, $requete_update);
         mysqli_stmt_bind_param($reqpre_update, "si", $technicienLogin, $ticketId);
         mysqli_stmt_execute($reqpre_update);
-
+        #3
         if (mysqli_stmt_affected_rows($reqpre_update) > 0) {
+            #4
             echo "<p>$technicienLogin a été assigné avec succès au ticket.</p>";
             updateTicketStatus($conn, $ticketId);
         } else {
+            #5
             echo "<p>Erreur lors de l'assignation du technicien au ticket.</p>";
         }
     }
@@ -245,4 +249,11 @@ function afficherLogs() {
         }
         echo "</tbody>
                     </table>";
+}
+
+function logEvent($message){
+    $date = date('d-m-Y');
+    $log_file = fopen("logs/$date.log", "a");
+    fwrite($log_file, "[" . date('d/m/Y H:i:s') . "] " . $message . "\n");
+    fclose($log_file);
 }

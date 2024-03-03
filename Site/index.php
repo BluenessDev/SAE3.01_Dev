@@ -5,7 +5,7 @@ echo "<!DOCTYPE html>
     <meta charset='utf-8'>
     <meta name='viewport' content='width=device-width'>
     <title>Accueil</title>
-    <link href='assets/style.css'' rel='stylesheet' type='text/css'/>
+    <link href='assets/style.css' rel='stylesheet' type='text/css'/>
     <link href='assets/logo.png' rel='icon'>
 </head>
 <body>";
@@ -48,6 +48,6 @@ if (isset($_SESSION['login'])) {
     include 'main.php';
 }
 
-echo "<footer class='bg-dark text-white text-center py-3 fixed-bottom''>";
+echo "<footer class='bg-dark text-white text-center py-3 fixed-bottom'>";
 include 'footer.html';
 echo "</footer>";

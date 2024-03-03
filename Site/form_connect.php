@@ -31,17 +31,11 @@ if (isset($_POST['login'], $_POST['password'])) {
             session_start();
             $_SESSION['login'] = $login;
             $ip = getIp();
-            $date = date('d-m-Y');
-            $log_file = fopen("logs/$date.log", "a");
-            fwrite($log_file, "[" . date('d/m/Y H:i:s') . "] Connexion réussie de l'adresse IP " . $ip . " avec le login " . $_SESSION['login'] . "\n");
-            fclose($log_file);
+            logEvent("Connexion réussie de l'adresse IP " . $ip . " avec le login " . $_SESSION['login']);
             header('Location: index.php');
         } else {
             $ip = getIp();
-            $date = date('d-m-Y');
-            $log_file = fopen("logs/$date.log", "a");
-            fwrite($log_file, "[" . date('d/m/Y H:i:s') . "] Connexion échouée de l'adresse IP " . $ip . " avec le login " . $login . "\n");
-            fclose($log_file);
+            logEvent("Tentative de connexion échouée de l'adresse IP " . $ip . " avec le login " . $login);
             header('Location: form_connect.php?error=1');
         }
     }
