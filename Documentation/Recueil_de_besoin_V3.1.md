@@ -108,8 +108,6 @@ Les technologies employées pour utiliser ce système sont :
 4. Matériel serveur : Utilisation d'une carte SD installée sur un RPI pour déployer localement les nouvelle versions du site.
 5. Gestion du projet et du code : Utilisation de GitHub pour héberger la documentation, le code source et les informations du projet.
 
-Ces éléments constituent l'infrastructure de base pour le système que vous envisagez de créer.
-
 Ce système ne sera pas dépendant d’un autre système et fonctionnera en autonomie.
 
 ## Autres exigences
