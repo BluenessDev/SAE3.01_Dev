@@ -1,6 +1,16 @@
 <?php
 
-function getIp(){
+$host = "localhost";
+$username = "root";
+$password = "root";
+
+$conn = mysqli_connect($host, $username, $password) or die("erreur de connexion");
+
+$namedb = "sae";
+$db = mysqli_select_db($conn, $namedb) or die("erreur de connexion base");
+
+function getIp(): mixed
+{
     if(!empty($_SERVER['HTTP_CLIENT_IP'])){
         $ip = $_SERVER['HTTP_CLIENT_IP'];
     }elseif(!empty($_SERVER['HTTP_X_FORWARDED_FOR'])){
@@ -11,7 +21,7 @@ function getIp(){
     return $ip;
 }
 
-function afficherTickets($utilisateur, $etat, $role)
+function afficherTickets($utilisateur, $etat, $role): void
 {
     global $conn;
 
@@ -94,7 +104,8 @@ function afficherTickets($utilisateur, $etat, $role)
 }
 
 
-function afficherUtilisateurs() {
+function afficherUtilisateurs(): void
+{
     $host = "localhost";
     $username = "root";
     $password = "root";
@@ -175,7 +186,8 @@ function afficherUtilisateurs() {
 }
 
 
-function displayTechnicianSelection($conn, $ticketId) {
+function displayTechnicianSelection($conn, $ticketId): void
+{
     $sql = "SELECT login FROM users WHERE role = 'technicien'";
     $resultTechniciens = mysqli_query($conn, $sql);
 
@@ -200,7 +212,8 @@ function displayTechnicianSelection($conn, $ticketId) {
     }
 }
 
-function assignTechnicianToTicket($conn, $ticketId) {
+function assignTechnicianToTicket($conn, $ticketId): void
+{
     #1
     if (isset($_POST['technicien'])) {
         #2
@@ -221,7 +234,8 @@ function assignTechnicianToTicket($conn, $ticketId) {
     }
 }
 
-function updateTicketStatus($conn, $ticketId) {
+function updateTicketStatus($conn, $ticketId): void
+{
     $requete_update_etat = "UPDATE tickets SET etat = 'Assigné' WHERE id = ?";
     $reqpre_update_etat = mysqli_prepare($conn, $requete_update_etat);
     mysqli_stmt_bind_param($reqpre_update_etat, "i", $ticketId);
@@ -229,7 +243,8 @@ function updateTicketStatus($conn, $ticketId) {
     echo "<p>L'état du ticket a été mis à jour avec succès.</p>";
 }
 
-function afficherLogs() {
+function afficherLogs(): void
+{
     echo "<table>
                    <thead>
                         <tr>
@@ -251,9 +266,106 @@ function afficherLogs() {
                     </table>";
 }
 
-function logEvent($message){
+function logEvent($message): void
+{
     $date = date('d-m-Y');
     $log_file = fopen("logs/$date.log", "a");
     fwrite($log_file, "[" . date('d/m/Y H:i:s') . "] " . $message . "\n");
     fclose($log_file);
+}
+
+function processInscription($email, $login, $password, $confpassword, $verification): int
+{
+    global $conn;
+
+    $clean_email = strip_tags($email);
+    $clean_login = strip_tags($login);
+    $clean_password = strip_tags($password);
+    $clean_confpassword = strip_tags($confpassword);
+    $email = $clean_email;
+    $login = $clean_login;
+    $mdp = chiffrement_RC4($clean_password);
+    $confmdp = chiffrement_RC4($clean_confpassword);
+    $table = "users";
+
+    $requete1 = "SELECT * FROM $table WHERE login=?";
+    $reqpre1 = mysqli_prepare($conn, $requete1);
+    mysqli_stmt_bind_param($reqpre1, "s", $login);
+    mysqli_stmt_execute($reqpre1);
+    if ($result1 = mysqli_stmt_get_result($reqpre1) and $login != "" and $mdp != "" and $email != "") {
+        if (mysqli_num_rows($result1) == 0) {
+            if ($mdp == $confmdp) {
+                if ($verification == $_SESSION['capcha']) {
+                    $requete2 = "INSERT INTO $table (email, login, password) VALUES (?, ?, ?)";
+                    $reqpre2 = mysqli_prepare($conn, $requete2);
+                    mysqli_stmt_bind_param($reqpre2, "sss", $email, $login, $mdp);
+                    mysqli_stmt_execute($reqpre2);
+                    $requete3 = "SELECT * FROM $table WHERE login=? AND password=?";
+                    $reqpre3 = mysqli_prepare($conn, $requete3);
+                    mysqli_stmt_bind_param($reqpre3, "ss", $login, $mdp);
+                    mysqli_stmt_execute($reqpre3);
+                    if ($result3 = mysqli_stmt_get_result($reqpre3)) {
+                        session_start();
+                        unset($_SESSION['captcha']);
+                        $_SESSION['login'] = $login;
+                        $ip = getIp();
+                        logEvent("Inscription réussie de l'adresse IP " . $ip . " avec le login " . $_SESSION['login']);
+                        return 0; // Success
+                    } else {
+                        $ip = getIp();
+                        logEvent("Erreur lors de la création du compte de l'adresse IP " . $ip . " avec le login " . $login);
+                        return 4; // Error during account creation
+                    }
+                } else {
+                    $ip = getIp();
+                    logEvent("Inscription échouée de l'adresse IP " . $ip . " avec le login " . $login . " : La vérification est incorrecte");
+                    return 3; // Verification incorrect
+                }
+            } else {
+                $ip = getIp();
+                logEvent("Inscription échouée de l'adresse IP " . $ip . " avec le login " . $login . " : Les mots de passe ne correspondent pas");
+                return 1; // Passwords do not match
+            }
+        } else {
+            $ip = getIp();
+            logEvent("Inscription échouée de l'adresse IP " . $ip . " avec le login " . $login . " : Login déjà utilisé");
+            return 2; // Login already used
+        }
+    } else {
+        $ip = getIp();
+        logEvent("Inscription échouée de l'adresse IP " . $ip . " avec le login " . $login . " : Champs vides");
+        return 5; // Empty fields
+    }
+}
+
+function processConnexion($login, $password): int
+{
+    global $conn;
+
+    $clean_login = strip_tags($login);
+    $clean_password = strip_tags($password);
+    $login = $clean_login;
+    $mdp = chiffrement_RC4($clean_password);
+    $table = "users";
+
+    $requete = "SELECT * FROM $table WHERE login=? AND password=?";
+    $reqpre = mysqli_prepare($conn, $requete);
+    mysqli_stmt_bind_param($reqpre, "ss", $login, $mdp);
+    mysqli_stmt_execute($reqpre);
+
+    if ($result = mysqli_stmt_get_result($reqpre)) {
+        if (mysqli_num_rows($result) == 1) {
+            session_start();
+            $_SESSION['login'] = $login;
+            $ip = getIp();
+            logEvent("Connexion réussie de l'adresse IP " . $ip . " avec le login " . $_SESSION['login']);
+            return 0; // Success
+        } else {
+            $ip = getIp();
+            logEvent("Tentative de connexion échouée de l'adresse IP " . $ip . " avec le login " . $login);
+            return 1; // Incorrect password
+        }
+    } else {
+        return 2; // Error during execution
+    }
 }

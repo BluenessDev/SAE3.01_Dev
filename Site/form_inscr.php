@@ -5,77 +5,15 @@ include 'Crypto.php';
 
 session_start();
 
-$host = "localhost";
-$username = "root";
-$password = "root";
-
 $operande1 = rand(1, 10);
 $operande2 = rand(1, 10);
 
-$conn = mysqli_connect($host, $username, $password) or die("erreur de connexion");
-
-$namedb = "sae";
-$db = mysqli_select_db($conn, $namedb) or die("erreur de connexion base");
-
-$table = "users";
-
 if (isset($_POST['email'], $_POST['login'], $_POST['creapassword'], $_POST['confpassword'], $_POST['verification'])) {
-    $clean_email = strip_tags($_POST['email']);
-    $clean_login = strip_tags($_POST['login']);
-    $clean_password = strip_tags($_POST['creapassword']);
-    $clean_confpassword = strip_tags($_POST['confpassword']);
-    $email = $clean_email;
-    $login = $clean_login;
-    $mdp = chiffrement_RC4($clean_password);
-    $confmdp = chiffrement_RC4($clean_confpassword);
-    $requete1 = "SELECT * FROM $table WHERE login=?";
-    $reqpre1 = mysqli_prepare($conn, $requete1);
-    mysqli_stmt_bind_param($reqpre1, "s", $login);
-    mysqli_stmt_execute($reqpre1);
-    if ($result1 = mysqli_stmt_get_result($reqpre1) and $login != "" and $mdp != "" and $email != "") {
-        if (mysqli_num_rows($result1) == 0) {
-            if ($mdp == $confmdp) {
-                $verification = intval($_POST['verification']);
-                if ($verification == $_SESSION['capcha']) {
-                    $requete2 = "INSERT INTO $table (email, login, password) VALUES (?, ?, ?)";
-                    $reqpre2 = mysqli_prepare($conn, $requete2);
-                    mysqli_stmt_bind_param($reqpre2, "sss", $email, $login, $mdp);
-                    mysqli_stmt_execute($reqpre2);
-                    $requete3 = "SELECT * FROM $table WHERE login=? AND password=?";
-                    $reqpre3 = mysqli_prepare($conn, $requete3);
-                    mysqli_stmt_bind_param($reqpre3, "ss", $login, $mdp);
-                    mysqli_stmt_execute($reqpre3);
-                    if ($result3 = mysqli_stmt_get_result($reqpre3)) {
-                        session_start();
-                        unset($_SESSION['captcha']);
-                        $_SESSION['login'] = $login;
-                        $ip = getIp();
-                        logEvent("Inscription réussie de l'adresse IP " . $ip . " avec le login " . $_SESSION['login']);
-                        header('Location: index.php');
-                    } else {
-                        $ip = getIp();
-                        logEvent("Erreur lors de la création du compte de l'adresse IP " . $ip . " avec le login " . $login);
-                        header('Location: form_inscr?error=4.php');
-                    }
-                } else {
-                    $ip = getIp();
-                    logEvent("Inscription échouée de l'adresse IP " . $ip . " avec le login " . $login . " : La vérification est incorrecte");
-                    header('Location: form_inscr.php?error=3');
-                }
-            } else {
-                $ip = getIp();
-                logEvent("Inscription échouée de l'adresse IP " . $ip . " avec le login " . $login . " : Les mots de passe ne correspondent pas");
-                header('Location: form_inscr.php?error=1');
-            }
-        } else {
-            $ip = getIp();
-            logEvent("Inscription échouée de l'adresse IP " . $ip . " avec le login " . $login . " : Login déjà utilisé");
-            header('Location: form_inscr.php?error=2');
-        }
+    $result = processInscription($_POST['email'], $_POST['login'], $_POST['creapassword'], $_POST['confpassword'], $_POST['verification']);
+    if ($result === 0) {
+        header('Location: index.php');
     } else {
-        $ip = getIp();
-        logEvent("Inscription échouée de l'adresse IP " . $ip . " avec le login " . $login . " : Champs vides");
-        header('Location: form_inscr.php?error=5');
+        header('Location: form_inscr.php?error=' . $result);
     }
 } else if (isset($_SESSION['login'])) {
     header('Location: index.php');

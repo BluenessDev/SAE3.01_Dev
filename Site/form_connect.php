@@ -3,46 +3,6 @@
 include 'functions.php';
 include 'Crypto.php';
 
-$host = "localhost";
-$username = "root";
-$password = "root";
-
-$conn = mysqli_connect($host, $username, $password) or die("erreur de connexion");
-
-$namedb = "sae";
-$db = mysqli_select_db($conn, $namedb) or die("erreur de connexion base");
-
-$table = "users";
-
-if (isset($_POST['login'], $_POST['password'])) {
-    $clean_login = strip_tags($_POST['login']);
-    $clean_password = strip_tags($_POST['password']);
-    $login = $clean_login;
-    $mdp = chiffrement_RC4($clean_password);
-    $requete = "SELECT * FROM $table WHERE login=? AND password=?";
-    $reqpre = mysqli_prepare($conn, $requete);
-
-    mysqli_stmt_bind_param($reqpre, "ss", $login, $mdp);
-
-    mysqli_stmt_execute($reqpre);
-
-    if ($result = mysqli_stmt_get_result($reqpre)) {
-        if (mysqli_num_rows($result) == 1) {
-            session_start();
-            $_SESSION['login'] = $login;
-            $ip = getIp();
-            logEvent("Connexion réussie de l'adresse IP " . $ip . " avec le login " . $_SESSION['login']);
-            header('Location: index.php');
-        } else {
-            $ip = getIp();
-            logEvent("Tentative de connexion échouée de l'adresse IP " . $ip . " avec le login " . $login);
-            header('Location: form_connect.php?error=1');
-        }
-    }
-} else if (isset($_SESSION['login'])) {
-    header('Location: index.php');
-}
-
 echo "<!DOCTYPE html>
 <html lang='fr' class='inscription'>
 <head>
@@ -50,12 +10,25 @@ echo "<!DOCTYPE html>
     <meta name='viewport' content='width=device-width'>
     <title>Connexion</title>
     <link href='assets/style.css' rel='stylesheet' type='text/css'/>
+    <script src='JavaScript/FormInscr.js'></script>
     <link href='assets/logo.png' rel='icon'>
 </head>
 <body>";
 
+if (isset($_POST['login'], $_POST['password'])) {
+    $result = processConnexion($_POST['login'], $_POST['password']);
+    if ($result === 0) {
+        header('Location: index.php');
+    } else {
+        header('Location: form_connect.php?error=' . $result);
+    }
+} else if (isset($_SESSION['login'])) {
+    header('Location: index.php');
+}
+
 include 'banner.html';
 
+echo "<script>document.addEventListener('DOMContentLoaded', clearChamps);</script>";
 echo "<main role='main'>
     <div class='article'>
         <div class='main-article'>
