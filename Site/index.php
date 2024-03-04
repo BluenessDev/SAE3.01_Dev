@@ -7,6 +7,7 @@ echo "<!DOCTYPE html>
     <title>Accueil</title>
     <link href='assets/style.css' rel='stylesheet' type='text/css'/>
     <link href='assets/logo.png' rel='icon'>
+    <script src='JavaScript/FormInscr.js'></script>
 </head>
 <body>";
 
@@ -22,6 +23,7 @@ $db = mysqli_select_db($conn, $namedb) or die("erreur de connexion base");
 session_start();
 
 if (isset($_SESSION['login'])) {
+    echo "<script>document.addEventListener('DOMContentLoaded', clearChamps);</script>";
     $utilisateur = $_SESSION['login'];
     echo "<header role='banner'>
   <nav role='navigation'>

@@ -1,8 +1,13 @@
 window.onload = init;
 
 function init() {
-    let email = localStorage.getItem('email');
-    let login = localStorage.getItem('login');
+    // Générer un identifiant unique pour cet onglet si ce n'est pas déjà fait
+    if (!window.name) {
+        window.name = Date.now().toString();
+    }
+
+    let email = sessionStorage.getItem(window.name + 'email');
+    let login = sessionStorage.getItem(window.name + 'login');
 
     if (email !== null) {
         document.getElementById('email').value = email;
@@ -16,6 +21,13 @@ function conserverChamps() {
     let email = document.getElementById('email').value;
     let login = document.getElementById('login').value;
 
-    localStorage.setItem('email', email);
-    localStorage.setItem('login', login);
+    sessionStorage.setItem(window.name + 'email', email);
+    sessionStorage.setItem(window.name + 'login', login);
+}
+
+function clearChamps() {
+    sessionStorage.removeItem(window.name + 'email');
+    sessionStorage.removeItem(window.name + 'login');
+    document.getElementById('email').value = '';
+    document.getElementById('login').value = '';
 }
