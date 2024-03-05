@@ -1,11 +1,12 @@
 <div align="center">
-  <h1>PROJET TICKIMOA V3.1</h1>
+  <h1>PROJET TICKIMOA V4</h1>
   <a href="https://fr.wikipedia.org/wiki/Hypertext_Markup_Language"><img src="https://img.shields.io/badge/HTML-E34F26?style=for-the-badge&logo=html5&logoColor=white"/></a>
   <a href="https://fr.wikipedia.org/wiki/Feuilles_de_style_en_cascade"><img src="https://img.shields.io/badge/CSS-1572B6?style=for-the-badge&logo=css3&logoColor=white"/></a>
   <a href="https://fr.wikipedia.org/wiki/php"><img src="https://img.shields.io/badge/PHP%20-7F00FF?style=for-the-badge&logo=php&logoColor=white"/></a>
   <a href="https://fr.wikipedia.org/wiki/Python_(Language)"><img src="https://img.shields.io/badge/Python%20-98FB9?style=for-the-badge&logo=python&logoColor=white"/></a>
   <a href="https://fr.wikipedia.org/wiki/JavaScript"><img src="https://img.shields.io/badge/Java Script%20-FFA500?style=for-the-badge&logo=JavaScript&logoColor=white"/></a>
   <a href="https://fr.wikipedia.org/wiki/R_(Language)"><img src="https://img.shields.io/badge/R%20-FF6347?style=for-the-badge&logo=R&logoColor=white"/></a>
+  <a href="https://fr.wikipedia.org/wiki/Bourne-Again_shell"><img src="https://img.shields.io/badge/Bash%20-582900?style=for-the-badge&logo=gnubash&logoColor=white"/></a>
 </div>
 
 ## À propos
