@@ -10,16 +10,6 @@ echo "<!DOCTYPE html>
     <script src='JavaScript/FormInscr.js'></script>
 </head>
 <body>";
-
-$host = "localhost";
-$username = "root";
-$password = "root";
-
-$conn = mysqli_connect($host, $username, $password) or die("erreur de connexion");
-
-$namedb = "sae";
-$db = mysqli_select_db($conn, $namedb) or die("erreur de connexion base");
-
 session_start();
 
 if (isset($_SESSION['login'])) {
@@ -50,6 +40,6 @@ if (isset($_SESSION['login'])) {
     include 'main.php';
 }
 
-echo "<footer class='bg-dark text-white text-center py-3 fixed-bottom'>";
+echo "<footer>";
 include 'footer.html';
 echo "</footer>";

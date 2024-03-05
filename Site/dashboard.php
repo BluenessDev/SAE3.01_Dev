@@ -168,15 +168,21 @@ if (isset($_SESSION['login'])) {
                 <button class='tablinks' id='button2' data-content-id='assigne' onclick='(\"assigne\")'>Assignés</button>
                 <button class='tablinks' id='button3' data-content-id='ferme' onclick='(\"ferme\")'>Fermés</button>
             </div>
-            <div id='ouvert' class='tabcontent active' >
+            <div id='ouvert' class='tabcontent'>
+                <br>
+                <br>
                 <h3>Tableau des tickets ouverts</h3>";
             afficherTickets($utilisateur, 'Ouvert', $role_utilisateur);
             echo "</div>
-            <div id='assigne' class='tabcontent active'>
+            <div id='assigne' class='tabcontent'>
+                <br>
+                <br>
                 <h3>Tableau des tickets assignés à un technicien</h3>";
             afficherTickets($utilisateur, 'Assigné', $role_utilisateur);
             echo "</div>
-            <div id='ferme' class='tabcontent active'>
+            <div id='ferme' class='tabcontent'>
+                <br>
+                <br>
                 <h3>Tableau des tickets fermés</h3>";
             afficherTickets($utilisateur, 'Fermé', $role_utilisateur);
             echo "</div>
