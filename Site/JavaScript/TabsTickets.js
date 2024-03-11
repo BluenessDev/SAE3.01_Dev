@@ -5,8 +5,6 @@ function init() {
     request.open("GET", "dashboard.php");
     request.send();
     request.onreadystatechange = traitementReponse;
-    document.getElementById('ouvert').style.display = 'block';
-    document.getElementById('button1').classList.add('active')
 }
 
 function traitementReponse() {

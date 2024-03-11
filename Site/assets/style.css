@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap');
 
 html, body {
-    font-family: 'Poppins', sans-serif;
+    font-family: 'Poppins', sans-serif !important;
     font-size: 12px;
     padding-top: 0;
     margin: 0;
@@ -238,6 +238,10 @@ h1 {
     padding: 3%;
 }
 
+#unique {
+    height: 95%;
+}
+
 header > .inheader > a {
     color: black;
     text-decoration: none;
@@ -282,15 +286,33 @@ table {
     background-color: #ffffff;
 }
 
-th, td {
+th {
     padding: 0.2em;
     text-align: center;
     border-collapse: collapse;
     border: 1px solid;
-    color: #000000;
     font-style: normal;
+    color: #000000;
+    font-weight: 1000;
+    font-size: 1.3em;
+}
+
+
+td {
+    padding: 0.2em;
+    text-align: center;
+    border-collapse: collapse;
+    border: 1px solid;
+    font-style: normal;
+    color: #000000;
     font-weight: 600;
     font-size: 1.3em;
+}
+
+.menu th, .menu td {
+    width: 0.2em; /* Ajustez selon vos besoins */
+    height: 0.2em; /* Ajustez selon vos besoins */
+    overflow: auto; /* Active le défilement si le contenu dépasse les dimensions fixées */
 }
 
 .ligne > img {
@@ -509,8 +531,6 @@ th, td {
     margin-top: 10vh;
 }
 
-
-
 #login, #password, #email, #confpassword, #creapassword, #newpassword, #verification, #niveau, #salle {
     width: 13em;
     border-radius: 5px;
@@ -707,7 +727,6 @@ footer > .infooter > a >img{
         color: #000000;
         text-align: center;
         font-style: normal;
-        font-weight: 700;
         font-size: 1.1em;
         align-items: center;
         gap: 0.5em;
@@ -722,5 +741,4 @@ footer > .infooter > a >img{
         overflow: hidden;
     }
     * {box-sizing: border-box}
-
 }

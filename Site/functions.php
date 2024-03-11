@@ -60,7 +60,7 @@ function afficherTickets($utilisateur, $etat, $role): void
         mysqli_stmt_execute($reqpre);
         $result = mysqli_stmt_get_result($reqpre);
 
-        echo "<table>";
+        echo "<table class='menu'>";
         echo "<thead>
                   <tr>
                     <th><strong>Problème</strong></th>
@@ -77,10 +77,13 @@ function afficherTickets($utilisateur, $etat, $role): void
             echo "<td><a href='ticket_informations.php?id=" . urlencode($row['id']) . "&nature=" . urlencode($row['nature']) . "'>" . $row['nature'] . "</a></td>";
             echo "<td><a href='ticket_informations.php?id=" . urlencode($row['id']) . "&date=" . urlencode($row['date']) . "'>" . $row['date'] . "</a></td>";
             echo "<td><a href='ticket_informations.php?id=" . urlencode($row['id']) . "&etat=" . urlencode($row['etat']) . "'>" . $row['etat'] . "</a></td>";
-            if ($row['technicien_login'] != null) {
-                echo "<td><a href='ticket_informations.php?id=" . urlencode($row['id']) . "&technicien_login=" . urlencode($row['technicien_login']) . "'>" . $row['technicien_login'] . "</a></td>";
-            }
-            else {
+            if (array_key_exists('technicien_login', $row)) {
+                if ($row['technicien_login'] != null) {
+                    echo "<td><a href='ticket_informations.php?id=" . urlencode($row['id']) . "&technicien_login=" . urlencode($row['technicien_login']) . "'>" . $row['technicien_login'] . "</a></td>";
+                } else {
+                    echo "<td>-</td>";
+                }
+            } else {
                 echo "<td>-</td>";
             }
 
@@ -253,16 +256,24 @@ function afficherLogs(): void
                         </tr>
                         </thead>
                         <tbody>";
-        $nombrefichiers = glob('logs/*.log');
-        for ($i = count($nombrefichiers); $i > 0; $i--) {
-            $fichier = str_replace('logs/', '', $nombrefichiers[$i - 1]);
-            $date = str_replace('.log', '', $fichier);
-            echo "<tr>
+    $nombrefichiers = glob('logs/*.log');
+    $nombrefichiers = array_slice($nombrefichiers, 0, 15); // Get the first 15 files
+    for ($i = count($nombrefichiers); $i > 0; $i--) {
+        $fichier = str_replace('logs/', '', $nombrefichiers[$i - 1]);
+        $date = str_replace('.log', '', $fichier);
+        echo "<tr>
                             <td><a href='logs/$fichier'>Télecharger</a></td>
                             <td>$date</td>
                         </tr>";
-        }
-        echo "</tbody>
+    }
+    // If there are less than 15 logs, add additional rows with "-"
+    for ($i = count($nombrefichiers); $i < 15; $i++) {
+        echo "<tr>
+                            <td>-</td>
+                            <td>-</td>
+                        </tr>";
+    }
+    echo "</tbody>
                     </table>";
 }
 
@@ -367,5 +378,38 @@ function processConnexion($login, $password): int
         }
     } else {
         return 2; // Error during execution
+    }
+}
+
+function creer_ticket($nature_pb, $niveau, $salle, $demandeur, $pers_conc, $description) {
+    global $conn;
+
+    session_start();
+
+    $table = "tickets";
+
+    $allowed_natures = ['Problèmes de périphériques', 'Problèmes de logiciel', 'Problèmes de connectivité', 'Problèmes de matériel'];
+    $allowed_niveaux = [1, 2, 3, 4];
+    $allowed_salles = ['E46', 'E47', 'E49', 'E50', 'E51', 'E52', 'E53', 'E54', 'E57', 'E58', 'E59', 'G21', 'G22', 'G23', 'G24', 'G25', 'G26', 'G31', 'G32', 'G33', 'G34', 'G35', 'G51', 'G52', 'G53', 'G54', 'H11', 'H21', 'H22', 'H23', 'H24', 'H31', 'H32', 'H33', 'H41', 'H42', 'H44', 'H45', 'H61', 'H62', 'I03', 'I21', 'I22', 'I23', 'I24'];
+
+    if (isset($_SESSION['login'])) {
+        $utilisateur = $_SESSION['login'];
+        if ($nature_pb != "" && $niveau != "" && $salle != "" && $demandeur != "" && $pers_conc != "" && $description != "" && (in_array($nature_pb, $allowed_natures) && in_array($niveau, $allowed_niveaux) && in_array($salle, $allowed_salles))) {
+            //initialisation des champs du ticket pour le log
+            $ip = getIp();
+            logEvent("Création d'un ticket de l'adresse IP " . $ip . " avec le login " . $_SESSION['login'] . " : \n" . "\t\t\t\tNature du problème : " . $nature_pb . "\n" . "\t\t\t\tNiveau du problème : " . $niveau . "\n" . "\t\t\t\tSalle : " . $salle . "\n" . "\t\t\t\tDemandeur : " . $demandeur . "\n" . "\t\t\t\tPersonne concernée : " . $pers_conc . "\n" . "\t\t\t\tDescription : " . $description);
+            //Insertion du ticket cree dans la BD
+            $requete_ticket = "INSERT INTO $table (nature, niveau, salle, demandeur, concerne, description, login) values (?, ?, ?, ?, ?, ?, ?)";
+            $reqpre_ticket = mysqli_prepare($conn, $requete_ticket); //Prépare la requete requete_ticket.
+            mysqli_stmt_bind_param($reqpre_ticket, "sisssss", $nature_pb, $niveau, $salle, $demandeur, $pers_conc, $description, $utilisateur); // Permet de lier les valeurs aux marqueurs de position (?) dans la requête préparée.
+            mysqli_stmt_execute($reqpre_ticket); //Execute la requete
+            return true;
+        } else {
+            $ip = getIp();
+            logEvent("Création d'un ticket échouée de l'adresse IP " . $ip . " avec le login " . $_SESSION['login'] . " : Champs vides");
+            return false;
+        }
+    } else {
+        return false;
     }
 }

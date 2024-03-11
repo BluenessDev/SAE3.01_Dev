@@ -129,7 +129,6 @@ if (isset($_SESSION['login'])) {
                     <div class='titre' id='formtit'>
                         <h2 class='highlight'>Informations personnelles :</h2>
                     </div>
-                    <ligne
                     <div class='ligne'>
                     <div class='left'>
                     <p>Login : $utilisateur</p>

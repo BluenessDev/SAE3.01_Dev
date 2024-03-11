@@ -63,7 +63,7 @@ if (isset($_SESSION['login'])) {
         <div class='main-article'>
                 <div class='subarticle' id='form'>
                     <div class='titre' id='formtit'>
-                        <h2 class='highlight2'>Liste des Utilisateurs et Techniciens :</h2>
+                        <h2 class='highlight2' style='font-weight: 700;'>Liste des Utilisateurs et Techniciens :</h2>
                     </div>
                     <div class='userTable'>";
         afficherUtilisateurs();

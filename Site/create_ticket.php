@@ -12,49 +12,25 @@ echo "<!DOCTYPE html>
 
 include 'functions.php';
 
-$host = "localhost";
-$username = "root";
-$password = "root";
-
-$conn = mysqli_connect($host, $username, $password) or die("erreur de connexion");
-
-$namedb = "sae";
-$db = mysqli_select_db($conn, $namedb) or die("erreur de connexion base");
-
 session_start();
-
-$table = "tickets";
 
 if (isset($_SESSION['login'])) {
     $utilisateur = $_SESSION['login'];
     if (isset($_POST['nature_pb'], $_POST['niveau'], $_POST['salle'], $_POST['demandeur'], $_POST['pers_conc'], $_POST['description'])){
-        //initialisation des champs du ticket pour la BD
         $clean_nature = strip_tags($_POST['nature_pb']);
         $clean_niveau = strip_tags($_POST['niveau']);
         $clean_salle = strip_tags($_POST['salle']);
         $clean_demandeur = strip_tags($_POST['demandeur']);
         $clean_pers_conc = strip_tags($_POST['pers_conc']);
         $clean_description = strip_tags($_POST['description']);
-        $nature_pb = $clean_nature;
-        $niveau = $clean_niveau;
-        $salle = $clean_salle;
-        $demandeur = $clean_demandeur;
-        $pers_conc = $clean_pers_conc;
-        $description = $clean_description;
-        if ($nature_pb != "" && $niveau != "" && $salle != "" && $demandeur != "" && $pers_conc != "" && $description != "") {
-            //initialisation des champs du ticket pour le log
-            $ip = getIp();
-            logEvent("Création d'un ticket de l'adresse IP " . $ip . " avec le login " . $_SESSION['login'] . " : \n" . "\t\t\t\tNature du problème : " . $nature_pb . "\n" . "\t\t\t\tNiveau du problème : " . $niveau . "\n" . "\t\t\t\tSalle : " . $salle . "\n" . "\t\t\t\tDemandeur : " . $demandeur . "\n" . "\t\t\t\tPersonne concernée : " . $pers_conc . "\n" . "\t\t\t\tDescription : " . $description);
-            //Insertion du ticket cree dans la BD
-            $requete_ticket = "INSERT INTO $table (nature, niveau, salle, demandeur, concerne, description, login) values (?, ?, ?, ?, ?, ?, ?)";
-            $reqpre_ticket = mysqli_prepare($conn, $requete_ticket); //Prépare la requete requete_ticket.
-            mysqli_stmt_bind_param($reqpre_ticket, "sisssss", $nature_pb, $niveau, $salle, $demandeur, $pers_conc, $description, $utilisateur); // Permet de lier les valeurs aux marqueurs de position (?) dans la requête préparée.
-            mysqli_stmt_execute($reqpre_ticket); //Execute la requete
+
+        //on crée le ticket
+        $result = creer_ticket($clean_nature, $clean_niveau, $clean_salle, $clean_demandeur, $clean_pers_conc, $clean_description);
+
+        if ($result) {
             header('Location: index.php');
         } else {
-            $ip = getIp();
-            logEvent("Création d'un ticket échouée de l'adresse IP " . $ip . " avec le login " . $_SESSION['login'] . " : Champs vides");
-            header('Location: create_ticket.php');
+            header('Location: create_ticket.php?error=1');
         }
     }
     echo "<body>
@@ -70,7 +46,7 @@ if (isset($_SESSION['login'])) {
             <a href='index.php'><img src='assets/logo.png' alt='logo du site tickimoa'></a>
             <div class='title'>
                 <h1>Ravi de vous revoir <span style='text-transform:uppercase'>$utilisateur</span></h1>
-                <h1 class='highlight'>Vous êtes sur la page Création De Tickets</h1>
+                <h1 class='highlight'>Vous êtes sur la page création de tickets</h1>
             </div>
         </div>
         <br>
@@ -178,11 +154,16 @@ if (isset($_SESSION['login'])) {
                                     <textarea id='description' name='description' maxlength='400'></textarea>                     
                             </div>
                         </div>
-                        <div class='submit_ticket'>
+                        <div class='submit_ticket'>    
                             <input type='submit' id='confirmer' value='Confirmer'>
                             <input type='reset' id='annuler' value='Reset'>
                         </div>
                     </form>
+                    <div class='error'>";
+    if (!empty($_GET["error"]) && $_GET['error'] == 1) {
+        echo "<p>Erreur lors de la création du ticket</p>";
+    }
+    echo "                    </div>
                     </div>
                 </div>
             </div>        
@@ -191,6 +172,6 @@ if (isset($_SESSION['login'])) {
     </body>";
 
     include 'footer.html';
-}else {
+} else {
     header('Location: index.php');
 }
