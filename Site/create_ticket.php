@@ -23,7 +23,8 @@ $db = mysqli_select_db($conn, $namedb) or die("erreur de connexion base");
 
 session_start();
 
-$table = "tickets";
+$table_ticket = "tickets";
+$table_salle = "salle";
 
 if (isset($_SESSION['login'])) {
     $utilisateur = $_SESSION['login'];
@@ -48,8 +49,9 @@ if (isset($_SESSION['login'])) {
             $log_file = fopen("logs/$date.log", "a");
             fwrite($log_file, "[" . date('d/m/Y H:i:s') . "] Création d'un ticket de l'adresse IP " . $ip . " avec le login " . $_SESSION['login'] . " : \n" . "\t\t\t\tNature du problème : " . $nature_pb . "\n" . "\t\t\t\tNiveau du problème : " . $niveau . "\n" . "\t\t\t\tSalle : " . $salle . "\n" . "\t\t\t\tDemandeur : " . $demandeur . "\n" . "\t\t\t\tPersonne concernée : " . $pers_conc . "\n" . "\t\t\t\tDescription : " . $description . "\n");
             fclose($log_file);
+
             //Insertion du ticket cree dans la BD
-            $requete_ticket = "INSERT INTO $table (nature, niveau, salle, demandeur, concerne, description, login) values (?, ?, ?, ?, ?, ?, ?)";
+            $requete_ticket = "INSERT INTO $table_ticket (nature, niveau, salle, demandeur, concerne, description, login) values (?, ?, ?, ?, ?, ?, ?)";
             $reqpre_ticket = mysqli_prepare($conn, $requete_ticket); //Prépare la requete requete_ticket.
             mysqli_stmt_bind_param($reqpre_ticket, "sisssss", $nature_pb, $niveau, $salle, $demandeur, $pers_conc, $description, $utilisateur); // Permet de lier les valeurs aux marqueurs de position (?) dans la requête préparée.
             mysqli_stmt_execute($reqpre_ticket); //Execute la requete
@@ -102,6 +104,7 @@ if (isset($_SESSION['login'])) {
                                     <option>Problèmes de logiciel</option>
                                     <option>Problèmes de connectivité</option>
                                     <option>Problèmes de matériel </option>
+                                    <option value = 'Non specifie'> Autre ... </option>
                                 </select>
                             </div>
                             
@@ -117,53 +120,17 @@ if (isset($_SESSION['login'])) {
                             
                             <div class='salle'>
                                 <label for='salle'>Salle ou se situe le problème</label>
-                                <select name='salle' id='salle'>
-                                <option>E46</option>
-                                <option>E47</option>
-                                <option>E49</option>
-                                <option>E50</option>
-                                <option>E51</option>
-                                <option>E52</option>
-                                <option>E53</option>
-                                <option>E54</option>
-                                <option>E57</option>
-                                <option>E58</option>
-                                <option>E59</option>
-                                <option>G21</option>
-                                <option>G22</option>
-                                <option>G23</option>
-                                <option>G24</option>
-                                <option>G25</option>
-                                <option>G26</option>
-                                <option>G31</option>
-                                <option>G32</option>
-                                <option>G33</option>
-                                <option>G34</option>
-                                <option>G35</option>
-                                <option>G51</option>
-                                <option>G52</option>
-                                <option>G53</option>
-                                <option>G54</option>
-                                <option>H11</option>
-                                <option>H21</option>
-                                <option>H22</option>
-                                <option>H23</option>
-                                <option>H24</option>
-                                <option>H31</option>
-                                <option>H32</option>
-                                <option>H33</option>
-                                <option>H41</option>
-                                <option>H42</option>
-                                <option>H44</option>
-                                <option>H45</option>
-                                <option>H61</option>
-                                <option>H62</option>
-                                <option>I03</option>
-                                <option>I21</option>
-                                <option>I22</option>
-                                <option>I23</option>
-                                <option>I24</option>
-                                </select>
+                                <select name='salle' id='salle'>";
+                                $get_salle = mysqli_query($conn, 'SELECT * FROM salle');
+
+                                while ($row = mysqli_fetch_assoc($get_salle)) {
+                                    $num_salle = htmlspecialchars($row['numero']);
+                                    // Générer chaque option à l'intérieur du select
+                                    echo "<option>$num_salle</option>";
+                                }
+
+                                echo "<option>Aucune</option>
+                            </select>
                             </div>
                             
                             <div class='demandeur'>
