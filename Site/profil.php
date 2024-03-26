@@ -1,5 +1,4 @@
 <?php
-
 include 'functions.php';
 include 'Crypto.php';
 
@@ -29,70 +28,29 @@ $table = "users";
 
 if (!empty($_POST)) {
     if (isset($_POST['email'], $_POST['password'])) {
-        $email_clean = strip_tags($_POST['email']);
-        $email = $email_clean;
-        $mdp = chiffrement_RC4($_POST['password']);
-        $utilisateur = $_SESSION['login'];
-        $requete2 = "SELECT * FROM $table WHERE login=? AND password=?";
-        $reqpre2 = mysqli_prepare($conn, $requete2);
-        mysqli_stmt_bind_param($reqpre2, "ss", $utilisateur, $mdp);
-        mysqli_stmt_execute($reqpre2);
-        $result2 = mysqli_stmt_get_result($reqpre2);
-        if (mysqli_num_rows($result2) == 1) {
-            $requete = "UPDATE $table SET email='$email' WHERE login=? AND password=?";
-            $reqpre = mysqli_prepare($conn, $requete);
-            mysqli_stmt_bind_param($reqpre, "ss", $utilisateur, $mdp);
-            $result = mysqli_stmt_execute($reqpre);
-            if (mysqli_stmt_affected_rows($reqpre) == 1 and $email != "") {
-                session_start();
-                $ip = getIp();
-                logEvent("Changement d'email réussi de l'adresse IP " . $ip . " avec le login " . $_SESSION['login']);
-                header('Location: profil.php?id=emchange');
-            } else {
-                $ip = getIp();
-                logEvent("Erreur lors du changement d'email de l'adresse IP " . $ip . " avec le login " . $_SESSION['login']);
-                header('Location: profil.php?id=emerror');
-            }
+        $email = $_POST['email'];
+        $password = $_POST['password'];
+        $login = $_SESSION['login'];
+        $result = changeEmail($conn, $email, $password, $login);
+        if ($result == "Email changé") {
+            header('Location: profil.php?id=emchange');
         } else {
             header('Location: profil.php?id=emerror');
         }
     } else if (isset($_POST['newpassword'], $_POST['confpassword'], $_POST['password'])) {
-        $newmdp = chiffrement_RC4($_POST['newpassword']);
-        $confmdp = chiffrement_RC4($_POST['confpassword']);
-        $mdp = chiffrement_RC4($_POST['password']);
-        $utilisateur = $_SESSION['login'];
-        if ($newmdp == $confmdp) {
-            $requete2 = "SELECT * FROM $table WHERE login=? AND password=?";
-            $reqpre2 = mysqli_prepare($conn, $requete2);
-            mysqli_stmt_bind_param($reqpre2, "ss", $utilisateur, $mdp);
-            mysqli_stmt_execute($reqpre2);
-            $result2 = mysqli_stmt_get_result($reqpre2);
-            if (mysqli_num_rows($result2) == 1) {
-                $requete = "UPDATE $table SET password=? WHERE login=? AND password=?";
-                $reqpre = mysqli_prepare($conn, $requete);
-                mysqli_stmt_bind_param($reqpre, "sss", $newmdp, $utilisateur, $mdp);
-                $result = mysqli_stmt_execute($reqpre);
-                if (mysqli_stmt_affected_rows($reqpre) == 1) {
-                    $ip = getIp();
-                    logEvent("Changement de mot de passe réussi de l'adresse IP " . $ip . " avec le login " . $_SESSION['login']);
-                    header('Location: profil.php?id=mdpchange');
-                } else {
-                    $ip = getIp();
-                    logEvent("Erreur lors du changement de mot de passe de l'adresse IP " . $ip . " avec le login " . $_SESSION['login']);
-                    header('Location: profil.php?id=mdperror');
-                }
-            }
+        $newPassword = $_POST['newpassword'];
+        $confirmPassword = $_POST['confpassword'];
+        $currentPassword = $_POST['password'];
+        $login = $_SESSION['login'];
+        $result = changePassword($conn, $newPassword, $confirmPassword, $currentPassword, $login);
+        if ($result == "Mot de passe changé") {
+            header('Location: profil.php?id=mdpchange');
         } else {
-            $ip = getIp();
-            logEvent("Erreur lors du changement de mot de passe de l'adresse IP " . $ip . " avec le login " . $_SESSION['login'] . " : Ancien mot de passe incorrect");
-            header('Location: profil.php?id=mdperror2');
+            header('Location: profil.php?id=mdperror');
         }
-    } else {
-        $ip = getIp();
-        logEvent("Erreur lors du changement de mot de passe de l'adresse IP " . $ip . " avec le login " . $_SESSION['login'] . " : Les mots de passe ne correspondent pas");
-        header('Location: profil.php?id=mdperror2');
     }
 }
+
 
 if (isset($_SESSION['login'])) {
     $utilisateur = $_SESSION['login'];

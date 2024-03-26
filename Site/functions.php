@@ -413,3 +413,67 @@ function creer_ticket($nature_pb, $niveau, $salle, $demandeur, $pers_conc, $desc
         return false;
     }
 }
+
+function changeEmail($conn, $email, $password, $login) {
+    $clean_email = strip_tags($email);
+    $email = $clean_email;
+    $mdp = chiffrement_RC4($password);
+    $requete2 = "SELECT * FROM users WHERE login=? AND password=?";
+    $reqpre2 = mysqli_prepare($conn, $requete2);
+    mysqli_stmt_bind_param($reqpre2, "ss", $login, $mdp);
+    mysqli_stmt_execute($reqpre2);
+    $result2 = mysqli_stmt_get_result($reqpre2);
+    if (mysqli_num_rows($result2) == 1) {
+        $requete = "UPDATE users SET email=? WHERE login=? AND password=?";
+        $reqpre = mysqli_prepare($conn, $requete);
+        mysqli_stmt_bind_param($reqpre, "sss", $email, $login, $mdp);
+        $result = mysqli_stmt_execute($reqpre);
+        if (mysqli_stmt_affected_rows($reqpre) == 1 and $email != "") {
+            $ip = getIp();
+            logEvent("Changement d'email réussi de l'adresse IP " . $ip . " avec le login " . $login);
+            return "Email changé";
+        } else {
+            $ip = getIp();
+            logEvent("Erreur lors du changement d'email de l'adresse IP " . $ip . " avec le login " . $login);
+            return "Erreur lors du changement d'email";
+        }
+    } else {
+        return "Mot de passe incorrect";
+    }
+}
+
+function changePassword($conn, $newPassword, $confirmPassword, $currentPassword, $login) {
+    $newmdp = chiffrement_RC4($newPassword);
+    $confmdp = chiffrement_RC4($confirmPassword);
+    $mdp = chiffrement_RC4($currentPassword);
+    if ($newmdp == $confmdp) {
+        $requete2 = "SELECT * FROM users WHERE login=? AND password=?";
+        $reqpre2 = mysqli_prepare($conn, $requete2);
+        mysqli_stmt_bind_param($reqpre2, "ss", $login, $mdp);
+        mysqli_stmt_execute($reqpre2);
+        $result2 = mysqli_stmt_get_result($reqpre2);
+        if (mysqli_num_rows($result2) == 1) {
+            $requete = "UPDATE users SET password=? WHERE login=? AND password=?";
+            $reqpre = mysqli_prepare($conn, $requete);
+            mysqli_stmt_bind_param($reqpre, "sss", $newmdp, $login, $mdp);
+            $result = mysqli_stmt_execute($reqpre);
+            if (mysqli_stmt_affected_rows($reqpre) == 1) {
+                $ip = getIp();
+                logEvent("Changement de mot de passe réussi de l'adresse IP " . $ip . " avec le login " . $login);
+                return "Mot de passe changé";
+            } else {
+                $ip = getIp();
+                logEvent("Erreur lors du changement de mot de passe de l'adresse IP " . $ip . " avec le login " . $login);
+                return "Erreur lors du changement de mot de passe";
+            }
+        } else {
+            $ip = getIp();
+            logEvent("Erreur lors du changement de mot de passe de l'adresse IP " . $ip . " avec le login " . $login . " : Ancien mot de passe incorrect");
+            return "Ancien mot de passe incorrect";
+        }
+    } else {
+        $ip = getIp();
+        logEvent("Erreur lors du changement de mot de passe de l'adresse IP " . $ip . " avec le login " . $login . " : Les mots de passe ne correspondent pas");
+        return "Les mots de passe ne correspondent pas";
+    }
+}
