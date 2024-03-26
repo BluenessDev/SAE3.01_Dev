@@ -1,0 +1,1 @@
+{"version":1,"defects":{"Test\\Crypto_Test::testChiffrementRC4":7,"Test\\Crypto_Test::testGenerateKey":7},"times":{"Test\\Crypto_Test::testChiffrementRC4":0.001,"Test\\Crypto_Test::testDechiffrementRC4":0,"Test\\Crypto_Test::testPRGA":0,"Test\\Crypto_Test::testGenerateKey":0}}
