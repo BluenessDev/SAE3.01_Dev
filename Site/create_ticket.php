@@ -124,12 +124,12 @@ if (isset($_SESSION['login'])) {
                                 $get_salle = mysqli_query($conn, 'SELECT * FROM salle');
 
                                 while ($row = mysqli_fetch_assoc($get_salle)) {
-                                    $num_salle = htmlspecialchars($row['numero']);
+                                    $num_salle = htmlspecialchars($row['salle']);
                                     // Générer chaque option à l'intérieur du select
                                     echo "<option>$num_salle</option>";
                                 }
 
-                                echo "<option>Aucune</option>
+                                echo "
                             </select>
                             </div>
                             
