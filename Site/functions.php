@@ -374,6 +374,9 @@ function processConnexion($login, $password): int
         } else {
             $ip = getIp();
             logEvent("Tentative de connexion échouée de l'adresse IP " . $ip . " avec le login " . $login);
+            // Log the failed login attempt
+            $logEntry = "$ip - Failed login attempt for user $login at " . date('Y-m-d H:i:s') . "\n";
+            file_put_contents('/var/log/myapp/login_attempts.log', $logEntry, FILE_APPEND);
             return 1; // Incorrect password
         }
     } else {
@@ -381,16 +384,23 @@ function processConnexion($login, $password): int
     }
 }
 
-function creer_ticket($nature_pb, $niveau, $salle, $demandeur, $pers_conc, $description) {
+function creer_ticket($nature_pb, $niveau, $salle, $demandeur, $pers_conc, $description): bool
+{
     global $conn;
-
-    session_start();
 
     $table = "tickets";
 
     $allowed_natures = ['Problèmes de périphériques', 'Problèmes de logiciel', 'Problèmes de connectivité', 'Problèmes de matériel'];
     $allowed_niveaux = [1, 2, 3, 4];
-    $allowed_salles = ['E46', 'E47', 'E49', 'E50', 'E51', 'E52', 'E53', 'E54', 'E57', 'E58', 'E59', 'G21', 'G22', 'G23', 'G24', 'G25', 'G26', 'G31', 'G32', 'G33', 'G34', 'G35', 'G51', 'G52', 'G53', 'G54', 'H11', 'H21', 'H22', 'H23', 'H24', 'H31', 'H32', 'H33', 'H41', 'H42', 'H44', 'H45', 'H61', 'H62', 'I03', 'I21', 'I22', 'I23', 'I24'];
+
+    // Récupérer les salles autorisées de la base de données
+    $requete_salles = "SELECT * FROM salle";
+    $result_salles = mysqli_query($conn, $requete_salles);
+    $allowed_salles_assoc = mysqli_fetch_all($result_salles, MYSQLI_ASSOC);
+
+    $allowed_salles = array_map(function($salle) {
+        return $salle['salle'];
+    }, $allowed_salles_assoc);
 
     if (isset($_SESSION['login'])) {
         $utilisateur = $_SESSION['login'];
@@ -414,7 +424,9 @@ function creer_ticket($nature_pb, $niveau, $salle, $demandeur, $pers_conc, $desc
     }
 }
 
-function changeEmail($conn, $email, $password, $login) {
+
+function changeEmail($conn, $email, $password, $login): string
+{
     $clean_email = strip_tags($email);
     $email = $clean_email;
     $mdp = chiffrement_RC4($password);
@@ -442,7 +454,8 @@ function changeEmail($conn, $email, $password, $login) {
     }
 }
 
-function changePassword($conn, $newPassword, $confirmPassword, $currentPassword, $login) {
+function changePassword($conn, $newPassword, $confirmPassword, $currentPassword, $login): string
+{
     $newmdp = chiffrement_RC4($newPassword);
     $confmdp = chiffrement_RC4($confirmPassword);
     $mdp = chiffrement_RC4($currentPassword);
@@ -476,4 +489,20 @@ function changePassword($conn, $newPassword, $confirmPassword, $currentPassword,
         logEvent("Erreur lors du changement de mot de passe de l'adresse IP " . $ip . " avec le login " . $login . " : Les mots de passe ne correspondent pas");
         return "Les mots de passe ne correspondent pas";
     }
+}
+
+function isBanned($ip): bool
+{
+    // Commande pour obtenir la liste des IP bannies par le jail sshd
+    $command = "sudo fail2ban-client status sshd | grep 'Banned IP list:'";
+    // Exécute la commande et stocke la sortie dans $output
+    exec($command, $output);
+    // La liste des IP bannies est à la fin de la sortie
+    $bannedIps = end($output);
+    // Supprime "Banned IP list:" de la chaîne
+    $bannedIps = str_replace("Banned IP list:", "", $bannedIps);
+    // Convertit la chaîne en tableau
+    $bannedIps = explode(" ", $bannedIps);
+    // Vérifie si l'IP de l'utilisateur est dans le tableau
+    return in_array($ip, $bannedIps);
 }

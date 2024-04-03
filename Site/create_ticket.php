@@ -12,6 +12,15 @@ echo "<!DOCTYPE html>
 
 include 'functions.php';
 
+$host = "localhost";
+$username = "root";
+$password = "root";
+
+$conn = mysqli_connect($host, $username, $password) or die("erreur de connexion");
+
+$namedb = "sae";
+$db = mysqli_select_db($conn, $namedb) or die("erreur de connexion base");
+
 session_start();
 
 if (isset($_SESSION['login'])) {
@@ -72,6 +81,7 @@ if (isset($_SESSION['login'])) {
                                     <option>Problèmes de logiciel</option>
                                     <option>Problèmes de connectivité</option>
                                     <option>Problèmes de matériel </option>
+                                    <option value = 'Non specifie'> Autre ... </option>
                                 </select>
                             </div>
                             
@@ -86,54 +96,18 @@ if (isset($_SESSION['login'])) {
                             </div>
                             
                             <div class='salle'>
-                                <label for='salle'>Salle ou se situe le problème</label>
-                                <select name='salle' id='salle'>
-                                <option>E46</option>
-                                <option>E47</option>
-                                <option>E49</option>
-                                <option>E50</option>
-                                <option>E51</option>
-                                <option>E52</option>
-                                <option>E53</option>
-                                <option>E54</option>
-                                <option>E57</option>
-                                <option>E58</option>
-                                <option>E59</option>
-                                <option>G21</option>
-                                <option>G22</option>
-                                <option>G23</option>
-                                <option>G24</option>
-                                <option>G25</option>
-                                <option>G26</option>
-                                <option>G31</option>
-                                <option>G32</option>
-                                <option>G33</option>
-                                <option>G34</option>
-                                <option>G35</option>
-                                <option>G51</option>
-                                <option>G52</option>
-                                <option>G53</option>
-                                <option>G54</option>
-                                <option>H11</option>
-                                <option>H21</option>
-                                <option>H22</option>
-                                <option>H23</option>
-                                <option>H24</option>
-                                <option>H31</option>
-                                <option>H32</option>
-                                <option>H33</option>
-                                <option>H41</option>
-                                <option>H42</option>
-                                <option>H44</option>
-                                <option>H45</option>
-                                <option>H61</option>
-                                <option>H62</option>
-                                <option>I03</option>
-                                <option>I21</option>
-                                <option>I22</option>
-                                <option>I23</option>
-                                <option>I24</option>
-                                </select>
+                                <label for='salle'>Salle où se situe le problème :</label>
+                                <select name='salle' id='salle'>";
+    $get_salle = mysqli_query($conn, 'SELECT * FROM salle');
+
+    while ($row = mysqli_fetch_assoc($get_salle)) {
+        $num_salle = htmlspecialchars($row['salle']);
+        // Générer chaque option à l'intérieur du select
+        echo "<option>$num_salle</option>";
+    }
+
+    echo "
+                            </select>
                             </div>
                             
                             <div class='demandeur'>
@@ -154,7 +128,7 @@ if (isset($_SESSION['login'])) {
                                     <textarea id='description' name='description' maxlength='400'></textarea>                     
                             </div>
                         </div>
-                        <div class='submit_ticket'>    
+                        <div class='submit_ticket'>
                             <input type='submit' id='confirmer' value='Confirmer'>
                             <input type='reset' id='annuler' value='Reset'>
                         </div>
