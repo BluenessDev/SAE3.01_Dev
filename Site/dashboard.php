@@ -20,8 +20,6 @@
         background-color: #ccc;
     }
 
-
-
     .tabcontent {
         display: none;
         padding: 20px;
@@ -60,7 +58,7 @@ $users_table = "users";
 
 if (isset($_SESSION['login'])) {
     $utilisateur = $_SESSION['login'];
-    include 'functions.php';
+    include_once 'functions.php';
     $requete_role = "SELECT role FROM $users_table WHERE login=?";
     $reqpre_role = mysqli_prepare($conn, $requete_role);
     mysqli_stmt_bind_param($reqpre_role, "s", $utilisateur);
@@ -106,7 +104,7 @@ echo "                      </a>
                 <div class='ligne' id='col'>
                     <div class='subarticle'>
                         <div class='titre'>
-                            <h2>Mes derniers tickets ouverts :</h2>
+                            <h2>Mes derniers tickets :</h2>
                         </div>";
     }
 
@@ -139,7 +137,7 @@ echo "                      </a>
                 <div class='ligne' id='col'>
                     <div class='subarticle'>
                         <div class='titre'>
-                            <h2>Les derniers tickets ouverts :</h2>
+                            <h2>Les derniers tickets :</h2>
                         </div>";
     }
 
