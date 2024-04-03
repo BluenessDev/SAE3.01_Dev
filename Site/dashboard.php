@@ -115,6 +115,13 @@ if (isset($_SESSION['login'])) {
                     <h2>Voir les rôles User</h2>
                 </div>
             </a>
+        </div>
+        <div class='ligne'>
+            <a href='ajout_salle.php'>
+                <div class='button'>
+                    <h2>Ajouter une nouvelle salle</h2>
+                </div>
+            </a>
         </div>";
     }
 
