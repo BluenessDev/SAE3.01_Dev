@@ -96,12 +96,3 @@ function dechiffrement_RC4($encrypted_password, $key) {
 
     return $decrypted_password; // Retourne le texte déchiffré
 }
-
-// Test avec les mêmes données que l'exemple Python
-$plaintext = 'admin';
-$key = generateKey($plaintext);
-$encrypted_password = chiffrement_RC4($plaintext, $key);
-$decrypted_password = dechiffrement_RC4($encrypted_password, $key);
-
-
-?><?php

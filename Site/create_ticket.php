@@ -23,44 +23,23 @@ $db = mysqli_select_db($conn, $namedb) or die("erreur de connexion base");
 
 session_start();
 
-$table = "tickets";
-
 if (isset($_SESSION['login'])) {
     $utilisateur = $_SESSION['login'];
     if (isset($_POST['nature_pb'], $_POST['niveau'], $_POST['salle'], $_POST['demandeur'], $_POST['pers_conc'], $_POST['description'])){
-        //initialisation des champs du ticket pour la BD
         $clean_nature = strip_tags($_POST['nature_pb']);
         $clean_niveau = strip_tags($_POST['niveau']);
         $clean_salle = strip_tags($_POST['salle']);
         $clean_demandeur = strip_tags($_POST['demandeur']);
         $clean_pers_conc = strip_tags($_POST['pers_conc']);
         $clean_description = strip_tags($_POST['description']);
-        $nature_pb = $clean_nature;
-        $niveau = $clean_niveau;
-        $salle = $clean_salle;
-        $demandeur = $clean_demandeur;
-        $pers_conc = $clean_pers_conc;
-        $description = $clean_description;
-        if ($nature_pb != "" && $niveau != "" && $salle != "" && $demandeur != "" && $pers_conc != "" && $description != "") {
-            //initialisation des champs du ticket pour le log
-            $ip = getIp();
-            $date = date('d-m-Y');
-            $log_file = fopen("logs/$date.log", "a");
-            fwrite($log_file, "[" . date('d/m/Y H:i:s') . "] Création d'un ticket de l'adresse IP " . $ip . " avec le login " . $_SESSION['login'] . " : \n" . "\t\t\t\tNature du problème : " . $nature_pb . "\n" . "\t\t\t\tNiveau du problème : " . $niveau . "\n" . "\t\t\t\tSalle : " . $salle . "\n" . "\t\t\t\tDemandeur : " . $demandeur . "\n" . "\t\t\t\tPersonne concernée : " . $pers_conc . "\n" . "\t\t\t\tDescription : " . $description . "\n");
-            fclose($log_file);
-            //Insertion du ticket cree dans la BD
-            $requete_ticket = "INSERT INTO $table (nature, niveau, salle, demandeur, concerne, description, login) values (?, ?, ?, ?, ?, ?, ?)";
-            $reqpre_ticket = mysqli_prepare($conn, $requete_ticket); //Prépare la requete requete_ticket.
-            mysqli_stmt_bind_param($reqpre_ticket, "sisssss", $nature_pb, $niveau, $salle, $demandeur, $pers_conc, $description, $utilisateur); // Permet de lier les valeurs aux marqueurs de position (?) dans la requête préparée.
-            mysqli_stmt_execute($reqpre_ticket); //Execute la requete
+
+        //on crée le ticket
+        $result = creer_ticket($clean_nature, $clean_niveau, $clean_salle, $clean_demandeur, $clean_pers_conc, $clean_description);
+
+        if ($result) {
             header('Location: index.php');
         } else {
-            $ip = getIp();
-            $date = date('d-m-Y');
-            $log_file = fopen("logs/$date.log", "a");
-            fwrite($log_file, "[" . date('d/m/Y H:i:s') . "] Création d'un ticket échouée de l'adresse IP " . $ip . " avec le login " . $_SESSION['login'] . " : \n" . "\t\t\t\tNature du problème : " . $nature_pb . "\n" . "\t\t\t\tNiveau du problème : " . $niveau . "\n" . "\t\t\t\tSalle : " . $salle . "\n" . "\t\t\t\tDemandeur : " . $demandeur . "\n" . "\t\t\t\tPersonne concernée : " . $pers_conc . "\n" . "\t\t\t\tDescription : " . $description . "\n");
-            fclose($log_file);
-            header('Location: create_ticket.php');
+            header('Location: create_ticket.php?error=1');
         }
     }
     echo "<body>
@@ -76,7 +55,7 @@ if (isset($_SESSION['login'])) {
             <a href='index.php'><img src='assets/logo.png' alt='logo du site tickimoa'></a>
             <div class='title'>
                 <h1>Ravi de vous revoir <span style='text-transform:uppercase'>$utilisateur</span></h1>
-                <h1 class='highlight'>Vous êtes sur la page Création De Tickets</h1>
+                <h1 class='highlight'>Vous êtes sur la page création de tickets</h1>
             </div>
         </div>
         <br>
@@ -102,6 +81,7 @@ if (isset($_SESSION['login'])) {
                                     <option>Problèmes de logiciel</option>
                                     <option>Problèmes de connectivité</option>
                                     <option>Problèmes de matériel </option>
+                                    <option value = 'Non specifie'> Autre ... </option>
                                 </select>
                             </div>
                             
@@ -116,54 +96,18 @@ if (isset($_SESSION['login'])) {
                             </div>
                             
                             <div class='salle'>
-                                <label for='salle'>Salle ou se situe le problème</label>
-                                <select name='salle' id='salle'>
-                                <option>E46</option>
-                                <option>E47</option>
-                                <option>E49</option>
-                                <option>E50</option>
-                                <option>E51</option>
-                                <option>E52</option>
-                                <option>E53</option>
-                                <option>E54</option>
-                                <option>E57</option>
-                                <option>E58</option>
-                                <option>E59</option>
-                                <option>G21</option>
-                                <option>G22</option>
-                                <option>G23</option>
-                                <option>G24</option>
-                                <option>G25</option>
-                                <option>G26</option>
-                                <option>G31</option>
-                                <option>G32</option>
-                                <option>G33</option>
-                                <option>G34</option>
-                                <option>G35</option>
-                                <option>G51</option>
-                                <option>G52</option>
-                                <option>G53</option>
-                                <option>G54</option>
-                                <option>H11</option>
-                                <option>H21</option>
-                                <option>H22</option>
-                                <option>H23</option>
-                                <option>H24</option>
-                                <option>H31</option>
-                                <option>H32</option>
-                                <option>H33</option>
-                                <option>H41</option>
-                                <option>H42</option>
-                                <option>H44</option>
-                                <option>H45</option>
-                                <option>H61</option>
-                                <option>H62</option>
-                                <option>I03</option>
-                                <option>I21</option>
-                                <option>I22</option>
-                                <option>I23</option>
-                                <option>I24</option>
-                                </select>
+                                <label for='salle'>Salle où se situe le problème :</label>
+                                <select name='salle' id='salle'>";
+    $get_salle = mysqli_query($conn, 'SELECT * FROM salle');
+
+    while ($row = mysqli_fetch_assoc($get_salle)) {
+        $num_salle = htmlspecialchars($row['salle']);
+        // Générer chaque option à l'intérieur du select
+        echo "<option>$num_salle</option>";
+    }
+
+    echo "
+                            </select>
                             </div>
                             
                             <div class='demandeur'>
@@ -189,6 +133,11 @@ if (isset($_SESSION['login'])) {
                             <input type='reset' id='annuler' value='Reset'>
                         </div>
                     </form>
+                    <div class='error'>";
+    if (!empty($_GET["error"]) && $_GET['error'] == 1) {
+        echo "<p>Erreur lors de la création du ticket</p>";
+    }
+    echo "                    </div>
                     </div>
                 </div>
             </div>        
@@ -197,6 +146,6 @@ if (isset($_SESSION['login'])) {
     </body>";
 
     include 'footer.html';
-}else {
+} else {
     header('Location: index.php');
 }

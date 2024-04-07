@@ -51,7 +51,7 @@ if (isset($_SESSION['login'])) {
     <a href='index.php'><img src='assets/logo.png' alt='logo du site tickimoa'></a>
     <div class='title'>
       <h1>Ravi de vous revoir <span style='text-transform:uppercase'>$utilisateur</span></h1>
-      <h1 class='highlight'>Vous êtes sur la page d'assignation des rôles</h1>
+      <h1 class='highlight'>Vous êtes sur la page des rôles</h1>
     </div>
   </div>
   <br>
@@ -63,7 +63,7 @@ if (isset($_SESSION['login'])) {
         <div class='main-article'>
                 <div class='subarticle' id='form'>
                     <div class='titre' id='formtit'>
-                        <h2 class='highlight2'>Liste des Utilisateurs et Techniciens :</h2>
+                        <h2 class='highlight2' style='font-weight: 700;'>Liste des Utilisateurs et Techniciens :</h2>
                     </div>
                     <div class='userTable'>";
         afficherUtilisateurs();
@@ -77,11 +77,9 @@ if (isset($_SESSION['login'])) {
                 </div>
         </div>
     </div>
-</main>
-
-<footer class='bg-dark text-white text-center py-3 fixed-bottom''>";
+</main>";
         include 'footer.html';
-        echo "</footer>";
+
     } else {
         header('Location: index.php');
     }

@@ -4,6 +4,8 @@ session_start();
 if (isset($_SESSION['login'])) {
     $utilisateur = $_SESSION['login'];
 
+    include 'functions.php';
+
     $host = "localhost";
     $username = "root";
     $password = "root";
@@ -29,7 +31,7 @@ if (isset($_SESSION['login'])) {
 
     if ($role == "adminReseau") {
         echo "<!DOCTYPE html>
-<html lang='fr' class='inscription'>
+<html lang='fr'>
 <head>
     <meta charset='utf-8'>
     <meta name='viewport' content='width=device-width'>
@@ -64,27 +66,9 @@ if (isset($_SESSION['login'])) {
                 <div class='subarticle'>
                     <div class='titre'>
                         <h2>Liste des logs :</h2>
-                    </div>
-                    <table>
-                        <thead>
-                        <tr>
-                            <th>Téléchargement</th>
-                            <th>Date</th>
-                        </tr>
-                        </thead>
-                        <tbody>";
-        $nombrefichiers = glob('logs/*.log');
-        for ($i = count($nombrefichiers); $i > 0; $i--) {
-            $fichier = str_replace('logs/', '', $nombrefichiers[$i - 1]);
-            $date = str_replace('.log', '', $fichier);
-            echo "<tr>
-                            <td><a href='logs/$fichier'>Télecharger</a></td>
-                            <td>$date</td>
-                        </tr>";
-        }
-        echo "</tbody>
-                    </table>
-                </div>
+                    </div>";
+        afficherLogs();
+        echo "                </div>
             </div>
         </div>
     </div>

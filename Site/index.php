@@ -1,27 +1,35 @@
 <?php
+
+include_once 'functions.php';
+
+session_start();
+
+$host = "localhost";
+$username = "root";
+$password = "root";
+
+$userIp = getIp();
+
+if (isBanned($userIp)) {
+    // Si l'utilisateur est banni, redirige vers une page d'erreur
+    header("Location: error.php");
+    exit();
+}
+
 echo "<!DOCTYPE html>
 <html lang='fr' class='inscription'>
 <head>
     <meta charset='utf-8'>
     <meta name='viewport' content='width=device-width'>
     <title>Accueil</title>
-    <link href='assets/style.css'' rel='stylesheet' type='text/css'/>
+    <link href='assets/style.css' rel='stylesheet' type='text/css'/>
     <link href='assets/logo.png' rel='icon'>
+    <script src='JavaScript/FormInscr.js'></script>
 </head>
 <body>";
 
-$host = "localhost";
-$username = "root";
-$password = "root";
-
-$conn = mysqli_connect($host, $username, $password) or die("erreur de connexion");
-
-$namedb = "sae";
-$db = mysqli_select_db($conn, $namedb) or die("erreur de connexion base");
-
-session_start();
-
 if (isset($_SESSION['login'])) {
+    echo "<script>document.addEventListener('DOMContentLoaded', clearChamps);</script>";
     $utilisateur = $_SESSION['login'];
     echo "<header role='banner'>
   <nav role='navigation'>
@@ -48,4 +56,6 @@ if (isset($_SESSION['login'])) {
     include 'main.php';
 }
 
+echo "<footer>";
 include 'footer.html';
+echo "</footer>";

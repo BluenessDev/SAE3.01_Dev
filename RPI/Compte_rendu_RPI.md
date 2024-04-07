@@ -83,6 +83,118 @@ Pour installer notre application web, nous avons utilisé le code source de notr
 
 Pour tester l'application web, il suffit d'ouvrir un navigateur web et d'entrer l'adresse IP du Raspberry Pi 4 dans la barre d'adresse. Si l'application web est fonctionnelle, il devrait afficher la page d'accueil de notre application web.
 
+## Installation de fail2ban
+
+Fail2ban est un outil qui aide à protéger le RPI contre les attaques de force brute. Il surveille les journaux du site pour les tentatives de connexion échouées et après un certain nombre d'échecs, il bannit l'adresse IP de l'attaquant.
+
+Voici les étapes pour installer et configurer Fail2ban sur un serveur Debian :
+
+1. Mettez à jour la liste des paquets disponibles :
+```bash
+sudo apt update
+```
+
+2. Installez Fail2ban :
+```bash
+sudo apt install fail2ban
+```
+
+3. Une fois installé, Fail2ban démarrera automatiquement. Vous pouvez vérifier son statut avec :
+```bash
+sudo systemctl status fail2ban
+```
+
+4. Pour configurer Fail2ban, vous devez copier le fichier de configuration par défaut (`jail.conf`) vers un nouveau fichier (`jail.local`) qui ne sera pas écrasé lors des mises à jour du paquet :
+```bash
+sudo cp /etc/fail2ban/jail.conf /etc/fail2ban/jail.local
+```
+
+5. Ouvrez le fichier `jail.local` avec un éditeur de texte pour le modifier :
+```bash
+sudo nano /etc/fail2ban/jail.local
+```
+
+Dans notre cas, nous avons ajouté un maxretry de 3 et un bantime de 1h pour le service ssh :
+```bash
+[sshd]
+enabled = true
+port = ssh
+filter = sshd
+logpath = /var/log/auth.log
+maxretry = 3
+bantime = 1h
+```
+
+Et nous avons ajouté aussi un maxretry de 3 et un bantime de 1h quand une adresse IP essaye de se connecter à un compte de l'application web trop de fois :
+```bash
+[myapp]
+enabled = true
+port = http,https
+filter = myapp
+logpath = /var/log/myapp/login_attempts.log
+maxretry = 3
+bantime = 1h
+```
+
+7. Une fois que vous avez terminé de configurer Fail2ban, enregistrez et fermez le fichier.
+
+8. Pour que les modifications prennent effet, il faut redémarrer le service Fail2ban :
+```bash
+sudo systemctl restart fail2ban
+```
+
+C'est tout ! Fail2ban est maintenant installé et configuré sur le serveur. Il surveillera les journaux de notre RPI pour les tentatives de connexion échouées et bannira les adresses IP qui échouent trop souvent.
+
+## Mise en place de CRON
+
+CRON est un outil qui permet d'exécuter des tâches planifiées à des moments spécifiques. Nous avons utilisé CRON pour sauvegarder les logs de notre application web toutes les 24h.
+
+Voici les étapes pour configurer une tâche CRON sur un serveur Debian :
+
+1. Pour éditer les tâches CRON, exécutez la commande suivante :
+```bash
+crontab -e
+```
+
+2. Ajoutez la ligne suivante à la fin du fichier pour sauvegarder les logs de notre application web toutes les 24h. Cette ligne exécute le script `zip_logs.sh` à 2h du matin tous les jours :
+```bash
+0 2 * * * /var/www/html/zip_logs.sh
+```
+
+3. Enregistrez et fermez le fichier.
+
+C'est tout ! La tâche CRON est maintenant configurée pour sauvegarder les logs de notre application web toutes les 24h.
+
+## Mise en place de ntp
+
+NTP (Network Time Protocol) est un protocole qui permet de synchroniser l'horloge du Raspberry Pi avec un serveur de temps. Cela permet de garder l'horloge du Raspberry Pi à jour et de garantir que les tâches planifiées s'exécutent au bon moment.
+
+Voici les étapes pour configurer NTP sur un serveur Debian :
+
+1. Il faut editer le fichier `etc/systemd/timesyncd.conf` :
+```bash
+sudo nano /etc/systemd/timesyncd.conf
+```
+
+2. Ajoutez la ligne suivante à la fin du fichier pour synchroniser l'horloge du Raspberry Pi avec un serveur NTP :
+```bash
+NTP=io.uvsq.fr
+```
+
+3. Enregistrez et fermez le fichier.
+
+4. Pour que les modifications prennent effet, il faut redémarrer le service NTP :
+```bash
+sudo systemctl restart systemd-timesyncd
+```
+Cependant, il est possible que le service NTP ne soit pas installé sur le Raspberry Pi. Pour l'installer, il suffit d'exécuter la commande suivante :
+```bash
+sudo apt install systemd-timesyncd
+```
+
+C'est tout ! NTP est maintenant configuré sur le serveur. L'horloge du Raspberry Pi sera synchronisée avec un serveur de temps pour garantir que les tâches planifiées s'exécutent au bon moment.
+
+
 ## Conclusion
 
-Nous avons réussi à configurer notre Raspberry Pi 4 pour qu'il puisse héberger notre application web ainsi qu'à configurer le serveur web, le serveur de base de données et le serveur SSH. Puis nous avons aussi aussi réussi à installer notre application web sur le Raspberry Pi 4.
+Nous avons réussi à configurer notre Raspberry Pi 4 pour qu'il puisse héberger notre application web ainsi qu'à configurer le serveur web, le serveur de base de données et le serveur SSH. Puis nous avons aussi réussi à installer notre application web sur le Raspberry Pi 4.

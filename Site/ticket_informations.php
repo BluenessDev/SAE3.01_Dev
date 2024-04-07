@@ -77,7 +77,7 @@ if (isset($_SESSION['login'])) {
                         <div class='main-article'>
                             <div class ='subarticle'>
                                 <div class='title' id='formtit'>
-                                    <h2 class='highlight'>Information du ticket</h2>
+                                    <h2 class='highlight' style='font-weight: 700;'>Information du ticket</h2>
                                 </div>
 
                                 <div class='container'>
@@ -107,7 +107,8 @@ if (isset($_SESSION['login'])) {
                                                 <h5 class='card-title'>Description du problème</h5>
                                                 <p class='card-text'>" . $ticket['description'] . "</p>
                                             </div>
-                                        </div>";
+                                        </div>
+                                        <br>";
                         if ($roleUtilisateur == 'admin') {
                             displayTechnicianSelection($conn, $_GET['id']);
                             assignTechnicianToTicket($conn, $_GET['id']);
@@ -121,7 +122,7 @@ if (isset($_SESSION['login'])) {
 
                             if (isset($_POST['finir_ticket'])) {
                                 $ticketId = $_POST['ticket_id'];
-                                $requete_update_etat = "UPDATE tickets SET etat = 'fini' WHERE id = ?";
+                                $requete_update_etat = "UPDATE tickets SET etat = 'Fermé' WHERE id = ?";
                                 $reqpre_update_etat = mysqli_prepare($conn, $requete_update_etat);
                                 mysqli_stmt_bind_param($reqpre_update_etat, "i", $ticketId);
 
@@ -147,7 +148,7 @@ if (isset($_SESSION['login'])) {
                         </div>
                     </main>
 
-                <footer class='bg-dark text-white text-center py-3 fixed-bottom''>";
+                <footer class='bg-dark text-white text-center py-3 fixed-bottom'>";
                         include 'footer.html';
                         echo "</footer>";
 
@@ -170,14 +171,6 @@ if (isset($_SESSION['login'])) {
 
     echo "</body>
 </html>";
-}
-else {
+} else {
     header('Location: index.php');
 }
-
-
-
-
-
-
-
