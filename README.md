@@ -32,7 +32,7 @@ a la possiblité de créer un ticket, qui sera ensuite vu par l'administrateur w
 * Un répertoire Proba qui contient les fichiers de probabilité utilisés pour le projet.
 * Un répertoire Maquettes qui contient les deux maquettes possibles du site lors de la V1.
 * Un répertoire RPI qui contient le compte rendu de la mise en place du Raspberry Pi.
-* Un répertoire Site qui contient le code source de l'application web ainsi que les assets et les bases de données temporaires utilisées.
+* Un répertoire Site qui contient le code source de l'application web ainsi que les assets, les tests sur les différentes fonctions et les bases de données temporaires utilisées.
 
 ## Crédits
 
