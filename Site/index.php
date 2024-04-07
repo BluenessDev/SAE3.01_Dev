@@ -1,4 +1,21 @@
 <?php
+
+include_once 'functions.php';
+
+session_start();
+
+$host = "localhost";
+$username = "root";
+$password = "root";
+
+$userIp = getIp();
+
+if (isBanned($userIp)) {
+    // Si l'utilisateur est banni, redirige vers une page d'erreur
+    header("Location: error.php");
+    exit();
+}
+
 echo "<!DOCTYPE html>
 <html lang='fr' class='inscription'>
 <head>
@@ -10,7 +27,6 @@ echo "<!DOCTYPE html>
     <script src='JavaScript/FormInscr.js'></script>
 </head>
 <body>";
-session_start();
 
 if (isset($_SESSION['login'])) {
     echo "<script>document.addEventListener('DOMContentLoaded', clearChamps);</script>";
