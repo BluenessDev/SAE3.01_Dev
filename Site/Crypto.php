@@ -96,3 +96,20 @@ function dechiffrement_RC4($encrypted_password, $key) {
 
     return $decrypted_password; // Retourne le texte déchiffré
 }
+
+
+function chiffrement_RC4_key($password,$key) {
+    #1
+    $key_bytes = $key;
+    echo "Clé utilisée : ". $key_bytes ."\n";
+    $password_bytes = $password;
+    $S = KSA($key_bytes);
+    $keystream = PRGA($S, strlen($password_bytes));
+    $encrypted_password = '';
+
+    foreach (str_split($password_bytes) as $index => $char) { #2
+        $encrypted_password .= sprintf('%02x', ord($char) ^ $keystream[$index]); #3
+    }
+
+    return $encrypted_password; #4 // Retourne le texte chiffré
+}
