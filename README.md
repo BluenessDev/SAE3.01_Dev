@@ -43,4 +43,4 @@ Projet réalisé par :
 - [Maaz NORAT](https://github.com/FleedDev)
 - [Kevin KOLOSIANA](https://github.com/AnikiDev)
 
-Ce projet a été réalisé dans le cadre d'une SAÉ lors du troisième semestre de BUT Informatique à l'IUT de Vélizy.
+Ce projet a été réalisé dans le cadre d'une SAÉ lors du troisième et quatrième semestre de BUT Informatique à l'IUT de Vélizy.
